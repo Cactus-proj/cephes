@@ -1,5 +1,8 @@
 # Cephes Mathematical Functions Library
 
+> See the [master branch](https://github.com/Cactus-proj/cephes/tree/master)
+> for the original google-deepmind/torch-cephes.
+
 - [Markdown Docs](doc/markdown/index.md)
 
 ## License
