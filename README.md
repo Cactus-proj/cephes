@@ -6,6 +6,15 @@
 > See the [master branch](https://github.com/Cactus-proj/cephes/tree/master)
 > for the original google-deepmind/torch-cephes.
 
+This project was used only to obtain the original Cephes Math Library reference output.
+Therefore, contributions regarding precision and error-related contributions are not accepted.
+
+> [!TIP]
+>
+> For general use please use [scipy/xsf](https://github.com/scipy/xsf) instead,
+> which is a header-only library containing a modernized (C++17) refactoring of
+> the classic `AMOS/SPECFUN/Cephes/...` special function implementations.
+
 - [Markdown Docs](doc/markdown/index.md)
 
 ## License
