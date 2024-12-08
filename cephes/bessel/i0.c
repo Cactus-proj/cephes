@@ -33,7 +33,7 @@
  *    IEEE      0,30        30000       5.8e-16     1.4e-16
  *
  */
-/*							i0e.c
+/*							i0e.c
  *
  *	Modified Bessel function of order zero,
  *	exponentially scaled
@@ -65,9 +65,8 @@
  * See i0().
  *
  */
-
-/*							i0.c		*/
 
+/*							i0.c		*/
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -82,6 +81,7 @@ Copyright 1984, 1987, 2000 by Stephen L. Moshier
  * lim(x->0){ exp(-x) I0(x) } = 1.
  */
 
+/* clang-format off */
 #ifdef UNK
 static double A[] =
 {
@@ -350,11 +350,12 @@ static unsigned short B[] = {
 0x3fe9,0xbe62,0xaca8,0x09cb
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double chbevl ( double, void *, int );
-extern double exp ( double );
-extern double sqrt ( double );
+extern double chbevl(double, void *, int);
+extern double exp(double);
+extern double sqrt(double);
 #else
 double chbevl(), exp(), sqrt();
 #endif
@@ -362,36 +363,31 @@ double chbevl(), exp(), sqrt();
 double i0(x)
 double x;
 {
-double y;
+    double y;
 
-if( x < 0 )
-	x = -x;
-if( x <= 8.0 )
-	{
-	y = (x/2.0) - 2.0;
-	return( exp(x) * chbevl( y, A, 30 ) );
-	}
+    if (x < 0)
+        x = -x;
+    if (x <= 8.0)
+    {
+        y = (x / 2.0) - 2.0;
+        return (exp(x) * chbevl(y, A, 30));
+    }
 
-return(  exp(x) * chbevl( 32.0/x - 2.0, B, 25 ) / sqrt(x) );
-
+    return (exp(x) * chbevl(32.0 / x - 2.0, B, 25) / sqrt(x));
 }
 
-
-
-
-double i0e( x )
+double i0e(x)
 double x;
 {
-double y;
+    double y;
 
-if( x < 0 )
-	x = -x;
-if( x <= 8.0 )
-	{
-	y = (x/2.0) - 2.0;
-	return( chbevl( y, A, 30 ) );
-	}
+    if (x < 0)
+        x = -x;
+    if (x <= 8.0)
+    {
+        y = (x / 2.0) - 2.0;
+        return (chbevl(y, A, 30));
+    }
 
-return(  chbevl( 32.0/x - 2.0, B, 25 ) / sqrt(x) );
-
+    return (chbevl(32.0 / x - 2.0, B, 25) / sqrt(x));
 }

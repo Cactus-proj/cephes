@@ -36,7 +36,7 @@
  * k1 domain          x <= 0          MAXNUM
  *
  */
-/*							k1e.c
+/*							k1e.c
  *
  *	Modified Bessel function, third kind, order one,
  *	exponentially scaled
@@ -68,7 +68,7 @@
  * See k1().
  *
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
@@ -78,10 +78,11 @@ Copyright 1984, 1987, 2000 by Stephen L. Moshier
 
 /* Chebyshev coefficients for x(K1(x) - log(x/2) I1(x))
  * in the interval [0,2].
- * 
+ *
  * lim(x->0){ x(K1(x) - log(x/2) I1(x)) } = 1.
  */
 
+/* clang-format off */
 #ifdef UNK
 static double A[] =
 {
@@ -275,13 +276,14 @@ static unsigned short B[] = {
 0x4005,0xc3d7,0xaa06,0x2c8a
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double chbevl ( double, void *, int );
-extern double exp ( double );
-extern double i1 ( double );
-extern double log ( double );
-extern double sqrt ( double );
+extern double chbevl(double, void *, int);
+extern double exp(double);
+extern double i1(double);
+extern double log(double);
+extern double sqrt(double);
 #else
 double chbevl(), exp(), i1(), log(), sqrt();
 #endif
@@ -291,45 +293,42 @@ extern double MINLOG, MAXNUM;
 double k1(x)
 double x;
 {
-double y, z;
+    double y, z;
 
-z = 0.5 * x;
-if( z <= 0.0 )
-	{
-	mtherr( "k1", DOMAIN );
-	return( MAXNUM );
-	}
+    z = 0.5 * x;
+    if (z <= 0.0)
+    {
+        mtherr("k1", DOMAIN);
+        return (MAXNUM);
+    }
 
-if( x <= 2.0 )
-	{
-	y = x * x - 2.0;
-	y =  log(z) * i1(x)  +  chbevl( y, A, 11 ) / x;
-	return( y );
-	}
+    if (x <= 2.0)
+    {
+        y = x * x - 2.0;
+        y = log(z) * i1(x) + chbevl(y, A, 11) / x;
+        return (y);
+    }
 
-return(  exp(-x) * chbevl( 8.0/x - 2.0, B, 25 ) / sqrt(x) );
+    return (exp(-x) * chbevl(8.0 / x - 2.0, B, 25) / sqrt(x));
 }
 
-
-
-
-double k1e( x )
+double k1e(x)
 double x;
 {
-double y;
+    double y;
 
-if( x <= 0.0 )
-	{
-	mtherr( "k1e", DOMAIN );
-	return( MAXNUM );
-	}
+    if (x <= 0.0)
+    {
+        mtherr("k1e", DOMAIN);
+        return (MAXNUM);
+    }
 
-if( x <= 2.0 )
-	{
-	y = x * x - 2.0;
-	y =  log( 0.5 * x ) * i1(x)  +  chbevl( y, A, 11 ) / x;
-	return( y * exp(x) );
-	}
+    if (x <= 2.0)
+    {
+        y = x * x - 2.0;
+        y = log(0.5 * x) * i1(x) + chbevl(y, A, 11) / x;
+        return (y * exp(x));
+    }
 
-return(  chbevl( 8.0/x - 2.0, B, 25 ) / sqrt(x) );
+    return (chbevl(8.0 / x - 2.0, B, 25) / sqrt(x));
 }

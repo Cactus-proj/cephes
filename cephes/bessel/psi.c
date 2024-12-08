@@ -50,7 +50,7 @@
  *     message         condition      value returned
  * psi singularity    x integer <=0      MAXNUM
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1992, 2000 by Stephen L. Moshier
@@ -58,6 +58,7 @@ Copyright 1984, 1987, 1992, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 static double A[] = {
  8.33333333333333333333E-2,
@@ -105,97 +106,97 @@ static unsigned short A[] = {
 0x3fb5,0x5555,0x5555,0x5555
 };
 #endif
+/* clang-format on */
 
 #define EUL 0.57721566490153286061
 
 #ifdef ANSIPROT
-extern double floor ( double );
-extern double log ( double );
-extern double tan ( double );
-extern double polevl ( double, void *, int );
+extern double floor(double);
+extern double log(double);
+extern double tan(double);
+extern double polevl(double, void *, int);
 #else
 double floor(), log(), tan(), polevl();
 #endif
 extern double PI, MAXNUM;
 
-
 double psi(x)
 double x;
 {
-double p, q, nz, s, w, y, z;
-int i, n, negative;
+    double p, q, nz, s, w, y, z;
+    int i, n, negative;
 
-negative = 0;
-nz = 0.0;
+    negative = 0;
+    nz = 0.0;
 
-if( x <= 0.0 )
-	{
-	negative = 1;
-	q = x;
-	p = floor(q);
-	if( p == q )
-		{
-		mtherr( "psi", SING );
-		return( MAXNUM );
-		}
-/* Remove the zeros of tan(PI x)
- * by subtracting the nearest integer from x
- */
-	nz = q - p;
-	if( nz != 0.5 )
-		{
-		if( nz > 0.5 )
-			{
-			p += 1.0;
-			nz = q - p;
-			}
-		nz = PI/tan(PI*nz);
-		}
-	else
-		{
-		nz = 0.0;
-		}
-	x = 1.0 - x;
-	}
+    if (x <= 0.0)
+    {
+        negative = 1;
+        q = x;
+        p = floor(q);
+        if (p == q)
+        {
+            mtherr("psi", SING);
+            return (MAXNUM);
+        }
+        /* Remove the zeros of tan(PI x)
+         * by subtracting the nearest integer from x
+         */
+        nz = q - p;
+        if (nz != 0.5)
+        {
+            if (nz > 0.5)
+            {
+                p += 1.0;
+                nz = q - p;
+            }
+            nz = PI / tan(PI * nz);
+        }
+        else
+        {
+            nz = 0.0;
+        }
+        x = 1.0 - x;
+    }
 
-/* check for positive integer up to 10 */
-if( (x <= 10.0) && (x == floor(x)) )
-	{
-	y = 0.0;
-	n = x;
-	for( i=1; i<n; i++ )
-		{
-		w = i;
-		y += 1.0/w;
-		}
-	y -= EUL;
-	goto done;
-	}
+    /* check for positive integer up to 10 */
+    if ((x <= 10.0) && (x == floor(x)))
+    {
+        y = 0.0;
+        n = x;
+        for (i = 1; i < n; i++)
+        {
+            w = i;
+            y += 1.0 / w;
+        }
+        y -= EUL;
+        goto done;
+    }
 
-s = x;
-w = 0.0;
-while( s < 10.0 )
-	{
-	w += 1.0/s;
-	s += 1.0;
-	}
+    s = x;
+    w = 0.0;
+    while (s < 10.0)
+    {
+        w += 1.0 / s;
+        s += 1.0;
+    }
 
-if( s < 1.0e17 )
-	{
-	z = 1.0/(s * s);
-	y = z * polevl( z, A, 6 );
-	}
-else
-	y = 0.0;
+    if (s < 1.0e17)
+    {
+        z = 1.0 / (s * s);
+        y = z * polevl(z, A, 6);
+    }
+    else
+        y = 0.0;
 
-y = log(s)  -  (0.5/s)  -  y  -  w;
+    y = log(s) - (0.5 / s) - y - w;
 
 done:
 
-if( negative )
-	{
-	y -= nz;
-	}
+    if (negative)
+    {
+        y -= nz;
+    }
 
-return(y);
+    return (y);
 }

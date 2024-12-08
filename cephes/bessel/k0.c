@@ -38,7 +38,7 @@
  *  K0 domain          x <= 0          MAXNUM
  *
  */
-/*							k0e()
+/*							k0e()
  *
  *	Modified Bessel function, third kind, order zero,
  *	exponentially scaled
@@ -68,7 +68,7 @@
  * See k0().
  *
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
@@ -79,10 +79,11 @@ Copyright 1984, 1987, 2000 by Stephen L. Moshier
 /* Chebyshev coefficients for K0(x) + log(x/2) I0(x)
  * in the interval [0,2].  The odd order coefficients are all
  * zero; only the even order coefficients are listed.
- * 
+ *
  * lim(x->0){ K0(x) + log(x/2) I0(x) } = -EUL.
  */
 
+/* clang-format off */
 #ifdef UNK
 static double A[] =
 {
@@ -271,14 +272,15 @@ static unsigned short B[] = {
 0x4003,0x85bd,0x9f4e,0x6907
 };
 #endif
+/* clang-format on */
 
 /*							k0.c	*/
-#ifdef ANSIPROT 
-extern double chbevl ( double, void *, int );
-extern double exp ( double );
-extern double i0 ( double );
-extern double log ( double );
-extern double sqrt ( double );
+#ifdef ANSIPROT
+extern double chbevl(double, void *, int);
+extern double exp(double);
+extern double i0(double);
+extern double log(double);
+extern double sqrt(double);
 #else
 double chbevl(), exp(), i0(), log(), sqrt();
 #endif
@@ -288,46 +290,43 @@ extern double MAXNUM;
 double k0(x)
 double x;
 {
-double y, z;
+    double y, z;
 
-if( x <= 0.0 )
-	{
-	mtherr( "k0", DOMAIN );
-	return( MAXNUM );
-	}
+    if (x <= 0.0)
+    {
+        mtherr("k0", DOMAIN);
+        return (MAXNUM);
+    }
 
-if( x <= 2.0 )
-	{
-	y = x * x - 2.0;
-	y = chbevl( y, A, 10 ) - log( 0.5 * x ) * i0(x);
-	return( y );
-	}
-z = 8.0/x - 2.0;
-y = exp(-x) * chbevl( z, B, 25 ) / sqrt(x);
-return(y);
+    if (x <= 2.0)
+    {
+        y = x * x - 2.0;
+        y = chbevl(y, A, 10) - log(0.5 * x) * i0(x);
+        return (y);
+    }
+    z = 8.0 / x - 2.0;
+    y = exp(-x) * chbevl(z, B, 25) / sqrt(x);
+    return (y);
 }
 
-
-
-
-double k0e( x )
+double k0e(x)
 double x;
 {
-double y;
+    double y;
 
-if( x <= 0.0 )
-	{
-	mtherr( "k0e", DOMAIN );
-	return( MAXNUM );
-	}
+    if (x <= 0.0)
+    {
+        mtherr("k0e", DOMAIN);
+        return (MAXNUM);
+    }
 
-if( x <= 2.0 )
-	{
-	y = x * x - 2.0;
-	y = chbevl( y, A, 10 ) - log( 0.5 * x ) * i0(x);
-	return( y * exp(x) );
-	}
+    if (x <= 2.0)
+    {
+        y = x * x - 2.0;
+        y = chbevl(y, A, 10) - log(0.5 * x) * i0(x);
+        return (y * exp(x));
+    }
 
-y = chbevl( 8.0/x - 2.0, B, 25 ) / sqrt(x);
-return(y);
+    y = chbevl(8.0 / x - 2.0, B, 25) / sqrt(x);
+    return (y);
 }

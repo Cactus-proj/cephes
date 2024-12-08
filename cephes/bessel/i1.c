@@ -34,7 +34,7 @@
  *
  *
  */
-/*							i1e.c
+/*							i1e.c
  *
  *	Modified Bessel function of order one,
  *	exponentially scaled
@@ -66,9 +66,8 @@
  * See i1().
  *
  */
-
-/*							i1.c 2		*/
 
+/*							i1.c 2		*/
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -83,6 +82,7 @@ Copyright 1985, 1987, 2000 by Stephen L. Moshier
  * lim(x->0){ exp(-x) I1(x) / x } = 1/2.
  */
 
+/* clang-format off */
 #ifdef UNK
 static double A[] =
 {
@@ -348,55 +348,56 @@ static unsigned short B[] = {
 0x3fe8,0xea18,0xb55b,0x1514
 };
 #endif
-
+/* clang-format on */
+
 /*							i1.c	*/
 #ifdef ANSIPROT
-extern double chbevl ( double, void *, int );
-extern double exp ( double );
-extern double sqrt ( double );
-extern double fabs ( double );
+extern double chbevl(double, void *, int);
+extern double exp(double);
+extern double sqrt(double);
+extern double fabs(double);
 #else
 double chbevl(), exp(), sqrt(), fabs();
 #endif
 
 double i1(x)
 double x;
-{ 
-double y, z;
+{
+    double y, z;
 
-z = fabs(x);
-if( z <= 8.0 )
-	{
-	y = (z/2.0) - 2.0;
-	z = chbevl( y, A, 29 ) * z * exp(z);
-	}
-else
-	{
-	z = exp(z) * chbevl( 32.0/z - 2.0, B, 25 ) / sqrt(z);
-	}
-if( x < 0.0 )
-	z = -z;
-return( z );
+    z = fabs(x);
+    if (z <= 8.0)
+    {
+        y = (z / 2.0) - 2.0;
+        z = chbevl(y, A, 29) * z * exp(z);
+    }
+    else
+    {
+        z = exp(z) * chbevl(32.0 / z - 2.0, B, 25) / sqrt(z);
+    }
+    if (x < 0.0)
+        z = -z;
+    return (z);
 }
-
+
 /*							i1e()	*/
 
-double i1e( x )
+double i1e(x)
 double x;
-{ 
-double y, z;
+{
+    double y, z;
 
-z = fabs(x);
-if( z <= 8.0 )
-	{
-	y = (z/2.0) - 2.0;
-	z = chbevl( y, A, 29 ) * z;
-	}
-else
-	{
-	z = chbevl( 32.0/z - 2.0, B, 25 ) / sqrt(z);
-	}
-if( x < 0.0 )
-	z = -z;
-return( z );
+    z = fabs(x);
+    if (z <= 8.0)
+    {
+        y = (z / 2.0) - 2.0;
+        z = chbevl(y, A, 29) * z;
+    }
+    else
+    {
+        z = chbevl(32.0 / z - 2.0, B, 25) / sqrt(z);
+    }
+    if (x < 0.0)
+        z = -z;
+    return (z);
 }

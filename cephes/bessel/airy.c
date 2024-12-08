@@ -48,7 +48,7 @@
  * DEC         -10, 10    Bi'        7000       5.3e-16     8.7e-17
  *
  */
-/*							airy.c */
+/*							airy.c */
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -77,7 +77,7 @@ extern double MAXNUM, MACHEP;
 #define MAXAIRY 103.892
 #endif
 
-
+/* clang-format off */
 #ifdef UNK
 static double AN[8] = {
   3.46538101525629032477E-1,
@@ -821,145 +821,146 @@ static unsigned short APGD[40] = {
 0x3e38,0xe834,0x9dc8,0x647e,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double fabs ( double );
-extern double exp ( double );
-extern double sqrt ( double );
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-extern double sin ( double );
-extern double cos ( double );
+extern double fabs(double);
+extern double exp(double);
+extern double sqrt(double);
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+extern double sin(double);
+extern double cos(double);
 #else
 double fabs(), exp(), sqrt();
 double polevl(), p1evl(), sin(), cos();
 #endif
 
-int airy( x, ai, aip, bi, bip )
+int airy(x, ai, aip, bi, bip)
 double x, *ai, *aip, *bi, *bip;
 {
-double z, zz, t, f, g, uf, ug, k, zeta, theta;
-int domflg;
+    double z, zz, t, f, g, uf, ug, k, zeta, theta;
+    int domflg;
 
-domflg = 0;
-if( x > MAXAIRY )
-	{
-	*ai = 0;
-	*aip = 0;
-	*bi = MAXNUM;
-	*bip = MAXNUM;
-	return(-1);
-	}
+    domflg = 0;
+    if (x > MAXAIRY)
+    {
+        *ai = 0;
+        *aip = 0;
+        *bi = MAXNUM;
+        *bip = MAXNUM;
+        return (-1);
+    }
 
-if( x < -2.09 )
-	{
-	domflg = 15;
-	t = sqrt(-x);
-	zeta = -2.0 * x * t / 3.0;
-	t = sqrt(t);
-	k = sqpii / t;
-	z = 1.0/zeta;
-	zz = z * z;
-	uf = 1.0 + zz * polevl( zz, AFN, 8 ) / p1evl( zz, AFD, 9 );
-	ug = z * polevl( zz, AGN, 10 ) / p1evl( zz, AGD, 10 );
-	theta = zeta + 0.25 * PI;
-	f = sin( theta );
-	g = cos( theta );
-	*ai = k * (f * uf - g * ug);
-	*bi = k * (g * uf + f * ug);
-	uf = 1.0 + zz * polevl( zz, APFN, 8 ) / p1evl( zz, APFD, 9 );
-	ug = z * polevl( zz, APGN, 10 ) / p1evl( zz, APGD, 10 );
-	k = sqpii * t;
-	*aip = -k * (g * uf + f * ug);
-	*bip = k * (f * uf - g * ug);
-	return(0);
-	}
+    if (x < -2.09)
+    {
+        domflg = 15;
+        t = sqrt(-x);
+        zeta = -2.0 * x * t / 3.0;
+        t = sqrt(t);
+        k = sqpii / t;
+        z = 1.0 / zeta;
+        zz = z * z;
+        uf = 1.0 + zz * polevl(zz, AFN, 8) / p1evl(zz, AFD, 9);
+        ug = z * polevl(zz, AGN, 10) / p1evl(zz, AGD, 10);
+        theta = zeta + 0.25 * PI;
+        f = sin(theta);
+        g = cos(theta);
+        *ai = k * (f * uf - g * ug);
+        *bi = k * (g * uf + f * ug);
+        uf = 1.0 + zz * polevl(zz, APFN, 8) / p1evl(zz, APFD, 9);
+        ug = z * polevl(zz, APGN, 10) / p1evl(zz, APGD, 10);
+        k = sqpii * t;
+        *aip = -k * (g * uf + f * ug);
+        *bip = k * (f * uf - g * ug);
+        return (0);
+    }
 
-if( x >= 2.09 )	/* cbrt(9) */
-	{
-	domflg = 5;
-	t = sqrt(x);
-	zeta = 2.0 * x * t / 3.0;
-	g = exp( zeta );
-	t = sqrt(t);
-	k = 2.0 * t * g;
-	z = 1.0/zeta;
-	f = polevl( z, AN, 7 ) / polevl( z, AD, 7 );
-	*ai = sqpii * f / k;
-	k = -0.5 * sqpii * t / g;
-	f = polevl( z, APN, 7 ) / polevl( z, APD, 7 );
-	*aip = f * k;
+    if (x >= 2.09) /* cbrt(9) */
+    {
+        domflg = 5;
+        t = sqrt(x);
+        zeta = 2.0 * x * t / 3.0;
+        g = exp(zeta);
+        t = sqrt(t);
+        k = 2.0 * t * g;
+        z = 1.0 / zeta;
+        f = polevl(z, AN, 7) / polevl(z, AD, 7);
+        *ai = sqpii * f / k;
+        k = -0.5 * sqpii * t / g;
+        f = polevl(z, APN, 7) / polevl(z, APD, 7);
+        *aip = f * k;
 
-	if( x > 8.3203353 )	/* zeta > 16 */
-		{
-		f = z * polevl( z, BN16, 4 ) / p1evl( z, BD16, 5 );
-		k = sqpii * g;
-		*bi = k * (1.0 + f) / t;
-		f = z * polevl( z, BPPN, 4 ) / p1evl( z, BPPD, 5 );
-		*bip = k * t * (1.0 + f);
-		return(0);
-		}
-	}
+        if (x > 8.3203353) /* zeta > 16 */
+        {
+            f = z * polevl(z, BN16, 4) / p1evl(z, BD16, 5);
+            k = sqpii * g;
+            *bi = k * (1.0 + f) / t;
+            f = z * polevl(z, BPPN, 4) / p1evl(z, BPPD, 5);
+            *bip = k * t * (1.0 + f);
+            return (0);
+        }
+    }
 
-f = 1.0;
-g = x;
-t = 1.0;
-uf = 1.0;
-ug = x;
-k = 1.0;
-z = x * x * x;
-while( t > MACHEP )
-	{
-	uf *= z;
-	k += 1.0;
-	uf /=k;
-	ug *= z;
-	k += 1.0;
-	ug /=k;
-	uf /=k;
-	f += uf;
-	k += 1.0;
-	ug /=k;
-	g += ug;
-	t = fabs(uf/f);
-	}
-uf = c1 * f;
-ug = c2 * g;
-if( (domflg & 1) == 0 )
-	*ai = uf - ug;
-if( (domflg & 2) == 0 )
-	*bi = sqrt3 * (uf + ug);
+    f = 1.0;
+    g = x;
+    t = 1.0;
+    uf = 1.0;
+    ug = x;
+    k = 1.0;
+    z = x * x * x;
+    while (t > MACHEP)
+    {
+        uf *= z;
+        k += 1.0;
+        uf /= k;
+        ug *= z;
+        k += 1.0;
+        ug /= k;
+        uf /= k;
+        f += uf;
+        k += 1.0;
+        ug /= k;
+        g += ug;
+        t = fabs(uf / f);
+    }
+    uf = c1 * f;
+    ug = c2 * g;
+    if ((domflg & 1) == 0)
+        *ai = uf - ug;
+    if ((domflg & 2) == 0)
+        *bi = sqrt3 * (uf + ug);
 
-/* the deriviative of ai */
-k = 4.0;
-uf = x * x/2.0;
-ug = z/3.0;
-f = uf;
-g = 1.0 + ug;
-uf /= 3.0;
-t = 1.0;
+    /* the deriviative of ai */
+    k = 4.0;
+    uf = x * x / 2.0;
+    ug = z / 3.0;
+    f = uf;
+    g = 1.0 + ug;
+    uf /= 3.0;
+    t = 1.0;
 
-while( t > MACHEP )
-	{
-	uf *= z;
-	ug /=k;
-	k += 1.0;
-	ug *= z;
-	uf /=k;
-	f += uf;
-	k += 1.0;
-	ug /=k;
-	uf /=k;
-	g += ug;
-	k += 1.0;
-	t = fabs(ug/g);
-	}
+    while (t > MACHEP)
+    {
+        uf *= z;
+        ug /= k;
+        k += 1.0;
+        ug *= z;
+        uf /= k;
+        f += uf;
+        k += 1.0;
+        ug /= k;
+        uf /= k;
+        g += ug;
+        k += 1.0;
+        t = fabs(ug / g);
+    }
 
-uf = c1 * f;
-ug = c2 * g;
-if( (domflg & 4) == 0 )
-	*aip = uf - ug;
-if( (domflg & 8) == 0 )
-	*bip = sqrt3 * (uf + ug);
-return(0);
+    uf = c1 * f;
+    ug = c2 * g;
+    if ((domflg & 4) == 0)
+        *aip = uf - ug;
+    if ((domflg & 8) == 0)
+        *bip = sqrt3 * (uf + ug);
+    return (0);
 }

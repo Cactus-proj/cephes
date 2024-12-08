@@ -33,7 +33,7 @@
  *
  *
  */
-/*							y1.c
+/*							y1.c
  *
  *	Bessel function of second kind of order one
  *
@@ -70,7 +70,6 @@
  * (error criterion relative when |y1| > 1).
  *
  */
-
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -85,6 +84,7 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 static double RP[4] = {
 -8.99971225705559398224E8,
@@ -443,15 +443,16 @@ static unsigned short DZ2[] = {0x4048,0x9bf6,0x6072,0xa432};
 #define Z1 (*(double *)DZ1)
 #define Z2 (*(double *)DZ2)
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-extern double log ( double );
-extern double sin ( double );
-extern double cos ( double );
-extern double sqrt ( double );
-double j1 ( double );
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+extern double log(double);
+extern double sin(double);
+extern double cos(double);
+extern double sqrt(double);
+double j1(double);
 #else
 double polevl(), p1evl(), log(), sin(), cos(), sqrt();
 double j1();
@@ -461,55 +462,54 @@ extern double TWOOPI, THPIO4, SQ2OPI;
 double j1(x)
 double x;
 {
-double w, z, p, q, xn;
+    double w, z, p, q, xn;
 
-w = x;
-if( x < 0 )
-	w = -x;
+    w = x;
+    if (x < 0)
+        w = -x;
 
-if( w <= 5.0 )
-	{
-	z = x * x;	
-	w = polevl( z, RP, 3 ) / p1evl( z, RQ, 8 );
-	w = w * x * (z - Z1) * (z - Z2);
-	return( w );
-	}
+    if (w <= 5.0)
+    {
+        z = x * x;
+        w = polevl(z, RP, 3) / p1evl(z, RQ, 8);
+        w = w * x * (z - Z1) * (z - Z2);
+        return (w);
+    }
 
-w = 5.0/x;
-z = w * w;
-p = polevl( z, PP, 6)/polevl( z, PQ, 6 );
-q = polevl( z, QP, 7)/p1evl( z, QQ, 7 );
-xn = x - THPIO4;
-p = p * cos(xn) - w * q * sin(xn);
-return( p * SQ2OPI / sqrt(x) );
+    w = 5.0 / x;
+    z = w * w;
+    p = polevl(z, PP, 6) / polevl(z, PQ, 6);
+    q = polevl(z, QP, 7) / p1evl(z, QQ, 7);
+    xn = x - THPIO4;
+    p = p * cos(xn) - w * q * sin(xn);
+    return (p * SQ2OPI / sqrt(x));
 }
-
 
 extern double MAXNUM;
 
 double y1(x)
 double x;
 {
-double w, z, p, q, xn;
+    double w, z, p, q, xn;
 
-if( x <= 5.0 )
-	{
-	if( x <= 0.0 )
-		{
-		mtherr( "y1", DOMAIN );
-		return( -MAXNUM );
-		}
-	z = x * x;
-	w = x * (polevl( z, YP, 5 ) / p1evl( z, YQ, 8 ));
-	w += TWOOPI * ( j1(x) * log(x)  -  1.0/x );
-	return( w );
-	}
+    if (x <= 5.0)
+    {
+        if (x <= 0.0)
+        {
+            mtherr("y1", DOMAIN);
+            return (-MAXNUM);
+        }
+        z = x * x;
+        w = x * (polevl(z, YP, 5) / p1evl(z, YQ, 8));
+        w += TWOOPI * (j1(x) * log(x) - 1.0 / x);
+        return (w);
+    }
 
-w = 5.0/x;
-z = w * w;
-p = polevl( z, PP, 6)/polevl( z, PQ, 6 );
-q = polevl( z, QP, 7)/p1evl( z, QQ, 7 );
-xn = x - THPIO4;
-p = p * sin(xn) + w * q * cos(xn);
-return( p * SQ2OPI / sqrt(x) );
+    w = 5.0 / x;
+    z = w * w;
+    p = polevl(z, PP, 6) / polevl(z, PQ, 6);
+    q = polevl(z, QP, 7) / p1evl(z, QQ, 7);
+    xn = x - THPIO4;
+    p = p * sin(xn) + w * q * cos(xn);
+    return (p * SQ2OPI / sqrt(x));
 }
