@@ -17,6 +17,14 @@ Therefore, contributions regarding precision and error-related contributions are
 
 - [Markdown Docs](doc/markdown/index.md)
 
+## Test
+
+```sh
+# On Linux
+cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build && cmake --build build
+cd build/ && ctest && make coverage_html
+```
+
 ## License
 
 Using a `BSD-3-Clause` like [LICENSE](LICENSE.txt).
