@@ -1,11 +1,10 @@
-
-#Cephes Mathematical Functions Library, wrapped for Torch
+# Cephes Mathematical Functions Library
 
 Provides and wraps the mathematical functions from the [Cephes mathematical library](http://www.netlib.org/cephes/), developed by [Stephen L. Moshier](http://www.moshier.net). This C library provides a <b>lot</b> of mathematical functions. It is used, among many other places, [at the heart of SciPy](https://github.com/scipy/scipy/tree/master/scipy/special/cephes).
 
-##Example
+## Example
 
-###Simple call on a number
+### Simple call on a number
 
 The wrapped functions can be called from Lua with the same synopsis as their C coutnerpart, and will then return a number, for example:
 
@@ -14,7 +13,7 @@ require 'cephes'
 x = cephes.igam(2, 3) -- returns a number
 ```
 
-###Calling on tensors
+### Calling on tensors
 
 Our wrappers for cephes functions are vectorized, meaning they can 
 
@@ -52,7 +51,7 @@ result = torch.Tensor(2,5,10)
 cephes.igam(result, x, y)
 ```
 
-##Installation
+## Installation
 
 From a terminal:
 
@@ -60,13 +59,13 @@ From a terminal:
 torch-rocks install cephes
 ```
 
-##Error Handling
+## Error Handling
 
 By default, Torch-Cephes **does not signal any error** (domain, singularity, overflow, underflow, precision). It is as non-intrusive as possible and tries to return a value which is hopefully usable: it might be NaN, it might be inf.
 
 However, the user can ask Cephes to generate lua errors with the following functions.
 
-###cephes.setErrorLevel(level)
+### cephes.setErrorLevel(level)
 
 Sets the level of error reporting.
 
@@ -77,7 +76,7 @@ Sets the level of error reporting.
 >
 >**Returns:** None
 
-###cephes.getErrorLevel()
+### cephes.getErrorLevel()
 
 Returns the current level of error reporting, for example to save and restore later.
 
@@ -85,7 +84,7 @@ Returns the current level of error reporting, for example to save and restore la
 >
 >**Returns:** integer 0, 1, or 2, representing the current error reporting level, see `setErrorLevel()`
 
-##List of Cephes functions
+## List of Cephes functions
 
 See [the full list of Cephes double-precision functions](doubldoc.md). The Torch wrappers respect the same prototypes. 
 
@@ -254,15 +253,15 @@ So, here goes the whole list, click for details:
 * **zeta**, [Zeta function of two arguments](doubldoc.md#zeta)
 * **zetac**, [Riemann zeta function of two arguments](doubldoc.md#zetac)
 
-##List of Torch-only functions
+## List of Torch-only functions
 
 Those functions are not part of the original Cephes library
 
-###cephes.digamma(x)
+### cephes.digamma(x)
 
 Alias for `cephes.psi(x)`
 
-###cephes.polygamma(m, x)
+### cephes.polygamma(m, x)
 
 The `(m+1)`-th derivative of the logarithm of the gamma function [(see MathWorld definition)](http://mathworld.wolfram.com/PolygammaFunction.html).
 
@@ -273,7 +272,7 @@ The `(m+1)`-th derivative of the logarithm of the gamma function [(see MathWorld
 >
 >**Returns:** `(m+1)`-th derivative of the logarithm of the gamma function, evaluated at `x`
 
-###cephes.betagrad(x, y)
+### cephes.betagrad(x, y)
 
 The partial-derivative of the beta function, with respect to the first variable.
 
@@ -284,37 +283,37 @@ The partial-derivative of the beta function, with respect to the first variable.
 >
 >**Returns:** Partial-derivative of the beta function with respect to the first variable, evaluated at (`x`, `y`)
 
-##Limits
+## Limits
 
 Convenience functions to check for finiteness.
 
-###cephes.nan
+### cephes.nan
 Stands for not a number, clearer alias for `0/0` 
 
-###cephes.isnan(x)
+### cephes.isnan(x)
 Checks if `x` is not a number.
 
 >**Input:** `x` : any number
 >
 >**Returns:** `true` if `x` is `cephes.nan`, `false` otherwise
 
-###cephes.isinf(x)
+### cephes.isinf(x)
 Checks is a number is infinite.
 
 >**Input:** `x` : any number
 >
 >**Returns:**** `true` if `x` is `math.huge` or `-math.huge` or `cephes.nan`, `false` otherwise.
 
-###cephes.isfinite(x)
+### cephes.isfinite(x)
 Checks if a number is finite.
 
 >**Input:**  `x` : any number
 >
 >**Returns:**  `not cephes.isinf(x) and not cephes.isnan(x)`
 
-##Complex numbers
+## Complex numbers
 
-###cephes.new_cmplx(re, im)
+### cephes.new_cmplx(re, im)
 >**Input:** 
 >
 > * `re` : any number, to initialize the real part
@@ -322,7 +321,7 @@ Checks if a number is finite.
 >
 >**Returns:** a pointer to a new Cephes FFI complex number with real part `r` and imaginary part `im`.
 
-##Unit Tests
+## Unit Tests
 
 Last but not least, the unit tests are in the folder
 [`luasrc/tests`](https://github.com/jucor/torch-cephes/tree/master/luasrc/tests). You can run them from your local clone of the repostiory with:
@@ -334,8 +333,8 @@ find torch-cephes/luasrc/tests -name "test*lua" -exec torch {} \;
 
 Those tests will soone be automatically installed with the package, once I sort out a bit of CMake resistance.
 
-##Direct access to FFI
+## Direct access to FFI
 
-###cephes.ffi.*
+### cephes.ffi.*
 
 Functions directly accessible at the top of the `cephes` table are Lua wrappers to the actual C functions from Cephes, with extra error checking. If, for any reason, you want to get rid of this error checking and of a possible overhead, the FFI-wrapper functions can be called directly via `cephes.ffi.myfunction()` instead of `cephes.myfunction()`.

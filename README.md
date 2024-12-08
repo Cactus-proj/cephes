@@ -1,7 +1,6 @@
 # Cephes Mathematical Functions Library
 
-Please check-out its [website](http://deepmind.github.io/torch-cephes) for
-documentation, or the [offline copy](doc/html/index.html).
+- [Markdown Docs](doc/markdown/index.md)
 
 ## License
 
