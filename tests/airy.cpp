@@ -9,7 +9,7 @@ TEST(Airy, BasicAssertions) {
     double x, ai, aip, bi, bip;
 
     x = 26.0;
-    ret = airy(x, &ai, &aip, &bi, &bip);
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
     EXPECT_EQ(ret, -1);
     EXPECT_EQ(ai, 0.0);
     EXPECT_EQ(aip, 0.0);
@@ -24,7 +24,7 @@ TEST(Airy, Branches) {
 
     // x < -2.09
     x = -3.0;
-    ret = airy(x, &ai, &aip, &bi, &bip);
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
     EXPECT_EQ(ret, 0);
     /*
         x = -3.0;
@@ -42,7 +42,7 @@ TEST(Airy, Branches) {
 
     // x >= 2.09 (cbrt(9))
     x = 5.0;
-    ret = airy(x, &ai, &aip, &bi, &bip);
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
     EXPECT_EQ(ret, 0);
     /*
         x = 5.0;
@@ -60,7 +60,7 @@ TEST(Airy, Branches) {
 
     // x > 8.3203353
     x = 8.5;
-    ret = airy(x, &ai, &aip, &bi, &bip);
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
     EXPECT_EQ(ret, 0);
     /*
         x = 8.5;
@@ -82,9 +82,9 @@ TEST(Hyp2f1, Errors) {
 
     // c is a negative integer
     // hypdiv:
-    EXPECT_GT(hyp2f1(2.0, 3.0, -4.0, 5.0), 1e308);
+    EXPECT_GT(cephes::hyp2f1(2.0, 3.0, -4.0, 5.0), 1e308);
     // ax > 1.0
-    EXPECT_GT(hyp2f1(2.0, 3.0, 4.0, 2.0), 1e308);
+    EXPECT_GT(cephes::hyp2f1(2.0, 3.0, 4.0, 2.0), 1e308);
 }
 
 TEST(Hyp2f1, Branches) {
