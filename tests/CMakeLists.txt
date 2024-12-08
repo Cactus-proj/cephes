@@ -12,6 +12,9 @@ FetchContent_MakeAvailable(googletest)
 
 include(GoogleTest)
 
+# Add include for tests
+include_directories(${CMAKE_SOURCE_DIR}/tests/include)
+
 # Add Tests
 function(add_gtest test_name)
     add_executable(${test_name} ${test_name}.cpp)
