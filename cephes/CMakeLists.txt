@@ -52,9 +52,6 @@ LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/polyn/polyr.c"
     )
 
-# install the lua code for the cephes package
-FILE(GLOB luasrc "luasrc/*.lua")
-# TODO: install the tests, too
-# ADD_SUBDIRECTORY(tests)
-
-ADD_TORCH_PACKAGE(cephes "${src}" "${luasrc}")
+add_library(cephes SHARED 
+    ${src}
+)
