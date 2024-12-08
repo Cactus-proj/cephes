@@ -5,6 +5,7 @@
  */
 #define CEPHES_EXP_INT_H
 
+namespace cephes {
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -20,6 +21,7 @@ int sici(double x, double *si, double *ci);
 int shichi(double x, double *si, double *ci);
 
 #if defined(__cplusplus)
-}
+} // extern "C"
 #endif
+}; // ::cephes
 #endif // CEPHES_EXP_INT_H

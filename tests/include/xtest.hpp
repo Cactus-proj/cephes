@@ -5,6 +5,25 @@
 #include <gtest/gtest.h>
 
 /**
+ * @param _y_expr   Your `expr` to be evalute
+ * @param _ref_expr Reference value
+ * @param _rel_tol  Rel Tolence
+ * 
+ * - When `_ref_expr == 0`, `abs_tol = _rel_tol`
+ * - else: `abs_tol = _rel_tol * abs(_ref_expr)`
+ */
+#define EXPECT_REL_NEAR_F64_(_y_expr, _ref_expr, _rel_tol) \
+    do { \
+        double __xtest_y_ref__ = (_ref_expr); \
+        double __xtest_y_level = (__xtest_y_ref__==0) ? 1.0 : std::abs(__xtest_y_ref__); \
+        double __xtest_abs_tol = (_rel_tol) * __xtest_y_level; \
+        EXPECT_NEAR((_y_expr), __xtest_y_ref__, __xtest_abs_tol) \
+            << "rel_tol = " << _rel_tol; \
+    } while (0);
+#define EXPECT_REL_NEAR_F64(_y_expr, _ref_expr) \
+    EXPECT_REL_NEAR_F64_(_y_expr, _ref_expr, xtest::RelTolF64)
+
+/**
  * Need local var: `x`, `VAR`, `VAR_ref`
  */
 #define XTEST_ISAPPROX_F64(_var_name) \
@@ -38,6 +57,11 @@ constexpr T rel_tol_default() {
 // Real (non-floating-point) types
 template <typename T, std::enable_if_t<std::is_integral_v<T>, int> = 0>
 constexpr T rel_tol_default() { return 0; };
+
+/** Default relative tolerance for `float` type */
+const double RelTolF32 = rel_tol_default<float>();
+/** Default relative tolerance for `double` type */
+const double RelTolF64 = rel_tol_default<double>();
 
 template <typename T>
 bool isapprox(T x, T y, T rel_tol=rel_tol_default<T>()) {

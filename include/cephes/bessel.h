@@ -5,6 +5,7 @@
  */
 #define CEPHES_BESSEL_H
 
+namespace cephes {
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -46,6 +47,8 @@ double psi(double x);
 double struve(double v, double x);
 
 #if defined(__cplusplus)
-}
+} // extern "C"
 #endif
+}; // ::cephes
+
 #endif // CEPHES_BESSEL_H
