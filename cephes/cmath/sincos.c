@@ -227,12 +227,12 @@ static double sintbl[92] = {
 };
 
 #ifdef ANSIPROT
-double torch_cephes_floor ( double );
+double floor ( double );
 #else
-double torch_cephes_floor();
+double floor();
 #endif
 
-int torch_cephes_sincos(x, s, c, flg)
+int sincos(x, s, c, flg)
 double x;
 double *s, *c;
 int flg;
@@ -240,7 +240,6 @@ int flg;
 int ix, ssign, csign, xsign;
 double y, z, sx, sz, cx, cz;
 
-x = x*180.0/3.14159265;
 /* Make argument nonnegative.
  */
 xsign = 1;
@@ -252,7 +251,7 @@ if( x < 0.0 )
 
 
 #if MOD360
-x = x  -  360.0 * torch_cephes_floor( x/360.0 );
+x = x  -  360.0 * floor( x/360.0 );
 #endif
 
 /* Find nearest integer to x.

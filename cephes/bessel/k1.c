@@ -277,19 +277,18 @@ static unsigned short B[] = {
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_chbevl ( double, void *, int );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_i1 ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_sqrt ( double );
+extern double chbevl ( double, void *, int );
+extern double exp ( double );
+extern double i1 ( double );
+extern double log ( double );
+extern double sqrt ( double );
 #else
-double torch_cephes_chbevl(), torch_cephes_exp(), torch_cephes_i1(),
-    torch_cephes_log(), torch_cephes_sqrt();
+double chbevl(), exp(), i1(), log(), sqrt();
 #endif
-extern double torch_cephes_PI;
-extern double torch_cephes_MINLOG, torch_cephes_MAXNUM;
+extern double PI;
+extern double MINLOG, MAXNUM;
 
-double torch_cephes_k1(x)
+double k1(x)
 double x;
 {
 double y, z;
@@ -297,43 +296,40 @@ double y, z;
 z = 0.5 * x;
 if( z <= 0.0 )
 	{
-	torch_cephes_mtherr( "k1", DOMAIN );
-	return( torch_cephes_MAXNUM );
+	mtherr( "k1", DOMAIN );
+	return( MAXNUM );
 	}
 
 if( x <= 2.0 )
 	{
 	y = x * x - 2.0;
-	y =  torch_cephes_log(z) * torch_cephes_i1(x)  +
-                 torch_cephes_chbevl( y, A, 11 ) / x;
+	y =  log(z) * i1(x)  +  chbevl( y, A, 11 ) / x;
 	return( y );
 	}
 
-return(  torch_cephes_exp(-x) * torch_cephes_chbevl( 8.0/x - 2.0, B, 25 )
-         / torch_cephes_sqrt(x) );
+return(  exp(-x) * chbevl( 8.0/x - 2.0, B, 25 ) / sqrt(x) );
 }
 
 
 
 
-double torch_cephes_k1e( x )
+double k1e( x )
 double x;
 {
 double y;
 
 if( x <= 0.0 )
 	{
-	torch_cephes_mtherr( "k1e", DOMAIN );
-	return( torch_cephes_MAXNUM );
+	mtherr( "k1e", DOMAIN );
+	return( MAXNUM );
 	}
 
 if( x <= 2.0 )
 	{
 	y = x * x - 2.0;
-	y =  torch_cephes_log( 0.5 * x ) * torch_cephes_i1(x)  +
-            torch_cephes_chbevl( y, A, 11 ) / x;
-	return( y * torch_cephes_exp(x) );
+	y =  log( 0.5 * x ) * i1(x)  +  chbevl( y, A, 11 ) / x;
+	return( y * exp(x) );
 	}
 
-return(  torch_cephes_chbevl( 8.0/x - 2.0, B, 25 ) / torch_cephes_sqrt(x) );
+return(  chbevl( 8.0/x - 2.0, B, 25 ) / sqrt(x) );
 }

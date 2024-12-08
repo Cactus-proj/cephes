@@ -147,21 +147,20 @@ static double lossth = 1.0e14;
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_ldexp ( double, int );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double floor ( double );
+extern double ldexp ( double, int );
 static double tancot( double, int );
 #else
-double torch_cephes_polevl(), torch_cephes_p1evl(), torch_cephes_floor(),
-    torch_cephes_ldexp();
+double polevl(), p1evl(), floor(), ldexp();
 static double tancot();
 #endif
-extern double torch_cephes_MAXNUM;
-extern double torch_cephes_PIO4;
+extern double MAXNUM;
+extern double PIO4;
 
 
-double torch_cephes_tandg(x)
+double tandg(x)
 double x;
 {
 
@@ -169,7 +168,7 @@ return( tancot(x,0) );
 }
 
 
-double torch_cephes_cotdg(x)
+double cotdg(x)
 double x;
 {
 
@@ -198,7 +197,7 @@ else
 
 if( x > lossth )
 	{
-	torch_cephes_mtherr( "tandg", TLOSS );
+	mtherr( "tandg", TLOSS );
 	return(0.0);
 	}
 
@@ -226,8 +225,7 @@ z *= PI180;
 zz = z * z;
 
 if( zz > 1.0e-14 )
-	y = z  +  z * (zz * torch_cephes_polevl( zz, P, 2 )/
-                       torch_cephes_p1evl(zz, Q, 4));
+	y = z  +  z * (zz * polevl( zz, P, 2 )/p1evl(zz, Q, 4));
 else
 	y = z;
 	
@@ -243,8 +241,8 @@ if( j & 2 )
 			}
 		else
 			{
-			torch_cephes_mtherr( "tandg", SING );
-			y = torch_cephes_MAXNUM;
+			mtherr( "tandg", SING );
+			y = MAXNUM;
 			}
 		}
 	}
@@ -256,8 +254,8 @@ else
 			y = 1.0/y;
 		else
 			{
-			torch_cephes_mtherr( "cotdg", SING );
-			y = torch_cephes_MAXNUM;
+			mtherr( "cotdg", SING );
+			y = MAXNUM;
 			}
 		}
 	}

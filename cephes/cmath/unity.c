@@ -12,19 +12,18 @@
 #include "mconf.h"
 
 #ifdef ANSIPROT
-extern int torch_cephes_isnan (double);
-extern int torch_cephes_isfinite (double);
-extern double torch_cephes_log ( double );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_cos ( double );
+extern int isnan (double);
+extern int isfinite (double);
+extern double log ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double exp ( double );
+extern double cos ( double );
 #else
-double torch_cephes_log(), torch_cephes_polevl(), torch_cephes_p1evl(),
-    torch_cephes_exp(), torch_cephes_cos();
-int torch_cephes_isnan(), torch_cephes_isfinite();
+double log(), polevl(), p1evl(), exp(), cos();
+int isnan(), isfinite();
 #endif
-extern double torch_cephes_INFINITY;
+extern double INFINITY;
 
 /* log1p(x) = log(1 + x)  */
 
@@ -54,17 +53,16 @@ static double LQ[] = {
 #define SQRTH 0.70710678118654752440
 #define SQRT2 1.41421356237309504880
 
-double torch_cephes_log1p(x)
+double log1p(x)
 double x;
 {
 double z;
 
 z = 1.0 + x;
 if( (z < SQRTH) || (z > SQRT2) )
-	return( torch_cephes_log(z) );
+	return( log(z) );
 z = x*x;
-z = -0.5 * z + x * ( z * torch_cephes_polevl( x, LP, 6 ) /
-                     torch_cephes_p1evl( x, LQ, 6 ) );
+z = -0.5 * z + x * ( z * polevl( x, LP, 6 ) / p1evl( x, LQ, 6 ) );
 return (x + z);
 }
 
@@ -88,26 +86,26 @@ static double EQ[4] = {
  2.0000000000000000000897E0,
 };
 
-double torch_cephes_expm1(x)
+double expm1(x)
 double x;
 {
 double r, xx;
 
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
 #endif
 #ifdef INFINITIES
-if( x == torch_cephes_INFINITY )
-	return(torch_cephes_INFINITY);
-if( x == -torch_cephes_INFINITY )
+if( x == INFINITY )
+	return(INFINITY);
+if( x == -INFINITY )
 	return(-1.0);
 #endif
 if( (x < -0.5) || (x > 0.5) )
-	return( torch_cephes_exp(x) - 1.0 );
+	return( exp(x) - 1.0 );
 xx = x * x;
-r = x * torch_cephes_polevl( xx, EP, 2 );
-r = r/( torch_cephes_polevl( xx, EQ, 3 ) - r );
+r = x * polevl( xx, EP, 2 );
+r = r/( polevl( xx, EQ, 3 ) - r );
 return (r + r);
 }
 
@@ -125,16 +123,16 @@ static double coscof[7] = {
  4.1666666666666666609054E-2,
 };
 
-extern double torch_cephes_PIO4;
+extern double PIO4;
 
-double torch_cephes_cosm1(x)
+double cosm1(x)
 double x;
 {
 double xx;
 
-if( (x < -torch_cephes_PIO4) || (x > torch_cephes_PIO4) )
-	return( torch_cephes_cos(x) - 1.0 );
+if( (x < -PIO4) || (x > PIO4) )
+	return( cos(x) - 1.0 );
 xx = x * x;
-xx = -0.5*xx + xx * xx * torch_cephes_polevl( xx, coscof, 6 );
+xx = -0.5*xx + xx * xx * polevl( xx, coscof, 6 );
 return xx;
 }

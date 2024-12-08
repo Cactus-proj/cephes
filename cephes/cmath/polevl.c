@@ -50,7 +50,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 */
 
 
-double torch_cephes_polevl( x, coef, N )
+double polevl( x, coef, N )
 double x;
 double coef[];
 int N;
@@ -76,7 +76,7 @@ return( ans );
  * Otherwise same as polevl.
  */
 
-double torch_cephes_p1evl( x, coef, N )
+double p1evl( x, coef, N )
 double x;
 double coef[];
 int N;

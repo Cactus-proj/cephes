@@ -335,36 +335,35 @@ static unsigned short R[] = {
 #define Hb Wb
 
 #ifdef ANSIPROT
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_frexp ( double, int * );
-extern double torch_cephes_ldexp ( double, int );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_powi ( double, int );
-extern int torch_cephes_signbit ( double );
-extern int torch_cephes_isnan ( double );
-extern int torch_cephes_isfinite ( double );
+extern double floor ( double );
+extern double fabs ( double );
+extern double frexp ( double, int * );
+extern double ldexp ( double, int );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double powi ( double, int );
+extern int signbit ( double );
+extern int isnan ( double );
+extern int isfinite ( double );
 static double reduc ( double );
 #else
-double torch_cephes_floor(), torch_cephes_fabs(), torch_cephes_frexp(),
-    torch_cephes_ldexp();
-double torch_cephes_polevl(), torch_cephes_p1evl(), torch_cephes_powi();
-int torch_cephes_signbit(), torch_cephes_isnan(), torch_cephes_isfinite();
+double floor(), fabs(), frexp(), ldexp();
+double polevl(), p1evl(), powi();
+int signbit(), isnan(), isfinite();
 static double reduc();
 #endif
-extern double torch_cephes_MAXNUM;
+extern double MAXNUM;
 #ifdef INFINITIES
-extern double torch_cephes_INFINITY;
+extern double INFINITY;
 #endif
 #ifdef NANS
-extern double torch_cephes_NAN;
+extern double NAN;
 #endif
 #ifdef MINUSZERO
-extern double torch_cephes_NEGZERO;
+extern double NEGZERO;
 #endif
 
-double torch_cephes_pow( x, y )
+double pow( x, y )
 double x, y;
 {
 double w, z, W, Wa, Wb, ya, yb, u;
@@ -375,9 +374,9 @@ int e, i, nflg, iyflg, yoddint;
 if( y == 0.0 )
 	return( 1.0 );
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return( x );
-if( torch_cephes_isnan(y) )
+if( isnan(y) )
 	return( y );
 #endif
 if( y == 1.0 )
@@ -385,13 +384,13 @@ if( y == 1.0 )
 
 
 #ifdef INFINITIES
-if( !torch_cephes_isfinite(y) && (x == 1.0 || x == -1.0) )
+if( !isfinite(y) && (x == 1.0 || x == -1.0) )
 	{
-	torch_cephes_mtherr( "pow", DOMAIN );
+	mtherr( "pow", DOMAIN );
 #ifdef NANS
-	return( torch_cephes_NAN );
+	return( NAN );
 #else
-	return( torch_cephes_INFINITY );
+	return( INFINITY );
 #endif
 	}
 #endif
@@ -399,63 +398,63 @@ if( !torch_cephes_isfinite(y) && (x == 1.0 || x == -1.0) )
 if( x == 1.0 )
 	return( 1.0 );
 
-if( y >= torch_cephes_MAXNUM )
+if( y >= MAXNUM )
 	{
 #ifdef INFINITIES
 	if( x > 1.0 )
-		return( torch_cephes_INFINITY );
+		return( INFINITY );
 #else
 	if( x > 1.0 )
-		return( torch_cephes_MAXNUM );
+		return( MAXNUM );
 #endif
 	if( x > 0.0 && x < 1.0 )
 		return( 0.0);
 	if( x < -1.0 )
 		{
 #ifdef INFINITIES
-		return( torch_cephes_INFINITY );
+		return( INFINITY );
 #else
-		return( torch_cephes_MAXNUM );
+		return( MAXNUM );
 #endif
 		}
 	if( x > -1.0 && x < 0.0 )
 		return( 0.0 );
 	}
-if( y <= -torch_cephes_MAXNUM )
+if( y <= -MAXNUM )
 	{
 	if( x > 1.0 )
 		return( 0.0 );
 #ifdef INFINITIES
 	if( x > 0.0 && x < 1.0 )
-		return( torch_cephes_INFINITY );
+		return( INFINITY );
 #else
 	if( x > 0.0 && x < 1.0 )
-		return( torch_cephes_MAXNUM );
+		return( MAXNUM );
 #endif
 	if( x < -1.0 )
 		return( 0.0 );
 #ifdef INFINITIES
 	if( x > -1.0 && x < 0.0 )
-		return( torch_cephes_INFINITY );
+		return( INFINITY );
 #else
 	if( x > -1.0 && x < 0.0 )
-		return( torch_cephes_MAXNUM );
+		return( MAXNUM );
 #endif
 	}
-if( x >= torch_cephes_MAXNUM )
+if( x >= MAXNUM )
 	{
 #if INFINITIES
 	if( y > 0.0 )
-		return( torch_cephes_INFINITY );
+		return( INFINITY );
 #else
 	if( y > 0.0 )
-		return( torch_cephes_MAXNUM );
+		return( MAXNUM );
 #endif
 	return(0.0);
 	}
 /* Set iyflg to 1 if y is an integer.  */
 iyflg = 0;
-w = torch_cephes_floor(y);
+w = floor(y);
 if( w == y )
 	iyflg = 1;
 
@@ -463,32 +462,32 @@ if( w == y )
 yoddint = 0;
 if( iyflg )
 	{
-	ya = torch_cephes_fabs(y);
-	ya = torch_cephes_floor(0.5 * ya);
-	yb = 0.5 * torch_cephes_fabs(w);
+	ya = fabs(y);
+	ya = floor(0.5 * ya);
+	yb = 0.5 * fabs(w);
 	if( ya != yb )
 		yoddint = 1;
 	}
 
-if( x <= -torch_cephes_MAXNUM )
+if( x <= -MAXNUM )
 	{
 	if( y > 0.0 )
 		{
 #ifdef INFINITIES
 		if( yoddint )
-			return( -torch_cephes_INFINITY );
-		return( torch_cephes_INFINITY );
+			return( -INFINITY );
+		return( INFINITY );
 #else
 		if( yoddint )
-			return( -torch_cephes_MAXNUM );
-		return( torch_cephes_MAXNUM );
+			return( -MAXNUM );
+		return( MAXNUM );
 #endif
 		}
 	if( y < 0.0 )
 		{
 #ifdef MINUSZERO
 		if( yoddint )
-			return( torch_cephes_NEGZERO );
+			return( NEGZERO );
 #endif
 		return( 0.0 );
 		}
@@ -502,20 +501,20 @@ if( x <= 0.0 )
 		if( y < 0.0 )
 			{
 #ifdef MINUSZERO
-			if( torch_cephes_signbit(x) && yoddint )
-				return( -torch_cephes_INFINITY );
+			if( signbit(x) && yoddint )
+				return( -INFINITY );
 #endif
 #ifdef INFINITIES
-			return( torch_cephes_INFINITY );
+			return( INFINITY );
 #else
-			return( torch_cephes_MAXNUM );
+			return( MAXNUM );
 #endif
 			}
 		if( y > 0.0 )
 			{
 #ifdef MINUSZERO
-			if( torch_cephes_signbit(x) && yoddint )
-				return( torch_cephes_NEGZERO );
+			if( signbit(x) && yoddint )
+				return( NEGZERO );
 #endif
 			return( 0.0 );
 			}
@@ -525,9 +524,9 @@ if( x <= 0.0 )
 		{
 		if( iyflg == 0 )
 			{ /* noninteger power of negative number */
-			torch_cephes_mtherr( fname, DOMAIN );
+			mtherr( fname, DOMAIN );
 #ifdef NANS
-			return(torch_cephes_NAN);
+			return(NAN);
 #else
 			return(0.0L);
 #endif
@@ -541,23 +540,23 @@ if( x <= 0.0 )
 if( iyflg )
 	{
 	i = w;
-	w = torch_cephes_floor(x);
-	if( (w == x) && (torch_cephes_fabs(y) < 32768.0) )
+	w = floor(x);
+	if( (w == x) && (fabs(y) < 32768.0) )
 		{
-		w = torch_cephes_powi( x, (int) y );
+		w = powi( x, (int) y );
 		return( w );
 		}
 	}
 
 if( nflg )
-	x = torch_cephes_fabs(x);
+	x = fabs(x);
 
 /* For results close to 1, use a series expansion.  */
 w = x - 1.0;
-aw = torch_cephes_fabs(w);
-ay = torch_cephes_fabs(y);
+aw = fabs(w);
+ay = fabs(y);
 wy = w * y;
-ya = torch_cephes_fabs(wy);
+ya = fabs(wy);
 if((aw <= 1.0e-3 && ay <= 1.0)
    || (ya <= 1.0e-3 && ay >= 1.0))
 	{
@@ -567,8 +566,8 @@ if((aw <= 1.0e-3 && ay <= 1.0)
 	}
 /* These are probably too much trouble.  */
 #if 0
-w = y * torch_cephes_log(x);
-if (aw > 1.0e-3 && torch_cephes_fabs(w) < 1.0e-3)
+w = y * log(x);
+if (aw > 1.0e-3 && fabs(w) < 1.0e-3)
   {
     z = ((((((
     w/7. + 1.)*w/6. + 1.)*w/5. + 1.)*w/4. + 1.)*w/3. + 1.)*w/2. + 1.)*w + 1.;
@@ -590,7 +589,7 @@ if(ya <= 1.0e-3 && aw <= 1.0e-4)
 #endif
 
 /* separate significand from exponent */
-x = torch_cephes_frexp( x, &e );
+x = frexp( x, &e );
 
 #if 0
 /* For debugging, check for gross overflow. */
@@ -628,8 +627,8 @@ x /= douba(i);
  * log(1+v)  =  v  -  v**2/2  +  v**3 P(v) / Q(v)
  */
 z = x*x;
-w = x * ( z * torch_cephes_polevl( x, P, 3 ) / torch_cephes_p1evl( x, Q, 4 ) );
-w = w - torch_cephes_ldexp( z, -1 );   /*  w - 0.5 * z  */
+w = x * ( z * polevl( x, P, 3 ) / p1evl( x, Q, 4 ) );
+w = w - ldexp( z, -1 );   /*  w - 0.5 * z  */
 
 /* Convert to base 2 logarithm:
  * multiply by log2(e)
@@ -645,7 +644,7 @@ z = z + x;
 
 /* Compute exponent term of the base 2 logarithm. */
 w = -i;
-w = torch_cephes_ldexp( w, -4 );	/* divide by 16 */
+w = ldexp( w, -4 );	/* divide by 16 */
 w += e;
 /* Now base 2 log of x is w + z. */
 
@@ -668,33 +667,33 @@ Gb = G - Ga;
 
 H = Fb + Gb;
 Ha = reduc(H);
-w = torch_cephes_ldexp( Ga+Ha, 4 );
+w = ldexp( Ga+Ha, 4 );
 
 /* Test the power of 2 for overflow */
 if( w > MEXP )
 	{
 #ifndef INFINITIES
-	torch_cephes_mtherr( fname, OVERFLOW );
+	mtherr( fname, OVERFLOW );
 #endif
 #ifdef INFINITIES
 	if( nflg && yoddint )
-	  return( -torch_cephes_INFINITY );
-	return( torch_cephes_INFINITY );
+	  return( -INFINITY );
+	return( INFINITY );
 #else
 	if( nflg && yoddint )
-	  return( -torch_cephes_MAXNUM );
-	return( torch_cephes_MAXNUM );
+	  return( -MAXNUM );
+	return( MAXNUM );
 #endif
 	}
 
 if( w < (MNEXP - 1) )
 	{
 #ifndef DENORMAL
-	torch_cephes_mtherr( fname, UNDERFLOW );
+	mtherr( fname, UNDERFLOW );
 #endif
 #ifdef MINUSZERO
 	if( nflg && yoddint )
-	  return( torch_cephes_NEGZERO );
+	  return( NEGZERO );
 #endif
 	return( 0.0 );
 	}
@@ -713,7 +712,7 @@ if( Hb > 0.0 )
  * Compute base 2 exponential of Hb,
  * where -0.0625 <= Hb <= 0.
  */
-z = Hb * torch_cephes_polevl( Hb, R, 6 );  /*    z  =  2**Hb - 1    */
+z = Hb * polevl( Hb, R, 6 );  /*    z  =  2**Hb - 1    */
 
 /* Express e/16 as an integer plus a negative number of 16ths.
  * Find lookup table entry for the fractional power of 2.
@@ -726,7 +725,7 @@ i = e/16 + i;
 e = 16*i - e;
 w = douba( e );
 z = w + w * z;      /*    2**-e * ( 1 + (2**Hb-1) )    */
-z = torch_cephes_ldexp( z, i );  /* multiply by integer power of 2 */
+z = ldexp( z, i );  /* multiply by integer power of 2 */
 
 done:
 
@@ -735,7 +734,7 @@ if( nflg && yoddint )
 	{
 #ifdef MINUSZERO
 	if( z == 0.0 )
-		z = torch_cephes_NEGZERO;
+		z = NEGZERO;
 	else
 #endif
 		z = -z;
@@ -750,8 +749,8 @@ double x;
 {
 double t;
 
-t = torch_cephes_ldexp( x, 4 );
-t = torch_cephes_floor( t );
-t = torch_cephes_ldexp( t, -4 );
+t = ldexp( x, 4 );
+t = floor( t );
+t = ldexp( t, -4 );
 return(t);
 }

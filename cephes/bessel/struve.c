@@ -37,29 +37,27 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 #include "mconf.h"
 #define DEBUG 0
 #ifdef ANSIPROT
-extern double torch_cephes_gamma ( double );
-extern double torch_cephes_pow ( double, double );
-extern double torch_cephes_sqrt ( double );
-extern double torch_cephes_yn ( int, double );
-extern double torch_cephes_jv ( double, double );
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_sin ( double );
-extern double torch_cephes_cos ( double );
-double torch_cephes_yv ( double, double );
-double torch_cephes_onef2 (double, double, double, double, double * );
-double torch_cephes_threef0 (double, double, double, double, double * );
+extern double gamma ( double );
+extern double pow ( double, double );
+extern double sqrt ( double );
+extern double yn ( int, double );
+extern double jv ( double, double );
+extern double fabs ( double );
+extern double floor ( double );
+extern double sin ( double );
+extern double cos ( double );
+double yv ( double, double );
+double onef2 (double, double, double, double, double * );
+double threef0 (double, double, double, double, double * );
 #else
-double torch_cephes_gamma(), torch_cephes_pow(), torch_cephes_sqrt(),
-    torch_cephes_yn(), torch_cephes_yv(), torch_cephes_jv(),
-    torch_cephes_fabs(), torch_cephes_floor();
-double torch_cephes_sin(), torch_cephes_cos();
-double torch_cephes_onef2(), torch_cephes_threef0();
+double gamma(), pow(), sqrt(), yn(), yv(), jv(), fabs(), floor();
+double sin(), cos();
+double onef2(), threef0();
 #endif
 static double stop = 1.37e-17;
-extern double torch_cephes_MACHEP;
+extern double MACHEP;
 
-double torch_cephes_onef2( a, b, c, x, err )
+double onef2( a, b, c, x, err )
 double a, b, c, x;
 double *err;
 {
@@ -91,11 +89,11 @@ do
 	bn += 1.0;
 	cn += 1.0;
 	n += 1.0;
-	z = torch_cephes_fabs( a0 );
+	z = fabs( a0 );
 	if( z > max )
 		max = z;
 	if( sum != 0 )
-		t = torch_cephes_fabs( a0 / sum );
+		t = fabs( a0 / sum );
 	else
 		t = z;
 	}
@@ -103,7 +101,7 @@ while( t > stop );
 
 done:
 
-*err = torch_cephes_fabs( torch_cephes_MACHEP*max /sum );
+*err = fabs( MACHEP*max /sum );
 
 #if DEBUG
 	printf(" onef2 cancellation error %.5E\n", *err );
@@ -128,7 +126,7 @@ return(sum);
 
 
 
-double torch_cephes_threef0( a, b, c, x, err )
+double threef0( a, b, c, x, err )
 double a, b, c, x;
 double *err;
 {
@@ -161,7 +159,7 @@ do
 	bn += 1.0;
 	cn += 1.0;
 	n += 1.0;
-	z = torch_cephes_fabs( a0 );
+	z = fabs( a0 );
 	if( z > max )
 		max = z;
 	if( z >= conv )
@@ -173,7 +171,7 @@ do
 	conv = z;
 	sum += a0;
 	if( sum != 0 )
-		t = torch_cephes_fabs( a0 / sum );
+		t = fabs( a0 / sum );
 	else
 		t = z;
 	}
@@ -181,12 +179,12 @@ while( t > stop );
 
 done:
 
-t = torch_cephes_fabs( torch_cephes_MACHEP*max/sum );
+t = fabs( MACHEP*max/sum );
 #if DEBUG
 	printf(" threef0 cancellation error %.5E\n", t );
 #endif
 
-max = torch_cephes_fabs( conv/sum );
+max = fabs( conv/sum );
 if( max > t )
 	t = max;
 #if DEBUG
@@ -214,27 +212,27 @@ return(sum);
 
 
 
-extern double torch_cephes_PI;
+extern double PI;
 
-double torch_cephes_struve( v, x )
+double struve( v, x )
 double v, x;
 {
 double y, ya, f, g, h, t;
 double onef2err, threef0err;
 
-f = torch_cephes_floor(v);
+f = floor(v);
 if( (v < 0) && ( v-f == 0.5 ) )
 	{
-	y = torch_cephes_jv( -v, x );
+	y = jv( -v, x );
 	f = 1.0 - f;
-	g =  2.0 * torch_cephes_floor(f/2.0);
+	g =  2.0 * floor(f/2.0);
 	if( g != f )
 		y = -y;
 	return(y);
 	}
 t = 0.25*x*x;
-f = torch_cephes_fabs(x);
-g = 1.5 * torch_cephes_fabs(v);
+f = fabs(x);
+g = 1.5 * fabs(v);
 if( (f > 30.0) && (f > g) )
 	{
 	onef2err = 1.0e38;
@@ -242,7 +240,7 @@ if( (f > 30.0) && (f > g) )
 	}
 else
 	{
-	y = torch_cephes_onef2( 1.0, 1.5, 1.5+v, -t, &onef2err );
+	y = onef2( 1.0, 1.5, 1.5+v, -t, &onef2err );
 	}
 
 if( (f < 18.0) || (x < 0.0) )
@@ -252,22 +250,23 @@ if( (f < 18.0) || (x < 0.0) )
 	}
 else
 	{
-	ya = torch_cephes_threef0( 1.0, 0.5, 0.5-v, -1.0/t, &threef0err );
+	ya = threef0( 1.0, 0.5, 0.5-v, -1.0/t, &threef0err );
 	}
-f = torch_cephes_sqrt( torch_cephes_PI );
-h = torch_cephes_pow( 0.5*x, v-1.0 );
+
+f = sqrt( PI );
+h = pow( 0.5*x, v-1.0 );
 
 if( onef2err <= threef0err )
 	{
-	g = torch_cephes_gamma( v + 1.5 );
+	g = gamma( v + 1.5 );
 	y = y * h * t / ( 0.5 * f * g );
 	return(y);
 	}
 else
 	{
-	g = torch_cephes_gamma( v + 0.5 );
+	g = gamma( v + 0.5 );
 	ya = ya * h / ( f * g );
-	ya = ya + torch_cephes_yv( v, x );
+	ya = ya + yv( v, x );
 	return(ya);
 	}
 }
@@ -278,22 +277,21 @@ else
 /* Bessel function of noninteger order
  */
 
-double torch_cephes_yv( v, x )
+double yv( v, x )
 double v, x;
 {
 double y, t;
 int n;
 
-y = torch_cephes_floor( v );
+y = floor( v );
 if( y == v )
 	{
 	n = v;
-	y = torch_cephes_yn( n, x );
+	y = yn( n, x );
 	return( y );
 	}
-t = torch_cephes_PI * v;
-y = (torch_cephes_cos(t) * torch_cephes_jv( v, x )
-     - torch_cephes_jv( -v, x ))/torch_cephes_sin(t);
+t = PI * v;
+y = (cos(t) * jv( v, x ) - jv( -v, x ))/sin(t);
 return( y );
 }
 

@@ -95,17 +95,16 @@ static unsigned short Q[] = {
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
+extern double fabs ( double );
+extern double exp ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
 #else
-double torch_cephes_fabs(), torch_cephes_exp(), torch_cephes_polevl(),
-    torch_cephes_p1evl();
+double fabs(), exp(), polevl(), p1evl();
 #endif
-extern double torch_cephes_MAXLOG;
+extern double MAXLOG;
 
-double torch_cephes_tanh(x)
+double tanh(x)
 double x;
 {
 double s, z;
@@ -114,8 +113,8 @@ double s, z;
 if( x == 0.0 )
 	return(x);
 #endif
-z = torch_cephes_fabs(x);
-if( z > 0.5 * torch_cephes_MAXLOG )
+z = fabs(x);
+if( z > 0.5 * MAXLOG )
 	{
 	if( x > 0 )
 		return( 1.0 );
@@ -124,7 +123,7 @@ if( z > 0.5 * torch_cephes_MAXLOG )
 	}
 if( z >= 0.625 )
 	{
-	s = torch_cephes_exp(2.0*z);
+	s = exp(2.0*z);
 	z =  1.0  - 2.0/(s + 1.0);
 	if( x < 0 )
 		z = -z;
@@ -134,7 +133,7 @@ else
 	if( x == 0.0 )
 	  return(x);
 	s = x * x;
-	z = torch_cephes_polevl( s, P, 2 )/torch_cephes_p1evl(s, Q, 3);
+	z = polevl( s, P, 2 )/p1evl(s, Q, 3);
 	z = x * s * z;
 	z = x + z;
 	}

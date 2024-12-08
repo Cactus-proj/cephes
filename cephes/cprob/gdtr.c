@@ -97,34 +97,34 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 #ifdef ANSIPROT
-extern double torch_cephes_igam ( double, double );
-extern double torch_cephes_igamc ( double, double );
+extern double igam ( double, double );
+extern double igamc ( double, double );
 #else
-double torch_cephes_igam(), torch_cephes_igamc();
+double igam(), igamc();
 #endif
 
-double torch_cephes_gdtr( a, b, x )
+double gdtr( a, b, x )
 double a, b, x;
 {
 
 if( x < 0.0 )
 	{
-	torch_cephes_mtherr( "gdtr", DOMAIN );
+	mtherr( "gdtr", DOMAIN );
 	return( 0.0 );
 	}
-return(  torch_cephes_igam( b, a * x )  );
+return(  igam( b, a * x )  );
 }
 
 
 
-double torch_cephes_gdtrc( a, b, x )
+double gdtrc( a, b, x )
 double a, b, x;
 {
 
 if( x < 0.0 )
 	{
-	torch_cephes_mtherr( "gdtrc", DOMAIN );
+	mtherr( "gdtrc", DOMAIN );
 	return( 0.0 );
 	}
-return(  torch_cephes_igamc( b, a * x )  );
+return(  igamc( b, a * x )  );
 }

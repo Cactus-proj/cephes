@@ -119,53 +119,52 @@ static unsigned short Q[] = {
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_ldexp ( double, int );
-extern int torch_cephes_isnan ( double );
-extern int torch_cephes_isfinite ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double floor ( double );
+extern double ldexp ( double, int );
+extern int isnan ( double );
+extern int isfinite ( double );
 #else
-double torch_cephes_polevl(), torch_cephes_p1evl(), torch_cephes_floor(),
-  torch_cephes_ldexp();
-int torch_cephes_isnan(), torch_cephes_isfinite();
+double polevl(), p1evl(), floor(), ldexp();
+int isnan(), isfinite();
 #endif
 #ifdef INFINITIES
-extern double torch_cephes_INFINITY;
+extern double INFINITY;
 #endif
-extern double torch_cephes_MAXNUM;
+extern double MAXNUM;
 
-double torch_cephes_exp2(x)
+double exp2(x)
 double x;
 {
 double px, xx;
 short n;
 
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
 #endif
 if( x > MAXL2)
 	{
 #ifdef INFINITIES
-	return( torch_cephes_INFINITY );
+	return( INFINITY );
 #else
-	torch_cephes_mtherr( "exp2", OVERFLOW );
-	return( torch_cephes_MAXNUM );
+	mtherr( "exp2", OVERFLOW );
+	return( MAXNUM );
 #endif
 	}
 
 if( x < MINL2 )
 	{
 #ifndef INFINITIES
-	torch_cephes_mtherr( "exp2", UNDERFLOW );
+	mtherr( "exp2", UNDERFLOW );
 #endif
 	return(0.0);
 	}
 
 xx = x;	/* save x */
 /* separate into integer and fractional parts */
-px = torch_cephes_floor(x+0.5);
+px = floor(x+0.5);
 n = px;
 x = x - px;
 
@@ -174,11 +173,11 @@ x = x - px;
  * where xx = x**2
  */
 xx = x * x;
-px = x * torch_cephes_polevl( xx, P, 2 );
-x =  px / ( torch_cephes_p1evl( xx, Q, 2 ) - px );
-x = 1.0 + torch_cephes_ldexp( x, 1 );
+px = x * polevl( xx, P, 2 );
+x =  px / ( p1evl( xx, Q, 2 ) - px );
+x = 1.0 + ldexp( x, 1 );
 
 /* scale by power of 2 */
-x = torch_cephes_ldexp( x, n );
+x = ldexp( x, n );
 return(x);
 }

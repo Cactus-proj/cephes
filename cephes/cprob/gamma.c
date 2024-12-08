@@ -266,35 +266,33 @@ static unsigned short SQT[4] = {
 #define SQTPI *(double *)SQT
 #endif
 
-int torch_cephes_sgngam = 0;
-extern int torch_cephessgngam;
-extern double torch_cephes_MAXLOG, torch_cephes_MAXNUM, torch_cephes_PI;
+int sgngam = 0;
+extern int sgngam;
+extern double MAXLOG, MAXNUM, PI;
 #ifdef ANSIPROT
-extern double torch_cephes_pow ( double, double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_sin ( double );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_fabs ( double );
-extern int torch_cephes_isnan ( double );
-extern int torch_cephes_isfinite ( double );
+extern double pow ( double, double );
+extern double log ( double );
+extern double exp ( double );
+extern double sin ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double floor ( double );
+extern double fabs ( double );
+extern int isnan ( double );
+extern int isfinite ( double );
 static double stirf ( double );
-double torch_cephes_lgam ( double );
+double lgam ( double );
 #else
-double torch_cephes_pow(), torch_cephes_log(), torch_cephes_exp(),
-    torch_cephes_sin(), torch_cephes_polevl(), torch_cephes_p1evl(),
-    torch_cephes_floor(), torch_cephes_fabs();
-int torch_cephes_isnan(), torch_cephes_isfinite();
+double pow(), log(), exp(), sin(), polevl(), p1evl(), floor(), fabs();
+int isnan(), isfinite();
 static double stirf();
-double torch_cephes_lgam();
+double lgam();
 #endif
 #ifdef INFINITIES
-extern double torch_cephes_INFINITY;
+extern double INFINITY;
 #endif
 #ifdef NANS
-extern double torch_cephes_NAN;
+extern double NAN;
 #endif
 
 /* Gamma function computed by Stirling's formula.
@@ -306,16 +304,16 @@ double x;
 double y, w, v;
 
 w = 1.0/x;
-w = 1.0 + w * torch_cephes_polevl( w, STIR, 4 );
-y = torch_cephes_exp(x);
+w = 1.0 + w * polevl( w, STIR, 4 );
+y = exp(x);
 if( x > MAXSTIR )
 	{ /* Avoid overflow in pow() */
-	v = torch_cephes_pow( x, 0.5 * x - 0.25 );
+	v = pow( x, 0.5 * x - 0.25 );
 	y = v * (v / y);
 	}
 else
 	{
-	y = torch_cephes_pow( x, x - 0.5 ) / y;
+	y = pow( x, x - 0.5 ) / y;
 	}
 y = SQTPI * y * w;
 return( y );
@@ -323,73 +321,73 @@ return( y );
 
 
 
-double torch_cephes_gamma(x)
+double gamma(x)
 double x;
 {
 double p, q, z;
 int i;
 
-torch_cephes_sgngam = 1;
+sgngam = 1;
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
 #endif
 #ifdef INFINITIES
 #ifdef NANS
-if( x == torch_cephes_INFINITY )
+if( x == INFINITY )
 	return(x);
-if( x == -torch_cephes_INFINITY )
-	return(torch_cephes_NAN);
+if( x == -INFINITY )
+	return(NAN);
 #else
-if( !torch_cephes_isfinite(x) )
+if( !isfinite(x) )
 	return(x);
 #endif
 #endif
-q = torch_cephes_fabs(x);
+q = fabs(x);
 
 if( q > 33.0 )
 	{
 	if( x < 0.0 )
 		{
-		p = torch_cephes_floor(q);
+		p = floor(q);
 		if( p == q )
 			{
 #ifdef NANS
 gamnan:
-			torch_cephes_mtherr( "gamma", DOMAIN );
-			return (torch_cephes_NAN);
+			mtherr( "gamma", DOMAIN );
+			return (NAN);
 #else
 			goto goverf;
 #endif
 			}
 		i = p;
 		if( (i & 1) == 0 )
-			torch_cephes_sgngam = -1;
+			sgngam = -1;
 		z = q - p;
 		if( z > 0.5 )
 			{
 			p += 1.0;
 			z = q - p;
 			}
-		z = q * torch_cephes_sin( torch_cephes_PI * z );
+		z = q * sin( PI * z );
 		if( z == 0.0 )
 			{
 #ifdef INFINITIES
-			return( torch_cephes_sgngam * torch_cephes_INFINITY);
+			return( sgngam * INFINITY);
 #else
 goverf:
-			torch_cephes_mtherr( "gamma", OVERFLOW );
-			return( torch_cephes_sgngam * torch_cephes_MAXNUM);
+			mtherr( "gamma", OVERFLOW );
+			return( sgngam * MAXNUM);
 #endif
 			}
-		z = torch_cephes_fabs(z);
-		z = torch_cephes_PI/(z * stirf(q) );
+		z = fabs(z);
+		z = PI/(z * stirf(q) );
 		}
 	else
 		{
 		z = stirf(x);
 		}
-	return( torch_cephes_sgngam * z );
+	return( sgngam * z );
 	}
 
 z = 1.0;
@@ -419,8 +417,8 @@ if( x == 2.0 )
 	return(z);
 
 x -= 2.0;
-p = torch_cephes_polevl( x, P, 6 );
-q = torch_cephes_polevl( x, Q, 7 );
+p = polevl( x, P, 6 );
+q = polevl( x, Q, 7 );
 return( z * p / q );
 
 small:
@@ -430,11 +428,11 @@ if( x == 0.0 )
 #ifdef NANS
 	  goto gamnan;
 #else
-	  return( torch_cephes_INFINITY );
+	  return( INFINITY );
 #endif
 #else
-	torch_cephes_mtherr( "gamma", SING );
-	return( torch_cephes_MAXNUM );
+	mtherr( "gamma", SING );
+	return( MAXNUM );
 #endif
 	}
 else
@@ -576,54 +574,54 @@ static unsigned short LS2P[] = {
 /* Logarithm of gamma function */
 
 
-double torch_cephes_lgam(x)
+double lgam(x)
 double x;
 {
 double p, q, u, w, z;
 int i;
 
-torch_cephes_sgngam = 1;
+sgngam = 1;
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
 #endif
 
 #ifdef INFINITIES
-if( !torch_cephes_isfinite(x) )
-	return(torch_cephes_INFINITY);
+if( !isfinite(x) )
+	return(INFINITY);
 #endif
 
 if( x < -34.0 )
 	{
 	q = -x;
-	w = torch_cephes_lgam(q); /* note this modifies sgngam! */
-	p = torch_cephes_floor(q);
+	w = lgam(q); /* note this modifies sgngam! */
+	p = floor(q);
 	if( p == q )
 		{
 lgsing:
 #ifdef INFINITIES
-		torch_cephes_mtherr( "lgam", SING );
-		return (torch_cephes_INFINITY);
+		mtherr( "lgam", SING );
+		return (INFINITY);
 #else
 		goto loverf;
 #endif
 		}
 	i = p;
 	if( (i & 1) == 0 )
-		torch_cephes_sgngam = -1;
+		sgngam = -1;
 	else
-		torch_cephes_sgngam = 1;
+		sgngam = 1;
 	z = q - p;
 	if( z > 0.5 )
 		{
 		p += 1.0;
 		z = p - q;
 		}
-	z = q * torch_cephes_sin( torch_cephes_PI * z );
+	z = q * sin( PI * z );
 	if( z == 0.0 )
 		goto lgsing;
 /*	z = log(PI) - log( z ) - w;*/
-	z = LOGPI - torch_cephes_log( z ) - w;
+	z = LOGPI - log( z ) - w;
 	return( z );
 	}
 
@@ -648,31 +646,31 @@ if( x < 13.0 )
 		}
 	if( z < 0.0 )
 		{
-		torch_cephes_sgngam = -1;
+		sgngam = -1;
 		z = -z;
 		}
 	else
-		torch_cephes_sgngam = 1;
+		sgngam = 1;
 	if( u == 2.0 )
 		return( log(z) );
 	p -= 2.0;
 	x = x + p;
-	p = x * torch_cephes_polevl( x, B, 5 ) / torch_cephes_p1evl( x, C, 6);
+	p = x * polevl( x, B, 5 ) / p1evl( x, C, 6);
 	return( log(z) + p );
 	}
 
 if( x > MAXLGM )
 	{
 #ifdef INFINITIES
-	return( torch_cephes_sgngam * torch_cephes_INFINITY );
+	return( sgngam * INFINITY );
 #else
 loverf:
-	torch_cephes_mtherr( "lgam", torch_cephes_OVERFLOW );
-	return( torch_cephes_sgngam * torch_cephes_MAXNUM );
+	mtherr( "lgam", OVERFLOW );
+	return( sgngam * MAXNUM );
 #endif
 	}
 
-q = ( x - 0.5 ) * torch_cephes_log(x) - x + LS2PI;
+q = ( x - 0.5 ) * log(x) - x + LS2PI;
 if( x > 1.0e8 )
 	return( q );
 
@@ -682,6 +680,6 @@ if( x >= 1000.0 )
 		- 2.7777777777777777777778e-3) *p
 		+ 0.0833333333333333333333) / x;
 else
-	q += torch_cephes_polevl( p, A, 4 ) / x;
+	q += polevl( p, A, 4 ) / x;
 return( q );
 }

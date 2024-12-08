@@ -190,10 +190,10 @@ typedef struct
 #if 1
 /* #ifdef __STDC__ */
 #define ANSIPROT 1
-int torch_cephes_mtherr ( char *, int );
+int mtherr ( char *, int );
 #else
-int torch_cephes_mtherr();
+int mtherr();
 #endif
 
 /* Variable for error reporting.  See mtherr.c.  */
-extern int torch_cephes_merror;
+extern int merror;

@@ -216,8 +216,8 @@ local functions_list = {
 
 -- Link to torch_merr.c error reporting
 ffi.cdef[[
-    int torch_cephes_merror;
-    char torch_cephes_errtxt[100];
+    int merror;
+    char errtxt[100];
 ]]
 
 local function applyNotInPlace(input, output, func)
@@ -384,7 +384,7 @@ local function create_wrapper(name, parameters, returnType)
             end
         end
         -- Reset error status
-        cephes.ffi.torch_cephes_merror = 0
+        cephes.ffi.merror = 0
         local result, params = cephes._check1DParams(#parameters, tensorReturnType, ...)
 
         if result then

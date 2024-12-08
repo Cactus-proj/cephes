@@ -28,15 +28,15 @@
 
 #include "mconf.h"
 #ifdef ANSIPROT
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_floor ( double );
-double torch_cephes_euclid( double *, double * );
+extern double fabs ( double );
+extern double floor ( double );
+double euclid( double *, double * );
 #else
-double torch_cephes_fabs(), torch_cephes_floor(), torch_cephes_euclid();
+double fabs(), floor(), euclid();
 #endif
 
-extern double torch_cephes_MACHEP;
-#define BIG (1.0/torch_cephes_MACHEP)
+extern double MACHEP;
+#define BIG (1.0/MACHEP)
 
 typedef struct
 	{
@@ -46,7 +46,7 @@ typedef struct
 
 /* Add fractions. */
 
-void torch_cephes_radd( f1, f2, f3 )
+void radd( f1, f2, f3 )
 fract *f1, *f2, *f3;
 {
 double gcd, d1, d2, gcn, n1, n2;
@@ -68,20 +68,20 @@ if( n2 == 0.0 )
 	return;
 	}
 
-gcd = torch_cephes_euclid( &d1, &d2 ); /* common divisors of denominators */
-gcn = torch_cephes_euclid( &n1, &n2 ); /* common divisors of numerators */
+gcd = euclid( &d1, &d2 ); /* common divisors of denominators */
+gcn = euclid( &n1, &n2 ); /* common divisors of numerators */
 /* Note, factoring the numerators
  * makes overflow slightly less likely.
  */
 f3->n = ( n1 * d2 + n2 * d1) * gcn;
 f3->d = d1 * d2 * gcd;
-torch_cephes_euclid( &f3->n, &f3->d );
+euclid( &f3->n, &f3->d );
 }
 
 
 /* Subtract fractions. */
 
-void torch_cephes_rsub( f1, f2, f3 )
+void rsub( f1, f2, f3 )
 fract *f1, *f2, *f3;
 {
 double gcd, d1, d2, gcn, n1, n2;
@@ -103,11 +103,11 @@ if( n2 == 0.0 )
 	return;
 	}
 
-gcd = torch_cephes_euclid( &d1, &d2 );
-gcn = torch_cephes_euclid( &n1, &n2 );
+gcd = euclid( &d1, &d2 );
+gcn = euclid( &n1, &n2 );
 f3->n = (n2 * d1 - n1 * d2) * gcn;
 f3->d = d1 * d2 * gcd;
-torch_cephes_euclid( &f3->n, &f3->d );
+euclid( &f3->n, &f3->d );
 }
 
 
@@ -115,7 +115,7 @@ torch_cephes_euclid( &f3->n, &f3->d );
 
 /* Multiply fractions. */
 
-void torch_cephes_rmul( ff1, ff2, ff3 )
+void rmul( ff1, ff2, ff3 )
 fract *ff1, *ff2, *ff3;
 {
 double d1, d2, n1, n2;
@@ -131,14 +131,14 @@ if( (n1 == 0.0) || (n2 == 0.0) )
 	ff3->d = 1.0;
 	return;
 	}
-torch_cephes_euclid( &n1, &d2 ); /* cross cancel common divisors */
-torch_cephes_euclid( &n2, &d1 );
+euclid( &n1, &d2 ); /* cross cancel common divisors */
+euclid( &n2, &d1 );
 ff3->n = n1 * n2;
 ff3->d = d1 * d2;
 /* Report overflow. */
-if( (torch_cephes_fabs(ff3->n) >= BIG) || (torch_cephes_fabs(ff3->d) >= BIG) )
+if( (fabs(ff3->n) >= BIG) || (fabs(ff3->d) >= BIG) )
 	{
-	torch_cephes_mtherr( "rmul", OVERFLOW );
+	mtherr( "rmul", OVERFLOW );
 	return;
 	}
 /* euclid( &ff3->n, &ff3->d );*/
@@ -148,7 +148,7 @@ if( (torch_cephes_fabs(ff3->n) >= BIG) || (torch_cephes_fabs(ff3->d) >= BIG) )
 
 /* Divide fractions. */
 
-void torch_cephes_rdiv( ff1, ff2, ff3 )
+void rdiv( ff1, ff2, ff3 )
 fract *ff1, *ff2, *ff3;
 {
 double d1, d2, n1, n2;
@@ -169,14 +169,14 @@ if( (n1 == 0.0) || (n2 == 0.0) )
 	return;
 	}
 
-torch_cephes_euclid( &n1, &d2 ); /* cross cancel any common divisors */
-torch_cephes_euclid( &n2, &d1 );
+euclid( &n1, &d2 ); /* cross cancel any common divisors */
+euclid( &n2, &d1 );
 ff3->n = n1 * n2;
 ff3->d = d1 * d2;
 /* Report overflow. */
-if( (torch_cephes_fabs(ff3->n) >= BIG) || (torch_cephes_fabs(ff3->d) >= BIG) )
+if( (fabs(ff3->n) >= BIG) || (fabs(ff3->d) >= BIG) )
 	{
-	torch_cephes_mtherr( "rdiv", OVERFLOW );
+	mtherr( "rdiv", OVERFLOW );
 	return;
 	}
 /* euclid( &ff3->n, &ff3->d );*/
@@ -192,7 +192,7 @@ if( (torch_cephes_fabs(ff3->n) >= BIG) || (torch_cephes_fabs(ff3->d) >= BIG) )
  */
 
 
-double torch_cephes_euclid( num, den )
+double euclid( num, den )
 double *num, *den;
 {
 double n, d, q, r;
@@ -209,7 +209,7 @@ if( d < 0.0 )
 /* Abort if numbers are too big for integer arithmetic. */
 if( (n >= BIG) || (d >= BIG) )
 	{
-	torch_cephes_mtherr( "euclid", OVERFLOW );
+	mtherr( "euclid", OVERFLOW );
 	return(1.0);
 	}
 
@@ -233,7 +233,7 @@ if(n == 0.0)
 while( d > 0.5 )
 	{
 /* Find integer part of n divided by d. */
-	q = torch_cephes_floor( n/d );
+	q = floor( n/d );
 /* Find remainder after dividing n by d. */
 	r = n - d * q;
 /* The next fraction is d/r. */
@@ -242,9 +242,10 @@ while( d > 0.5 )
 	}
 
 if( n < 0.0 )
-	torch_cephes_mtherr( "euclid", UNDERFLOW );
+	mtherr( "euclid", UNDERFLOW );
 
 *num /= n;
 *den /= n;
 return( n );
 }
+

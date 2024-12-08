@@ -61,13 +61,13 @@ Copyright 1984, 1987, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 #ifdef ANSIPROT
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_pow ( double, double );
-extern double torch_cephes_floor ( double );
+extern double fabs ( double );
+extern double pow ( double, double );
+extern double floor ( double );
 #else
-double torch_cephes_fabs(), torch_cephes_pow(), torch_cephes_floor();
+double fabs(), pow(), floor();
 #endif
-extern double torch_cephes_MAXNUM, torch_cephes_MACHEP;
+extern double MAXNUM, MACHEP;
 
 /* Expansion coefficients
  * for Euler-Maclaurin summation formula
@@ -91,7 +91,7 @@ static double A[] = {
 /* 30 Nov 86 -- error in third coefficient fixed */
 
 
-double torch_cephes_zeta(x,q)
+double zeta(x,q)
 double x,q;
 {
 int i;
@@ -103,19 +103,19 @@ if( x == 1.0 )
 if( x < 1.0 )
 	{
 domerr:
-	torch_cephes_mtherr( "zeta", DOMAIN );
+	mtherr( "zeta", DOMAIN );
 	return(0.0);
 	}
 
 if( q <= 0.0 )
 	{
-	if(q == torch_cephes_floor(q))
+	if(q == floor(q))
 		{
-		torch_cephes_mtherr( "zeta", SING );
+		mtherr( "zeta", SING );
 retinf:
-		return( torch_cephes_MAXNUM );
+		return( MAXNUM );
 		}
-	if( x != torch_cephes_floor(x) )
+	if( x != floor(x) )
 		goto domerr; /* because q^-x not defined */
 	}
 
@@ -129,7 +129,7 @@ if( x < 25.0 )
  * If q<0 and x is an integer, there is a relation to
  * the polygamma function.
  */
-s = torch_cephes_pow( q, -x );
+s = pow( q, -x );
 a = q;
 i = 0;
 b = 0.0;
@@ -137,9 +137,9 @@ while( (i < 9) || (a <= 9.0) )
 	{
 	i += 1;
 	a += 1.0;
-	b = torch_cephes_pow( a, -x );
+	b = pow( a, -x );
 	s += b;
-	if( torch_cephes_fabs(b/s) < torch_cephes_MACHEP )
+	if( fabs(b/s) < MACHEP )
 		goto done;
 	}
 
@@ -154,8 +154,8 @@ for( i=0; i<12; i++ )
 	b /= w;
 	t = a*b/A[i];
 	s = s + t;
-	t = torch_cephes_fabs(t/s);
-	if( t < torch_cephes_MACHEP )
+	t = fabs(t/s);
+	if( t < MACHEP )
 		goto done;
 	k += 1.0;
 	a *= x + k;

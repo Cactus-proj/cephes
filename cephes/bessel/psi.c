@@ -109,18 +109,17 @@ static unsigned short A[] = {
 #define EUL 0.57721566490153286061
 
 #ifdef ANSIPROT
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_tan ( double );
-extern double torch_cephes_polevl ( double, void *, int );
+extern double floor ( double );
+extern double log ( double );
+extern double tan ( double );
+extern double polevl ( double, void *, int );
 #else
-double torch_cephes_floor(), torch_cephes_log(), torch_cephes_tan(),
-    torch_cephes_polevl();
+double floor(), log(), tan(), polevl();
 #endif
-extern double torch_cephes_PI, torch_cephes_MAXNUM;
+extern double PI, MAXNUM;
 
 
-double torch_cephes_psi(x)
+double psi(x)
 double x;
 {
 double p, q, nz, s, w, y, z;
@@ -133,11 +132,11 @@ if( x <= 0.0 )
 	{
 	negative = 1;
 	q = x;
-	p = torch_cephes_floor(q);
+	p = floor(q);
 	if( p == q )
 		{
-		torch_cephes_mtherr( "psi", SING );
-		return( torch_cephes_MAXNUM );
+		mtherr( "psi", SING );
+		return( MAXNUM );
 		}
 /* Remove the zeros of tan(PI x)
  * by subtracting the nearest integer from x
@@ -150,7 +149,7 @@ if( x <= 0.0 )
 			p += 1.0;
 			nz = q - p;
 			}
-		nz = torch_cephes_PI/torch_cephes_tan(torch_cephes_PI*nz);
+		nz = PI/tan(PI*nz);
 		}
 	else
 		{
@@ -160,7 +159,7 @@ if( x <= 0.0 )
 	}
 
 /* check for positive integer up to 10 */
-if( (x <= 10.0) && (x == torch_cephes_floor(x)) )
+if( (x <= 10.0) && (x == floor(x)) )
 	{
 	y = 0.0;
 	n = x;
@@ -184,12 +183,12 @@ while( s < 10.0 )
 if( s < 1.0e17 )
 	{
 	z = 1.0/(s * s);
-	y = z * torch_cephes_polevl( z, A, 6 );
+	y = z * polevl( z, A, 6 );
 	}
 else
 	y = 0.0;
 
-y = torch_cephes_log(s)  -  (0.5/s)  -  y  -  w;
+y = log(s)  -  (0.5/s)  -  y  -  w;
 
 done:
 

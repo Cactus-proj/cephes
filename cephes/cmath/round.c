@@ -34,18 +34,18 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 */
 #include "mconf.h"
 #ifdef ANSIPROT
-double torch_cephes_floor ( double );
+double floor ( double );
 #else
-double torch_cephes_floor();
+double floor();
 #endif
 
-double torch_cephes_round(x)
+double round(x)
 double x;
 {
 double y, r;
 
 /* Largest integer <= x */
-y = torch_cephes_floor(x);
+y = floor(x);
 
 /* Fractional part */
 r = x - y;
@@ -57,7 +57,7 @@ if( r > 0.5 )
 /* Round to even */
 if( r == 0.5 )
 	{
-	r = y - 2.0 * torch_cephes_floor( 0.5 * y );
+	r = y - 2.0 * floor( 0.5 * y );
 	if( r == 1.0 )
 		{
 rndup:

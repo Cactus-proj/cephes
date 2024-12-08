@@ -99,18 +99,16 @@ static unsigned short Q[] = {
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
+extern double fabs ( double );
+extern double exp ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
 #else
-double torch_cephes_fabs(), torch_cephes_exp(), torch_cephes_polevl(),
-    torch_cephes_p1evl();
+double fabs(), exp(), polevl(), p1evl();
 #endif
-extern double torch_cephes_INFINITY, torch_cephes_MINLOG, torch_cephes_MAXLOG,
-    torch_cephes_LOGE2;
+extern double INFINITY, MINLOG, MAXLOG, LOGE2;
 
-double torch_cephes_sinh(x)
+double sinh(x)
 double x;
 {
 double a;
@@ -119,27 +117,26 @@ double a;
 if( x == 0.0 )
 	return(x);
 #endif
-a = torch_cephes_fabs(x);
-if( (x > (torch_cephes_MAXLOG + torch_cephes_LOGE2)) ||
-    (x > -(torch_cephes_MINLOG-torch_cephes_LOGE2) ) )
+a = fabs(x);
+if( (x > (MAXLOG + LOGE2)) || (x > -(MINLOG-LOGE2) ) )
 	{
-	torch_cephes_mtherr( "sinh", DOMAIN );
+	mtherr( "sinh", DOMAIN );
 	if( x > 0 )
-		return( torch_cephes_INFINITY );
+		return( INFINITY );
 	else
-		return( -torch_cephes_INFINITY );
+		return( -INFINITY );
 	}
 if( a > 1.0 )
 	{
-	if( a >= (torch_cephes_MAXLOG - torch_cephes_LOGE2) )
+	if( a >= (MAXLOG - LOGE2) )
 		{
-		a = torch_cephes_exp(0.5*a);
+		a = exp(0.5*a);
 		a = (0.5 * a) * a;
 		if( x < 0 )
 			a = -a;
 		return(a);
 		}
-	a = torch_cephes_exp(a);
+	a = exp(a);
 	a = 0.5*a - (0.5/a);
 	if( x < 0 )
 		a = -a;
@@ -147,5 +144,5 @@ if( a > 1.0 )
 	}
 
 a *= a;
-return( x + x * a * (torch_cephes_polevl(a,P,3)/torch_cephes_p1evl(a,Q,3)) );
+return( x + x * a * (polevl(a,P,3)/p1evl(a,Q,3)) );
 }

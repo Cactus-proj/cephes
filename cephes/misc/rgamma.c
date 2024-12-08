@@ -137,20 +137,18 @@ static unsigned short R[] = {
 static char name[] = "rgamma";
 
 #ifdef ANSIPROT
-extern double torch_cephes_chbevl ( double, void *, int );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_sin ( double );
-extern double torch_cephes_lgam ( double );
+extern double chbevl ( double, void *, int );
+extern double exp ( double );
+extern double log ( double );
+extern double sin ( double );
+extern double lgam ( double );
 #else
-double torch_cephes_chbevl(), torch_cephes_exp(), torch_cephes_log(),
-    torch_cephes_sin(), torch_cephes_lgam();
+double chbevl(), exp(), log(), sin(), lgam();
 #endif
-extern double torch_cephes_PI, torch_cephes_MAXLOG,
-    torch_cephes_MAXNUM;
+extern double PI, MAXLOG, MAXNUM;
 
 
-double torch_cephes_rgamma(x)
+double rgamma(x)
 double x;
 {
 double w, y, z;
@@ -158,13 +156,13 @@ int sign;
 
 if( x > 34.84425627277176174)
 	{
-	torch_cephes_mtherr( name, UNDERFLOW );
-	return(1.0/torch_cephes_MAXNUM);
+	mtherr( name, UNDERFLOW );
+	return(1.0/MAXNUM);
 	}
 if( x < -34.034 )
 	{
 	w = -x;
-	z = torch_cephes_sin( torch_cephes_PI*w );
+	z = sin( PI*w );
 	if( z == 0.0 )
 		return(0.0);
 	if( z < 0.0 )
@@ -175,19 +173,18 @@ if( x < -34.034 )
 	else
 		sign = -1;
 
-	y = torch_cephes_log( w * z ) - torch_cephes_log(torch_cephes_PI)
-            + torch_cephes_lgam(w);
-	if( y < -torch_cephes_MAXLOG )
+	y = log( w * z ) - log(PI) + lgam(w);
+	if( y < -MAXLOG )
 		{
-		torch_cephes_mtherr( name, UNDERFLOW );
-		return( sign * 1.0 / torch_cephes_MAXNUM );
+		mtherr( name, UNDERFLOW );
+		return( sign * 1.0 / MAXNUM );
 		}
-	if( y > torch_cephes_MAXLOG )
+	if( y > MAXLOG )
 		{
-		torch_cephes_mtherr( name, OVERFLOW );
-		return( sign * torch_cephes_MAXNUM );
+		mtherr( name, OVERFLOW );
+		return( sign * MAXNUM );
 		}
-	return( sign * torch_cephes_exp(y));
+	return( sign * exp(y));
 	}
 z = 1.0;
 w = x;
@@ -207,6 +204,6 @@ if( w == 0.0 )		/* Nonpositive integer */
 if( w == 1.0 )		/* Other integer */
 	return( 1.0/z );
 
-y = w * ( 1.0 + torch_cephes_chbevl( 4.0*w-2.0, R, 16 ) ) / z;
+y = w * ( 1.0 + chbevl( 4.0*w-2.0, R, 16 ) ) / z;
 return(y);
 }

@@ -54,27 +54,25 @@ Copyright 1984, 1987, 1988, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 #ifdef ANSIPROT
-extern double torch_cephes_hyperg ( double, double, double );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_gamma ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_floor ( double );
+extern double hyperg ( double, double, double );
+extern double exp ( double );
+extern double gamma ( double );
+extern double log ( double );
+extern double fabs ( double );
+extern double floor ( double );
 #else
-double torch_cephes_hyperg(), torch_cephes_exp(),
-    torch_cephes_gamma(), torch_cephes_log(), torch_cephes_fabs(),
-    torch_cephes_floor();
+double hyperg(), exp(), gamma(), log(), fabs(), floor();
 #endif
-extern double torch_cephes_MACHEP, torch_cephes_MAXNUM;
+extern double MACHEP, MAXNUM;
 
-double torch_cephes_iv( v, x )
+double iv( v, x )
 double v, x;
 {
 int sign;
 double t, ax;
 
 /* If v is a negative integer, invoke symmetry */
-t = torch_cephes_floor(v);
+t = floor(v);
 if( v < 0.0 )
 	{
 	if( t == v )
@@ -89,10 +87,10 @@ if( x < 0.0 )
 	{
 	if( t != v )
 		{
-		torch_cephes_mtherr( "iv", DOMAIN );
+		mtherr( "iv", DOMAIN );
 		return( 0.0 );
 		}
-	if( v != 2.0 * torch_cephes_floor(v/2.0) )
+	if( v != 2.0 * floor(v/2.0) )
 		sign = -1;
 	}
 
@@ -103,16 +101,16 @@ if( x == 0.0 )
 		return( 1.0 );
 	if( v < 0.0 )
 		{
-		torch_cephes_mtherr( "iv", OVERFLOW );
-		return( torch_cephes_MAXNUM );
+		mtherr( "iv", OVERFLOW );
+		return( MAXNUM );
 		}
 	else
 		return( 0.0 );
 	}
 
-ax = torch_cephes_fabs(x);
+ax = fabs(x);
 t = v * log( 0.5 * ax )  -  x;
-t = sign * torch_cephes_exp(t) / torch_cephes_gamma( v + 1.0 );
+t = sign * exp(t) / gamma( v + 1.0 );
 ax = v + 0.5;
-return( t * torch_cephes_hyperg( ax,  2.0 * ax,  2.0 * x ) );
+return( t * hyperg( ax,  2.0 * ax,  2.0 * x ) );
 }

@@ -29,7 +29,7 @@
 #endif
 #endif
 
-double torch_cephes_fabs(x)
+double fabs(x)
 double x;
 {
 union

@@ -342,18 +342,17 @@ static unsigned short CD[20] = {
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_chbevl ( double, void *, int );
-extern double torch_cephes_sqrt ( double );
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
+extern double chbevl ( double, void *, int );
+extern double sqrt ( double );
+extern double fabs ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
 #else
-double torch_cephes_chbevl(), torch_cephes_sqrt(), torch_cephes_fabs(),
-    torch_cephes_polevl(), torch_cephes_p1evl();
+double chbevl(), sqrt(), fabs(), polevl(), p1evl();
 #endif
-extern double torch_cephes_PI, torch_cephes_MACHEP;
+extern double PI, MACHEP;
 
-double torch_cephes_dawsn( xx )
+double dawsn( xx )
 double xx;
 {
 double x, y;
@@ -370,7 +369,7 @@ if( xx < 0.0 )
 if( xx < 3.25 )
 {
 x = xx*xx;
-y = xx * torch_cephes_polevl( x, AN, 9 )/torch_cephes_polevl( x, AD, 10 );
+y = xx * polevl( x, AN, 9 )/polevl( x, AD, 10 );
 return( sign * y );
 }
 
@@ -379,8 +378,7 @@ x = 1.0/(xx*xx);
 
 if( xx < 6.25 )
 	{
-	y = 1.0/xx + x * torch_cephes_polevl( x, BN, 10) /
-            (torch_cephes_p1evl( x, BD, 10) * xx);
+	y = 1.0/xx + x * polevl( x, BN, 10) / (p1evl( x, BD, 10) * xx);
 	return( sign * 0.5 * y );
 	}
 
@@ -389,7 +387,6 @@ if( xx > 1.0e9 )
 	return( (sign * 0.5)/xx );
 
 /* 6.25 to infinity */
-y = 1.0/xx + x * torch_cephes_polevl( x, CN, 4) / (
-    torch_cephes_p1evl( x, CD, 5) * xx);
+y = 1.0/xx + x * polevl( x, CN, 4) / (p1evl( x, CD, 5) * xx);
 return( sign * 0.5 * y );
 }

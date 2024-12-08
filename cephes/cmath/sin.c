@@ -194,27 +194,27 @@ static unsigned short P3[] = {0x3ce8,0x4698,0x98cc,0x5170};
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_ldexp ( double, int );
-extern int torch_cephes_isnan ( double );
-extern int torch_cephes_isfinite ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double floor ( double );
+extern double ldexp ( double, int );
+extern int isnan ( double );
+extern int isfinite ( double );
 #else
-double torch_cephes_polevl(), torch_cephes_floor(), torch_cephes_ldexp();
-int torch_cephes_isnan(), torch_cephes_isfinite();
+double polevl(), floor(), ldexp();
+int isnan(), isfinite();
 #endif
-extern double torch_cephes_PIO4;
+extern double PIO4;
 static double lossth = 1.073741824e9;
 #ifdef NANS
-extern double torch_cephes_NAN;
+extern double NAN;
 #endif
 #ifdef INFINITIES
-extern double torch_cephes_INFINITY;
+extern double INFINITY;
 #endif
 
 
-double torch_cephes_sin(x)
+double sin(x)
 double x;
 {
 double y, z, zz;
@@ -225,12 +225,12 @@ if( x == 0.0 )
 	return(x);
 #endif
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
-if( !torch_cephes_isfinite(x) )
+if( !isfinite(x) )
 	{
-	torch_cephes_mtherr( "sin", DOMAIN );
-	return(torch_cephes_NAN);
+	mtherr( "sin", DOMAIN );
+	return(NAN);
 	}
 #endif
 /* make argument positive but save the sign */
@@ -243,16 +243,16 @@ if( x < 0 )
 
 if( x > lossth )
 	{
-	torch_cephes_mtherr( "sin", TLOSS );
+	mtherr( "sin", TLOSS );
 	return(0.0);
 	}
 
-y = torch_cephes_floor( x/torch_cephes_PIO4 ); /* integer part of x/PIO4 */
+y = floor( x/PIO4 ); /* integer part of x/PIO4 */
 
 /* strip high bits of integer part to prevent integer overflow */
-z = torch_cephes_ldexp( y, -4 );
-z = torch_cephes_floor(z);           /* integer part of y/8 */
-z = y - torch_cephes_ldexp( z, 4 );  /* y - 16 * (y/16) */
+z = ldexp( y, -4 );
+z = floor(z);           /* integer part of y/8 */
+z = y - ldexp( z, 4 );  /* y - 16 * (y/16) */
 
 j = z; /* convert to integer for tests on the phase angle */
 /* map zeros to origin */
@@ -276,13 +276,12 @@ zz = z * z;
 
 if( (j==1) || (j==2) )
 	{
-	y = 1.0 - torch_cephes_ldexp(zz,-1) +
-            zz * zz * torch_cephes_polevl( zz, coscof, 5 );
+	y = 1.0 - ldexp(zz,-1) + zz * zz * polevl( zz, coscof, 5 );
 	}
 else
 	{
 /*	y = z  +  z * (zz * polevl( zz, sincof, 5 ));*/
-	y = z  +  z * z * z * torch_cephes_polevl( zz, sincof, 5 );
+	y = z  +  z * z * z * polevl( zz, sincof, 5 );
 	}
 
 if(sign < 0)
@@ -295,7 +294,7 @@ return(y);
 
 
 
-double torch_cephes_cos(x)
+double cos(x)
 double x;
 {
 double y, z, zz;
@@ -303,12 +302,12 @@ long i;
 int j, sign;
 
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
-if( !torch_cephes_isfinite(x) )
+if( !isfinite(x) )
 	{
-	torch_cephes_mtherr( "cos", DOMAIN );
-	return(torch_cephes_NAN);
+	mtherr( "cos", DOMAIN );
+	return(NAN);
 	}
 #endif
 
@@ -319,14 +318,14 @@ if( x < 0 )
 
 if( x > lossth )
 	{
-	torch_cephes_mtherr( "cos", TLOSS );
+	mtherr( "cos", TLOSS );
 	return(0.0);
 	}
 
-y = torch_cephes_floor( x/torch_cephes_PIO4 );
-z = torch_cephes_ldexp( y, -4 );
-z = torch_cephes_floor(z);		/* integer part of y/8 */
-z = y - torch_cephes_ldexp( z, 4 );  /* y - 16 * (y/16) */
+y = floor( x/PIO4 );
+z = ldexp( y, -4 );
+z = floor(z);		/* integer part of y/8 */
+z = y - ldexp( z, 4 );  /* y - 16 * (y/16) */
 
 /* integer and fractional part modulo one octant */
 i = z;
@@ -353,12 +352,11 @@ zz = z * z;
 if( (j==1) || (j==2) )
 	{
 /*	y = z  +  z * (zz * polevl( zz, sincof, 5 ));*/
-	y = z  +  z * z * z * torch_cephes_polevl( zz, sincof, 5 );
+	y = z  +  z * z * z * polevl( zz, sincof, 5 );
 	}
 else
 	{
-	y = 1.0 - torch_cephes_ldexp(zz,-1) +
-            zz * zz * torch_cephes_polevl( zz, coscof, 5 );
+	y = 1.0 - ldexp(zz,-1) + zz * zz * polevl( zz, coscof, 5 );
 	}
 
 if(sign < 0)
@@ -381,7 +379,7 @@ static unsigned short P648[] = {034513,054170,0176773,0116043,};
 static double P64800 = 4.8481368110953599358991410e-5;
 #endif
 
-double torch_cephes_radian(d,m,s)
+double radian(d,m,s)
 double d,m,s;
 {
 

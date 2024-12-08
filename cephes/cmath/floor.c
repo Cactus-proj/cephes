@@ -94,42 +94,42 @@ Copyright 1984, 1995, 2000 by Stephen L. Moshier
 #define NBITS 53
 #endif
 
-extern double torch_cephes_MAXNUM, torch_cephes_NEGZERO;
+extern double MAXNUM, NEGZERO;
 #ifdef ANSIPROT
-double torch_cephes_floor ( double );
-int torch_cephes_isnan ( double );
-int torch_cephes_isfinite ( double );
-double torch_cephes_ldexp ( double, int );
+double floor ( double );
+int isnan ( double );
+int isfinite ( double );
+double ldexp ( double, int );
 #else
-double torch_cephes_floor();
-int torch_cephes_isnan(), torch_cephes_isfinite();
-double torch_cephes_ldexp();
+double floor();
+int isnan(), isfinite();
+double ldexp();
 #endif
 
-double torch_cephes_ceil(x)
+double ceil(x)
 double x;
 {
 double y;
 
 #ifdef UNK
-torch_cephes_mtherr( "ceil", DOMAIN );
+mtherr( "ceil", DOMAIN );
 return(0.0);
 #endif
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return( x );
 #endif
 #ifdef INFINITIES
-if(!torch_cephes_isfinite(x))
+if(!isfinite(x))
 	return(x);
 #endif
 
-y = torch_cephes_floor(x);
+y = floor(x);
 if( y < x )
 	y += 1.0;
 #ifdef MINUSZERO
 if( y == 0.0 && x < 0.0 )
-	return( torch_cephes_NEGZERO );
+	return( NEGZERO );
 #endif
 return(y);
 }
@@ -163,7 +163,7 @@ static unsigned short bmask[] = {
 
 
 
-double torch_cephes_floor(x)
+double floor(x)
 double x;
 {
 union
@@ -175,15 +175,15 @@ unsigned short *p;
 int e;
 
 #ifdef UNK
-torch_cephes_mtherr( "floor", DOMAIN );
+mtherr( "floor", DOMAIN );
 return(0.0);
 #endif
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return( x );
 #endif
 #ifdef INFINITIES
-if(!torch_cephes_isfinite(x))
+if(!isfinite(x))
 	return(x);
 #endif
 #ifdef MINUSZERO
@@ -249,7 +249,7 @@ return(u.y);
 
 
 
-double torch_cephes_frexp( x, pw2 )
+double frexp( x, pw2 )
 double x;
 int *pw2;
 {
@@ -267,7 +267,7 @@ short *q;
 u.y = x;
 
 #ifdef UNK
-torch_cephes_mtherr( "frexp", DOMAIN );
+mtherr( "frexp", DOMAIN );
 return(0.0);
 #endif
 
@@ -356,7 +356,7 @@ return( u.y );
 
 
 
-double torch_cephes_ldexp( x, pw2 )
+double ldexp( x, pw2 )
 double x;
 int pw2;
 {
@@ -369,7 +369,7 @@ short *q;
 int e;
 
 #ifdef UNK
-torch_cephes_mtherr( "ldexp", DOMAIN );
+mtherr( "ldexp", DOMAIN );
 return(0.0);
 #endif
 
@@ -416,10 +416,10 @@ e += pw2;
 /* Handle overflow */
 #ifdef DEC
 if( e > MEXP )
-	return( torch_cephes_MAXNUM );
+	return( MAXNUM );
 #else
 if( e >= MEXP )
-	return( 2.0*torch_cephes_MAXNUM );
+	return( 2.0*MAXNUM );
 #endif
 
 /* Handle denormalized results */
@@ -433,7 +433,7 @@ if( e < 1 )
 	/* For denormals, significant bits may be lost even
 	   when dividing by 2.  Construct 2^-(1-e) so the result
 	   is obtained with only one multiplication.  */
-	u.y *= torch_cephes_ldexp(1.0, e-1);
+	u.y *= ldexp(1.0, e-1);
 	return(u.y);
 #else
 	return(0.0);

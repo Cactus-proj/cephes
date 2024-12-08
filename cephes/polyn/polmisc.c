@@ -6,32 +6,25 @@
 #include <stdio.h>
 #include "mconf.h"
 #ifdef ANSIPROT
-extern double torch_cephes_atan2 ( double, double );
-extern double torch_cephes_sqrt ( double );
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_sin ( double );
-extern double torch_cephes_cos ( double );
-extern void torch_cephes_polclr ( double *a, int n );
-extern void torch_cephes_polmov ( double *a, int na, double *b );
-extern void torch_cephes_polmul ( double a[], int na, double b[], int nb,
-                                  double c[] );
-extern void torch_cephes_poladd ( double a[], int na, double b[], int nb,
-                                  double c[] );
-extern void torch_cephes_polsub ( double a[], int na, double b[],
-                                  int nb, double c[] );
-extern int torch_cephes_poldiv ( double a[], int na, double b[],
-                                 int nb, double c[] );
-extern void torch_cephes_polsbt ( double a[], int na, double b[],
-                                  int nb, double c[] );
-extern void * malloc ( unsigned long );
+extern double atan2 ( double, double );
+extern double sqrt ( double );
+extern double fabs ( double );
+extern double sin ( double );
+extern double cos ( double );
+extern void polclr ( double *a, int n );
+extern void polmov ( double *a, int na, double *b );
+extern void polmul ( double a[], int na, double b[], int nb, double c[] );
+extern void poladd ( double a[], int na, double b[], int nb, double c[] );
+extern void polsub ( double a[], int na, double b[], int nb, double c[] );
+extern int poldiv ( double a[], int na, double b[], int nb, double c[] );
+extern void polsbt ( double a[], int na, double b[], int nb, double c[] );
+extern void * malloc ( long );
 extern void free ( void * );
 #else
-double torch_cephes_atan2(), torch_cephes_sqrt(), torch_cephes_fabs(),
-    torch_cephes_sin(), torch_cephes_cos();
-void torch_cephes_polclr(), torch_cephes_polmov(), torch_cephes_polsbt(),
-    torch_cephes_poladd(), torch_cephes_polsub(), torch_cephes_polmul();
-int torch_cephes_poldiv();
-void * malloc( unsigned long );
+double atan2(), sqrt(), fabs(), sin(), cos();
+void polclr(), polmov(), polsbt(), poladd(), polsub(), polmul();
+int poldiv();
+void * malloc();
 void free ();
 #endif
 
@@ -39,33 +32,33 @@ void free ();
    by the polyn.c subroutine package.  */
 #define N 16
 /* Highest degree actually initialized at runtime.  */
-extern int torch_cephes_MAXPOL;
+extern int MAXPOL;
 
 /* Taylor series coefficients for various functions
  */
-static double patan[N+1] = {
+double patan[N+1] = {
   0.0,     1.0,      0.0, -1.0/3.0,     0.0,
   1.0/5.0, 0.0, -1.0/7.0,      0.0, 1.0/9.0, 0.0, -1.0/11.0,
   0.0, 1.0/13.0, 0.0, -1.0/15.0, 0.0 };
 
-static double psin[N+1] = {
+double psin[N+1] = {
   0.0, 1.0, 0.0,   -1.0/6.0,  0.0, 1.0/120.0,  0.0,
   -1.0/5040.0, 0.0, 1.0/362880.0, 0.0, -1.0/39916800.0,
   0.0, 1.0/6227020800.0, 0.0, -1.0/1.307674368e12, 0.0};
 
-static double pcos[N+1] = {
+double pcos[N+1] = {
   1.0, 0.0,   -1.0/2.0,  0.0, 1.0/24.0,  0.0,
   -1.0/720.0, 0.0, 1.0/40320.0, 0.0, -1.0/3628800.0, 0.0,
   1.0/479001600.0, 0.0, -1.0/8.7179291e10, 0.0, 1.0/2.0922789888e13};
 
-static double pasin[N+1] = {
+double pasin[N+1] = {
   0.0,     1.0,  0.0, 1.0/6.0,  0.0,
   3.0/40.0, 0.0, 15.0/336.0, 0.0, 105.0/3456.0, 0.0, 945.0/42240.0,
   0.0, 10395.0/599040.0 , 0.0, 135135.0/9676800.0 , 0.0
 };
 
 /* Square root of 1 + x.  */
-static double psqrt[N+1] = {
+double psqrt[N+1] = {
   1.0, 1./2., -1./8., 1./16., -5./128., 7./256., -21./1024., 33./2048.,
   -429./32768., 715./65536., -2431./262144., 4199./524288., -29393./4194304.,
   52003./8388608., -185725./33554432., 334305./67108864.,
@@ -74,7 +67,7 @@ static double psqrt[N+1] = {
 /* Arctangent of the ratio num/den of two polynomials.
  */
 void
-torch_cephes_polatn( num, den, ans, nn )
+polatn( num, den, ans, nn )
      double num[], den[], ans[];
      int nn;
 {
@@ -84,7 +77,7 @@ torch_cephes_polatn( num, den, ans, nn )
 
   if (nn > N)
     {
-      torch_cephes_mtherr ("polatn", OVERFLOW);
+      mtherr ("polatn", OVERFLOW);
       return;
     }
   /* arctan( a + b ) = arctan(a) + arctan( b/(1 + ab + a**2) ) */
@@ -95,25 +88,25 @@ torch_cephes_polatn( num, den, ans, nn )
       t = num[1];
       a = den[1];
     }
-  t = torch_cephes_atan2( t, a );  /* arctan(num/den), the ANSI argument order */
-  polq = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  polu = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  polt = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  torch_cephes_polclr( polq, torch_cephes_MAXPOL );
-  i = torch_cephes_poldiv( den, nn, num, nn, polq );
+  t = atan2( t, a );  /* arctan(num/den), the ANSI argument order */
+  polq = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  polu = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  polt = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  polclr( polq, MAXPOL );
+  i = poldiv( den, nn, num, nn, polq );
   a = polq[0]; /* a */
   polq[0] = 0.0; /* b */
-  torch_cephes_polmov( polq, nn, polu ); /* b */
+  polmov( polq, nn, polu ); /* b */
   /* Form the polynomial
      1 + ab + a**2
      where a is a scalar.  */
   for( i=0; i<=nn; i++ )
     polu[i] *= a;
   polu[0] += 1.0 + a * a;
-  torch_cephes_poldiv( polu, nn, polq, nn, polt ); /* divide into b */
-  torch_cephes_polsbt( polt, nn, patan, nn, polu ); /* arctan(b)  */
+  poldiv( polu, nn, polq, nn, polt ); /* divide into b */
+  polsbt( polt, nn, patan, nn, polu ); /* arctan(b)  */
   polu[0] += t; /* plus arctan(a) */
-  torch_cephes_polmov( polu, nn, ans );
+  polmov( polu, nn, ans );
   free( polt );
   free( polu );
   free( polq );
@@ -127,7 +120,7 @@ torch_cephes_polatn( num, den, ans, nn )
  * if the Newton iteration does not converge.
  */
 void
-torch_cephes_polsqt( pol, ans, nn )
+polsqt( pol, ans, nn )
      double pol[], ans[];
      int nn;
 {
@@ -141,13 +134,13 @@ torch_cephes_polsqt( pol, ans, nn )
 
   if (nn > N)
     {
-      torch_cephes_mtherr ("polatn", OVERFLOW);
+      mtherr ("polatn", OVERFLOW);
       return;
     }
-  x = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  y = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  torch_cephes_polmov( pol, nn, x );
-  torch_cephes_polclr( y, torch_cephes_MAXPOL );
+  x = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  y = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  polmov( pol, nn, x );
+  polclr( y, MAXPOL );
 
   /* Find lowest degree nonzero term.  */
   t = 0.0;
@@ -156,7 +149,7 @@ torch_cephes_polsqt( pol, ans, nn )
       if( x[n] != 0.0 )
 	goto nzero;
     }
-  torch_cephes_polmov( y, nn, ans );
+  polmov( y, nn, ans );
   return;
 
 nzero:
@@ -170,7 +163,7 @@ nzero:
 	}
       /* Divide by x^n.  */
       y[n] = x[n];
-      torch_cephes_poldiv (y, nn, pol, N, x);
+      poldiv (y, nn, pol, N, x);
     }
 
   t = x[0];
@@ -179,8 +172,8 @@ nzero:
   x[0] = 0.0;
   /* series development sqrt(1+x) = 1  +  x / 2  -  x**2 / 8  +  x**3 / 16
      hopes that first (constant) term is greater than what follows   */
-  torch_cephes_polsbt( x, nn, psqrt, nn, y);
-  t = torch_cephes_sqrt( t );
+  polsbt( x, nn, psqrt, nn, y);
+  t = sqrt( t );
   for( i=0; i<=nn; i++ )
     y[i] *= t;
 
@@ -188,9 +181,9 @@ nzero:
      x^(n/2).  */
   if (n > 0)
     {
-      torch_cephes_polclr (x, torch_cephes_MAXPOL);
+      polclr (x, MAXPOL);
       x[n/2] = 1.0;
-      torch_cephes_polmul (x, nn, y, nn, y);
+      polmul (x, nn, y, nn, y);
     }
 #if 0
 /* Newton iterations */
@@ -213,7 +206,7 @@ printf( "square root did not converge\n" );
 done:
 #endif /* 0 */
 
-torch_cephes_polmov( y, nn, ans );
+polmov( y, nn, ans );
 free( y );
 free( x );
 }
@@ -229,7 +222,7 @@ free( x );
  * the value of b should be small.
  */
 void
-torch_cephes_polsin( x, y, nn )
+polsin( x, y, nn )
      double x[], y[];
      int nn;
 {
@@ -239,30 +232,30 @@ torch_cephes_polsin( x, y, nn )
 
   if (nn > N)
     {
-      torch_cephes_mtherr ("polatn", OVERFLOW);
+      mtherr ("polatn", OVERFLOW);
       return;
     }
-  w = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  c = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  torch_cephes_polmov( x, nn, w );
-  torch_cephes_polclr( c, torch_cephes_MAXPOL );
-  torch_cephes_polclr( y, nn );
+  w = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  c = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  polmov( x, nn, w );
+  polclr( c, MAXPOL );
+  polclr( y, nn );
   /* a, in the description, is x[0].  b is the polynomial x - x[0].  */
   a = w[0];
   /* c = cos (b) */
   w[0] = 0.0;
-  torch_cephes_polsbt( w, nn, pcos, nn, c );
-  sc = torch_cephes_sin(a);
+  polsbt( w, nn, pcos, nn, c );
+  sc = sin(a);
   /* sin(a) cos (b) */
   for( i=0; i<=nn; i++ )
     c[i] *= sc;
   /* y = sin (b)  */
-  torch_cephes_polsbt( w, nn, psin, nn, y );
-  sc = torch_cephes_cos(a);
+  polsbt( w, nn, psin, nn, y );
+  sc = cos(a);
   /* cos(a) sin(b) */
   for( i=0; i<=nn; i++ )
     y[i] *= sc;
-  torch_cephes_poladd( c, nn, y, nn, y );
+  poladd( c, nn, y, nn, y );
   free( c );
   free( w );
 }
@@ -277,7 +270,7 @@ torch_cephes_polsin( x, y, nn )
  * the value of b should be small.
  */
 void
-torch_cephes_polcos( x, y, nn )
+polcos( x, y, nn )
      double x[], y[];
      int nn;
 {
@@ -288,29 +281,29 @@ torch_cephes_polcos( x, y, nn )
 
   if (nn > N)
     {
-      torch_cephes_mtherr ("polatn", OVERFLOW);
+      mtherr ("polatn", OVERFLOW);
       return;
     }
-  w = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  c = (double * )malloc( (torch_cephes_MAXPOL+1) * sizeof (double) );
-  torch_cephes_polmov( x, nn, w );
-  torch_cephes_polclr( c, torch_cephes_MAXPOL );
-  torch_cephes_polclr( y, nn );
+  w = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  c = (double * )malloc( (MAXPOL+1) * sizeof (double) );
+  polmov( x, nn, w );
+  polclr( c, MAXPOL );
+  polclr( y, nn );
   a = w[0];
   w[0] = 0.0;
   /* c = cos(b)  */
-  torch_cephes_polsbt( w, nn, pcos, nn, c );
-  sc = torch_cephes_cos(a);
+  polsbt( w, nn, pcos, nn, c );
+  sc = cos(a);
   /* cos(a) cos(b)  */
   for( i=0; i<=nn; i++ )
     c[i] *= sc;
   /* y = sin(b) */
-  torch_cephes_polsbt( w, nn, psin, nn, y );
-  sc =torch_cephes_sin(a);
+  polsbt( w, nn, psin, nn, y );
+  sc = sin(a);
   /* sin(a) sin(b) */
   for( i=0; i<=nn; i++ )
     y[i] *= sc;
-  torch_cephes_polsub( y, nn, c, nn, y );
+  polsub( y, nn, c, nn, y );
   free( c );
   free( w );
 }

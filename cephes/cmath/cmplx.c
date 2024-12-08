@@ -72,28 +72,26 @@ Copyright 1984, 1995, 2000 by Stephen L. Moshier
 #include "mconf.h"
 
 #ifdef ANSIPROT
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_cabs ( cmplx * );
-extern double torch_cephes_sqrt ( double );
-extern double torch_cephes_atan2 ( double, double );
-extern double torch_cephes_cos ( double );
-extern double torch_cephes_sin ( double );
-extern double torch_cephes_sqrt ( double );
-extern double torch_cephes_frexp ( double, int * );
-extern double torch_cephes_ldexp ( double, int );
-int torch_cephes_isnan ( double );
-void torch_cephes_cdiv ( cmplx *, cmplx *, cmplx * );
-void torch_cephes_cadd ( cmplx *, cmplx *, cmplx * );
+extern double fabs ( double );
+extern double cabs ( cmplx * );
+extern double sqrt ( double );
+extern double atan2 ( double, double );
+extern double cos ( double );
+extern double sin ( double );
+extern double sqrt ( double );
+extern double frexp ( double, int * );
+extern double ldexp ( double, int );
+int isnan ( double );
+void cdiv ( cmplx *, cmplx *, cmplx * );
+void cadd ( cmplx *, cmplx *, cmplx * );
 #else
-double torch_cephes_fabs(), torch_cephes_cabs(), torch_cephes_sqrt(),
-    torch_cephes_atan2(), torch_cephes_cos(), torch_cephes_sin();
-double torch_cephes_sqrt(), torch_cephes_frexp(), torch_cephes_ldexp();
-int torch_cephes_isnan();
-void torch_cephes_cdiv(), torch_cephes_cadd();
+double fabs(), cabs(), sqrt(), atan2(), cos(), sin();
+double sqrt(), frexp(), ldexp();
+int isnan();
+void cdiv(), cadd();
 #endif
 
-extern double torch_cephes_MAXNUM, torch_cephes_MACHEP, torch_cephes_PI,
-    torch_cephes_PIO2, torch_cephes_INFINITY, torch_cephes_NAN;
+extern double MAXNUM, MACHEP, PI, PIO2, INFINITY, NAN;
 /*
 typedef struct
 	{
@@ -101,14 +99,14 @@ typedef struct
 	double i;
 	}cmplx;
 */
-cmplx torch_cephes_czero = {0.0, 0.0};
-extern cmplx torch_cephes_czero;
-cmplx torch_cephes_cone = {1.0, 0.0};
-extern cmplx torch_cephes_cone;
+cmplx czero = {0.0, 0.0};
+extern cmplx czero;
+cmplx cone = {1.0, 0.0};
+extern cmplx cone;
 
 /*	c = b + a	*/
 
-void torch_cephes_cadd( a, b, c )
+void cadd( a, b, c )
 register cmplx *a, *b;
 cmplx *c;
 {
@@ -120,7 +118,7 @@ c->i = b->i + a->i;
 
 /*	c = b - a	*/
 
-void torch_cephes_csub( a, b, c )
+void csub( a, b, c )
 register cmplx *a, *b;
 cmplx *c;
 {
@@ -131,7 +129,7 @@ c->i = b->i - a->i;
 
 /*	c = b * a */
 
-void torch_cephes_cmul( a, b, c )
+void cmul( a, b, c )
 register cmplx *a, *b;
 cmplx *c;
 {
@@ -146,7 +144,7 @@ c->r = y;
 
 /*	c = b / a */
 
-void torch_cephes_cdiv( a, b, c )
+void cdiv( a, b, c )
 register cmplx *a, *b;
 cmplx *c;
 {
@@ -159,13 +157,12 @@ q = b->i * a->r  -  b->r * a->i;
 
 if( y < 1.0 )
 	{
-	w = torch_cephes_MAXNUM * y;
-	if( (torch_cephes_fabs(p) > w) ||
-            (torch_cephes_fabs(q) > w) || (y == 0.0) )
+	w = MAXNUM * y;
+	if( (fabs(p) > w) || (fabs(q) > w) || (y == 0.0) )
 		{
-		c->r = torch_cephes_MAXNUM;
-		c->i = torch_cephes_MAXNUM;
-		torch_cephes_mtherr( "cdiv", OVERFLOW );
+		c->r = MAXNUM;
+		c->i = MAXNUM;
+		mtherr( "cdiv", OVERFLOW );
 		return;
 		}
 	}
@@ -177,7 +174,7 @@ c->i = q/y;
 /*	b = a
    Caution, a `short' is assumed to be 16 bits wide.  */
 
-void torch_cephes_cmov( a, b )
+void cmov( a, b )
 void *a, *b;
 {
 register short *pa, *pb;
@@ -192,7 +189,7 @@ while( --i );
 }
 
 
-void torch_cephes_cneg( a )
+void cneg( a )
 register cmplx *a;
 {
 
@@ -276,7 +273,7 @@ typedef struct
 #endif
 
 
-double torch_cephes_cabs( z )
+double cabs( z )
 register cmplx *z;
 {
 double x, y, b, re, im;
@@ -284,20 +281,20 @@ int ex, ey, e;
 
 #ifdef INFINITIES
 /* Note, cabs(INFINITY,NAN) = INFINITY. */
-if( z->r == torch_cephes_INFINITY || z->i == torch_cephes_INFINITY
-   || z->r == -torch_cephes_INFINITY || z->i == -torch_cephes_INFINITY )
-  return( torch_cephes_INFINITY );
+if( z->r == INFINITY || z->i == INFINITY
+   || z->r == -INFINITY || z->i == -INFINITY )
+  return( INFINITY );
 #endif
 
 #ifdef NANS
-if( torch_cephes_isnan(z->r) )
+if( isnan(z->r) )
   return(z->r);
-if( torch_cephes_isnan(z->i) )
+if( isnan(z->i) )
   return(z->i);
 #endif
 
-re = torch_cephes_fabs( z->r );
-im = torch_cephes_fabs( z->i );
+re = fabs( z->r );
+im = fabs( z->i );
 
 if( re == 0.0 )
 	return( im );
@@ -305,8 +302,8 @@ if( im == 0.0 )
 	return( re );
 
 /* Get the exponents of the numbers */
-x = torch_cephes_frexp( re, &ex );
-y = torch_cephes_frexp( im, &ey );
+x = frexp( re, &ex );
+y = frexp( im, &ey );
 
 /* Check if one number is tiny compared to the other */
 e = ex - ey;
@@ -319,27 +316,27 @@ if( e < -PREC )
 e = (ex + ey) >> 1;
 
 /* Rescale so mean is about 1 */
-x = torch_cephes_ldexp( re, -e );
-y = torch_cephes_ldexp( im, -e );
+x = ldexp( re, -e );
+y = ldexp( im, -e );
 		
 /* Hypotenuse of the right triangle */
-b = torch_cephes_sqrt( x * x  +  y * y );
+b = sqrt( x * x  +  y * y );
 
 /* Compute the exponent of the answer. */
-y = torch_cephes_frexp( b, &ey );
+y = frexp( b, &ey );
 ey = e + ey;
 
 /* Check it for overflow and underflow. */
 if( ey > MAXEXP )
 	{
-	torch_cephes_mtherr( "cabs", OVERFLOW );
-	return( torch_cephes_INFINITY );
+	mtherr( "cabs", OVERFLOW );
+	return( INFINITY );
 	}
 if( ey < MINEXP )
 	return(0.0);
 
 /* Undo the scaling */
-b = torch_cephes_ldexp( b, e );
+b = ldexp( b, e );
 return( b );
 }
 /*							csqrt()
@@ -390,7 +387,7 @@ return( b );
  */
 
 
-void torch_cephes_csqrt( z, w )
+void csqrt( z, w )
 cmplx *z, *w;
 {
 cmplx q, s;
@@ -404,12 +401,12 @@ if( y == 0.0 )
 	if( x < 0.0 )
 		{
 		w->r = 0.0;
-		w->i = torch_cephes_sqrt(-x);
+		w->i = sqrt(-x);
 		return;
 		}
 	else
 		{
-		w->r = torch_cephes_sqrt(x);
+		w->r = sqrt(x);
 		w->i = 0.0;
 		return;
 		}
@@ -418,8 +415,8 @@ if( y == 0.0 )
 
 if( x == 0.0 )
 	{
-	r = torch_cephes_fabs(y);
-	r = torch_cephes_sqrt(0.5*r);
+	r = fabs(y);
+	r = sqrt(0.5*r);
 	if( y > 0 )
 		w->r = r;
 	else
@@ -431,34 +428,34 @@ if( x == 0.0 )
 /* Approximate  sqrt(x^2+y^2) - x  =  y^2/2x - y^4/24x^3 + ... .
  * The relative error in the first term is approximately y^2/12x^2 .
  */
-if( (torch_cephes_fabs(y) < 2.e-4 * torch_cephes_fabs(x))
+if( (fabs(y) < 2.e-4 * fabs(x))
    && (x > 0) )
 	{
 	t = 0.25*y*(y/x);
 	}
 else
 	{
-	r = torch_cephes_cabs(z);
+	r = cabs(z);
 	t = 0.5*(r - x);
 	}
 
-r = torch_cephes_sqrt(t);
+r = sqrt(t);
 q.i = r;
 q.r = y/(2.0*r);
 /* Heron iteration in complex arithmetic */
-torch_cephes_cdiv( &q, z, &s );
-torch_cephes_cadd( &q, &s, w );
+cdiv( &q, z, &s );
+cadd( &q, &s, w );
 w->r *= 0.5;
 w->i *= 0.5;
 }
 
 
-double torch_cephes_hypot( x, y )
+double hypot( x, y )
 double x, y;
 {
 cmplx z;
 
 z.r = x;
 z.i = y;
-return( torch_cephes_cabs(&z) );
+return( cabs(&z) );
 }

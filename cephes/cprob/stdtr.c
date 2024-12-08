@@ -86,19 +86,18 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
-extern double torch_cephes_PI, torch_cephes_MACHEP, torch_cephes_MAXNUM;
+extern double PI, MACHEP, MAXNUM;
 #ifdef ANSIPROT
-extern double torch_cephes_sqrt ( double );
-extern double torch_cephes_atan ( double );
-extern double torch_cephes_incbet ( double, double, double );
-extern double torch_cephes_incbi ( double, double, double );
-extern double torch_cephes_fabs ( double );
+extern double sqrt ( double );
+extern double atan ( double );
+extern double incbet ( double, double, double );
+extern double incbi ( double, double, double );
+extern double fabs ( double );
 #else
-double torch_cephes_sqrt(), torch_cephes_atan(), torch_cephes_incbet(),
-   torch_cephes_incbi(), torch_cephes_fabs();
+double sqrt(), atan(), incbet(), incbi(), fabs();
 #endif
 
-double torch_cephes_stdtr( k, t )
+double stdtr( k, t )
 int k;
 double t;
 {
@@ -107,7 +106,7 @@ int j;
 
 if( k <= 0 )
 	{
-	torch_cephes_mtherr( "stdtr", DOMAIN );
+	mtherr( "stdtr", DOMAIN );
 	return(0.0);
 	}
 
@@ -118,7 +117,7 @@ if( t < -2.0 )
 	{
 	rk = k;
 	z = rk / (rk + t * t);
-	p = 0.5 * torch_cephes_incbet( 0.5*rk, 0.5, z );
+	p = 0.5 * incbet( 0.5*rk, 0.5, z );
 	return( p );
 	}
 
@@ -138,14 +137,14 @@ if( (k & 1) != 0)
 
 	/*	computation for odd k	*/
 
-	xsqk = x/torch_cephes_sqrt(rk);
-	p = torch_cephes_atan( xsqk );
+	xsqk = x/sqrt(rk);
+	p = atan( xsqk );
 	if( k > 1 )
 		{
 		f = 1.0;
 		tz = 1.0;
 		j = 3;
-		while(  (j<=(k-2)) && ( (tz/f) > torch_cephes_MACHEP )  )
+		while(  (j<=(k-2)) && ( (tz/f) > MACHEP )  )
 			{
 			tz *= (j-1)/( z * j );
 			f += tz;
@@ -153,7 +152,7 @@ if( (k & 1) != 0)
 			}
 		p += f * xsqk/z;
 		}
-	p *= 2.0/torch_cephes_PI;
+	p *= 2.0/PI;
 	}
 
 
@@ -166,13 +165,13 @@ else
 	tz = 1.0;
 	j = 2;
 
-	while(  ( j <= (k-2) ) && ( (tz/f) > torch_cephes_MACHEP )  )
+	while(  ( j <= (k-2) ) && ( (tz/f) > MACHEP )  )
 		{
 		tz *= (j - 1)/( z * j );
 		f += tz;
 		j += 2;
 		}
-	p = f * x/torch_cephes_sqrt(z*rk);
+	p = f * x/sqrt(z*rk);
 	}
 
 /*	common exit	*/
@@ -185,7 +184,7 @@ if( t < 0 )
 return(p);
 }
 
-double torch_cephes_stdtri( k, p )
+double stdtri( k, p )
 int k;
 double p;
 {
@@ -194,7 +193,7 @@ int rflg;
 
 if( k <= 0 || p <= 0.0 || p >= 1.0 )
 	{
-	torch_cephes_mtherr( "stdtri", DOMAIN );
+	mtherr( "stdtri", DOMAIN );
 	return(0.0);
 	}
 
@@ -205,8 +204,8 @@ if( p > 0.25 && p < 0.75 )
 	if( p == 0.5 )
 		return( 0.0 );
 	z = 1.0 - 2.0 * p;
-	z = torch_cephes_incbi( 0.5, 0.5*rk, torch_cephes_fabs(z) );
-	t = torch_cephes_sqrt( rk*z/(1.0-z) );
+	z = incbi( 0.5, 0.5*rk, fabs(z) );
+	t = sqrt( rk*z/(1.0-z) );
 	if( p < 0.5 )
 		t = -t;
 	return( t );
@@ -217,10 +216,10 @@ if( p >= 0.5)
 	p = 1.0 - p;
 	rflg = 1;
 	}
-z = torch_cephes_incbi( 0.5*rk, 0.5, 2.0*p );
+z = incbi( 0.5*rk, 0.5, 2.0*p );
 
-if( torch_cephes_MAXNUM * z < rk )
-	return(rflg* torch_cephes_MAXNUM);
-t = torch_cephes_sqrt( rk/z - rk );
+if( MAXNUM * z < rk )
+	return(rflg* MAXNUM);
+t = sqrt( rk/z - rk );
 return( rflg * t );
 }

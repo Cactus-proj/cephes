@@ -148,17 +148,16 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 #ifdef ANSIPROT
-extern double torch_cephes_incbet ( double, double, double );
-extern double torch_cephes_incbi ( double, double, double );
-extern double torch_cephes_pow ( double, double );
-extern double torch_cephes_log1p ( double );
-extern double torch_cephes_expm1 ( double );
+extern double incbet ( double, double, double );
+extern double incbi ( double, double, double );
+extern double pow ( double, double );
+extern double log1p ( double );
+extern double expm1 ( double );
 #else
-double torch_cephes_incbet(), torch_cephes_incbi(), torch_cephes_pow(),
-    torch_cephes_log1p(), torch_cephes_expm1();
+double incbet(), incbi(), pow(), log1p(), expm1();
 #endif
 
-double torch_cephes_bdtrc( k, n, p )
+double bdtrc( k, n, p )
 int k, n;
 double p;
 {
@@ -172,7 +171,7 @@ if( k < 0 )
 if( n < k )
 	{
 domerr:
-	torch_cephes_mtherr( "bdtrc", DOMAIN );
+	mtherr( "bdtrc", DOMAIN );
 	return( 0.0 );
 	}
 
@@ -182,21 +181,21 @@ dn = n - k;
 if( k == 0 )
 	{
 	if( p < .01 )
-		dk = -torch_cephes_expm1( dn * torch_cephes_log1p(-p) );
+		dk = -expm1( dn * log1p(-p) );
 	else
-		dk = 1.0 - torch_cephes_pow( 1.0-p, dn );
+		dk = 1.0 - pow( 1.0-p, dn );
 	}
 else
 	{
 	dk = k + 1;
-	dk = torch_cephes_incbet( dk, dn, p );
+	dk = incbet( dk, dn, p );
 	}
 return( dk );
 }
 
 
 
-double torch_cephes_bdtr( k, n, p )
+double bdtr( k, n, p )
 int k, n;
 double p;
 {
@@ -207,7 +206,7 @@ if( (p < 0.0) || (p > 1.0) )
 if( (k < 0) || (n < k) )
 	{
 domerr:
-	torch_cephes_mtherr( "bdtr", DOMAIN );
+	mtherr( "bdtr", DOMAIN );
 	return( 0.0 );
 	}
 
@@ -217,18 +216,18 @@ if( k == n )
 dn = n - k;
 if( k == 0 )
 	{
-	dk = torch_cephes_pow( 1.0-p, dn );
+	dk = pow( 1.0-p, dn );
 	}
 else
 	{
 	dk = k + 1;
-	dk = torch_cephes_incbet( dn, dk, 1.0 - p );
+	dk = incbet( dn, dk, 1.0 - p );
 	}
 return( dk );
 }
 
 
-double torch_cephes_bdtri( k, n, y )
+double bdtri( k, n, y )
 int k, n;
 double y;
 {
@@ -239,7 +238,7 @@ if( (y < 0.0) || (y > 1.0) )
 if( (k < 0) || (n <= k) )
 	{
 domerr:
-	torch_cephes_mtherr( "bdtri", DOMAIN );
+	mtherr( "bdtri", DOMAIN );
 	return( 0.0 );
 	}
 
@@ -247,18 +246,18 @@ dn = n - k;
 if( k == 0 )
 	{
 	if( y > 0.8 )
-		p = -torch_cephes_expm1( torch_cephes_log1p(y-1.0) / dn );
+		p = -expm1( log1p(y-1.0) / dn );
 	else
-		p = 1.0 - torch_cephes_pow( y, 1.0/dn );
+		p = 1.0 - pow( y, 1.0/dn );
 	}
 else
 	{
 	dk = k + 1;
-	p = torch_cephes_incbet( dn, dk, 0.5 );
+	p = incbet( dn, dk, 0.5 );
 	if( p > 0.5 )
-		p = torch_cephes_incbi( dk, dn, 1.0-y );
+		p = incbi( dk, dn, 1.0-y );
 	else
-		p = 1.0 - torch_cephes_incbi( dn, dk, y );
+		p = 1.0 - incbi( dn, dk, y );
 	}
 return( p );
 }

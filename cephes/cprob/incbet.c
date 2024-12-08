@@ -67,20 +67,19 @@ Copyright 1984, 1995, 2000 by Stephen L. Moshier
 #define MAXGAM 171.624376956302725
 #endif
 
-extern double torch_cephes_MACHEP, torch_cephes_MINLOG, torch_cephes_MAXLOG;
+extern double MACHEP, MINLOG, MAXLOG;
 #ifdef ANSIPROT
-extern double torch_cephes_gamma ( double );
-extern double torch_cephes_lgam ( double );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_pow ( double, double );
-extern double torch_cephes_fabs ( double );
+extern double gamma ( double );
+extern double lgam ( double );
+extern double exp ( double );
+extern double log ( double );
+extern double pow ( double, double );
+extern double fabs ( double );
 static double incbcf(double, double, double);
 static double incbd(double, double, double);
 static double pseries(double, double, double);
 #else
-double torch_cephes_gamma(), torch_cephes_lgam(), torch_cephes_exp(),
-    torch_cephes_log(), torch_cephes_pow(), torch_cephes_fabs();
+double gamma(), lgam(), exp(), log(), pow(), fabs();
 static double incbcf(), incbd(), pseries();
 #endif
 
@@ -88,7 +87,7 @@ static double big = 4.503599627370496e15;
 static double biginv =  2.22044604925031308085e-16;
 
 
-double torch_cephes_incbet( aa, bb, xx )
+double incbet( aa, bb, xx )
 double aa, bb, xx;
 {
 double a, b, t, x, xc, w, y;
@@ -104,7 +103,7 @@ if( (xx <= 0.0) || ( xx >= 1.0) )
 	if( xx == 1.0 )
 		return( 1.0 );
 domerr:
-	torch_cephes_mtherr( "incbet", DOMAIN );
+	mtherr( "incbet", DOMAIN );
 	return( 0.0 );
 	}
 
@@ -151,33 +150,31 @@ else
      a      b   _             _     _
     x  (1-x)   | (a+b) / ( a | (a) | (b) ) .   */
 
-y = a * torch_cephes_log(x);
-t = b * torch_cephes_log(xc);
-if( (a+b) < MAXGAM && torch_cephes_fabs(y) < torch_cephes_MAXLOG &&
-    torch_cephes_fabs(t) < torch_cephes_MAXLOG )
+y = a * log(x);
+t = b * log(xc);
+if( (a+b) < MAXGAM && fabs(y) < MAXLOG && fabs(t) < MAXLOG )
 	{
-	t = torch_cephes_pow(xc,b);
-	t *= torch_cephes_pow(x,a);
+	t = pow(xc,b);
+	t *= pow(x,a);
 	t /= a;
 	t *= w;
-	t *= torch_cephes_gamma(a+b) /
-            (torch_cephes_gamma(a) * torch_cephes_gamma(b));
+	t *= gamma(a+b) / (gamma(a) * gamma(b));
 	goto done;
 	}
 /* Resort to logarithms.  */
-y += t + torch_cephes_lgam(a+b) - torch_cephes_lgam(a) - torch_cephes_lgam(b);
-y += torch_cephes_log(w/a);
-if( y < torch_cephes_MINLOG )
+y += t + lgam(a+b) - lgam(a) - lgam(b);
+y += log(w/a);
+if( y < MINLOG )
 	t = 0.0;
 else
-	t = torch_cephes_exp(y);
+	t = exp(y);
 
 done:
 
 if( flag == 1 )
 	{
-	if( t <= torch_cephes_MACHEP )
-		t = 1.0 - torch_cephes_MACHEP;
+	if( t <= MACHEP )
+		t = 1.0 - MACHEP;
 	else
 		t = 1.0 - t;
 	}
@@ -212,7 +209,7 @@ qkm1 = 1.0;
 ans = 1.0;
 r = 1.0;
 n = 0;
-thresh = 3.0 * torch_cephes_MACHEP;
+thresh = 3.0 * MACHEP;
 do
 	{
 	
@@ -236,7 +233,7 @@ do
 		r = pk/qk;
 	if( r != 0 )
 		{
-		t = torch_cephes_fabs( (ans - r)/r );
+		t = fabs( (ans - r)/r );
 		ans = r;
 		}
 	else
@@ -254,15 +251,14 @@ do
 	k7 += 2.0;
 	k8 += 2.0;
 
-	if( (torch_cephes_fabs(qk) + torch_cephes_fabs(pk)) > big )
+	if( (fabs(qk) + fabs(pk)) > big )
 		{
 		pkm2 *= biginv;
 		pkm1 *= biginv;
 		qkm2 *= biginv;
 		qkm1 *= biginv;
 		}
-	if( (torch_cephes_fabs(qk) < biginv) ||
-            (torch_cephes_fabs(pk) < biginv) )
+	if( (fabs(qk) < biginv) || (fabs(pk) < biginv) )
 		{
 		pkm2 *= big;
 		pkm1 *= big;
@@ -306,7 +302,7 @@ z = x / (1.0-x);
 ans = 1.0;
 r = 1.0;
 n = 0;
-thresh = 3.0 * torch_cephes_MACHEP;
+thresh = 3.0 * MACHEP;
 do
 	{
 	
@@ -348,15 +344,14 @@ do
 	k7 += 2.0;
 	k8 += 2.0;
 
-	if( (torch_cephes_fabs(qk) + torch_cephes_fabs(pk)) > big )
+	if( (fabs(qk) + fabs(pk)) > big )
 		{
 		pkm2 *= biginv;
 		pkm1 *= biginv;
 		qkm2 *= biginv;
 		qkm1 *= biginv;
 		}
-	if( (torch_cephes_fabs(qk) < biginv) ||
-            (torch_cephes_fabs(pk) < biginv) )
+	if( (fabs(qk) < biginv) || (fabs(pk) < biginv) )
 		{
 		pkm2 *= big;
 		pkm1 *= big;
@@ -384,7 +379,7 @@ t1 = v;
 t = u;
 n = 2.0;
 s = 0.0;
-z = torch_cephes_MACHEP * ai;
+z = MACHEP * ai;
 while( fabs(v) > z )
 	{
 	u = (n - b) * x / n;
@@ -396,21 +391,19 @@ while( fabs(v) > z )
 s += t1;
 s += ai;
 
-u = a * torch_cephes_log(x);
-if( (a+b) < MAXGAM && torch_cephes_fabs(u) < torch_cephes_MAXLOG )
+u = a * log(x);
+if( (a+b) < MAXGAM && fabs(u) < MAXLOG )
 	{
-	t = torch_cephes_gamma(a+b)/
-            (torch_cephes_gamma(a)*torch_cephes_gamma(b));
-	s = s * t * torch_cephes_pow(x,a);
+	t = gamma(a+b)/(gamma(a)*gamma(b));
+	s = s * t * pow(x,a);
 	}
 else
 	{
-	t = torch_cephes_lgam(a+b) - torch_cephes_lgam(a) - 
-            torch_cephes_lgam(b) + u + torch_cephes_log(s);
-	if( t < torch_cephes_MINLOG )
+	t = lgam(a+b) - lgam(a) - lgam(b) + u + log(s);
+	if( t < MINLOG )
 		s = 0.0;
 	else
-	s = torch_cephes_exp(t);
+	s = exp(t);
 	}
 return(s);
 }

@@ -197,39 +197,38 @@ static double C1 = 1.3862943611198906188E0; /* log(4) */
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern double torch_cephes_log ( double );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern double log ( double );
 #else
-double torch_cephes_polevl(), torch_cephes_p1evl(), torch_cephes_log();
+double polevl(), p1evl(), log();
 #endif
-extern double torch_cephes_MACHEP, torch_cephes_MAXNUM;
+extern double MACHEP, MAXNUM;
 
-double torch_cephes_ellpk(x)
+double ellpk(x)
 double x;
 {
 
 if( (x < 0.0) || (x > 1.0) )
 	{
-	torch_cephes_mtherr( "ellpk", DOMAIN );
+	mtherr( "ellpk", DOMAIN );
 	return( 0.0 );
 	}
 
-if( x > torch_cephes_MACHEP )
+if( x > MACHEP )
 	{
-	return( torch_cephes_polevl(x,P,10) - torch_cephes_log(x) *
-                torch_cephes_polevl(x,Q,10) );
+	return( polevl(x,P,10) - log(x) * polevl(x,Q,10) );
 	}
 else
 	{
 	if( x == 0.0 )
 		{
-		torch_cephes_mtherr( "ellpk", SING );
-		return( torch_cephes_MAXNUM );
+		mtherr( "ellpk", SING );
+		return( MAXNUM );
 		}
 	else
 		{
-		return( C1 - 0.5 * torch_cephes_log(x) );
+		return( C1 - 0.5 * log(x) );
 		}
 	}
 }

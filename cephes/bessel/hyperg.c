@@ -67,33 +67,32 @@ Copyright 1984, 1987, 1988, 2000 by Stephen L. Moshier
 #include "mconf.h"
 
 #ifdef ANSIPROT
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_gamma ( double );
-extern double torch_cephes_lgam ( double );
-extern double torch_cephes_fabs ( double );
-double torch_cephes_hyp2f0 ( double, double, double, int, double * );
+extern double exp ( double );
+extern double log ( double );
+extern double gamma ( double );
+extern double lgam ( double );
+extern double fabs ( double );
+double hyp2f0 ( double, double, double, int, double * );
 static double hy1f1p(double, double, double, double *);
 static double hy1f1a(double, double, double, double *);
-double torch_cephes_hyperg (double, double, double);
+double hyperg (double, double, double);
 #else
-double torch_cephes_exp(), torch_cephes_log(), torch_cephes_gamma(),
-    torch_cephes_lgam(), torch_cephes_fabs(), torch_cephes_hyp2f0();
+double exp(), log(), gamma(), lgam(), fabs(), hyp2f0();
 static double hy1f1p();
 static double hy1f1a();
-double torch_cephes_hyperg();
+double hyperg();
 #endif
-extern double torch_cephes_MAXNUM, torch_cephes_MACHEP;
+extern double MAXNUM, MACHEP;
 
-double torch_cephes_hyperg( a, b, x)
+double hyperg( a, b, x)
 double a, b, x;
 {
 double asum, psum, acanc, pcanc, temp;
 
 /* See if a Kummer transformation will help */
 temp = b - a;
-if( torch_cephes_fabs(temp) < 0.001 * torch_cephes_fabs(a) )
-	return( torch_cephes_exp(x) * torch_cephes_hyperg( temp, b, -x )  );
+if( fabs(temp) < 0.001 * fabs(a) )
+	return( exp(x) * hyperg( temp, b, -x )  );
 
 
 psum = hy1f1p( a, b, x, &pcanc );
@@ -116,7 +115,7 @@ if( acanc < pcanc )
 
 done:
 if( pcanc > 1.0e-12 )
-	torch_cephes_mtherr( "hyperg", PLOSS );
+	mtherr( "hyperg", PLOSS );
 
 return( psum );
 }
@@ -145,13 +144,12 @@ t = 1.0;
 maxt = 0.0;
 
 
-while( t > torch_cephes_MACHEP )
+while( t > MACHEP )
 	{
 	if( bn == 0 )			/* check bn first since if both	*/
 		{
-		torch_cephes_mtherr( "hyperg", SING );
-		return( torch_cephes_MAXNUM ); 
-                /* an and bn are zero it is	*/
+		mtherr( "hyperg", SING );
+		return( MAXNUM );	/* an and bn are zero it is	*/
 		}
 	if( an == 0 )			/* a singularity		*/
 		return( sum );
@@ -160,8 +158,8 @@ while( t > torch_cephes_MACHEP )
 	u = x * ( an / (bn * n) );
 
 	/* check for blowup */
-	temp = torch_cephes_fabs(u);
-	if( (temp > 1.0 ) && (maxt > (torch_cephes_MAXNUM/temp)) )
+	temp = fabs(u);
+	if( (temp > 1.0 ) && (maxt > (MAXNUM/temp)) )
 		{
 		pcanc = 1.0;	/* estimate 100% error */
 		goto blowup;
@@ -169,7 +167,7 @@ while( t > torch_cephes_MACHEP )
 
 	a0 *= u;
 	sum += a0;
-	t = torch_cephes_fabs(a0);
+	t = fabs(a0);
 	if( t > maxt )
 		maxt = t;
 /*
@@ -188,9 +186,9 @@ pdone:
 
 /* estimate error due to roundoff and cancellation */
 if( sum != 0.0 )
-	maxt /= torch_cephes_fabs(sum);
-maxt *= torch_cephes_MACHEP; 	/* this way avoids multiply overflow */
-pcanc = torch_cephes_fabs( torch_cephes_MACHEP * n  +  maxt );
+	maxt /= fabs(sum);
+maxt *= MACHEP; 	/* this way avoids multiply overflow */
+pcanc = fabs( MACHEP * n  +  maxt );
 
 blowup:
 
@@ -226,32 +224,32 @@ double h1, h2, t, u, temp, acanc, asum, err1, err2;
 if( x == 0 )
 	{
 	acanc = 1.0;
-	asum = torch_cephes_MAXNUM;
+	asum = MAXNUM;
 	goto adone;
 	}
-temp = torch_cephes_log( torch_cephes_fabs(x) );
+temp = log( fabs(x) );
 t = x + temp * (a-b);
 u = -temp * a;
 
 if( b > 0 )
 	{
-	temp = torch_cephes_lgam(b);
+	temp = lgam(b);
 	t += temp;
 	u += temp;
 	}
 
-h1 = torch_cephes_hyp2f0( a, a-b+1, -1.0/x, 1, &err1 );
+h1 = hyp2f0( a, a-b+1, -1.0/x, 1, &err1 );
 
-temp = torch_cephes_exp(u) / torch_cephes_gamma(b-a);
+temp = exp(u) / gamma(b-a);
 h1 *= temp;
 err1 *= temp;
 
-h2 = torch_cephes_hyp2f0( b-a, 1.0-a, 1.0/x, 2, &err2 );
+h2 = hyp2f0( b-a, 1.0-a, 1.0/x, 2, &err2 );
 
 if( a < 0 )
-	temp = torch_cephes_exp(t) / torch_cephes_gamma(a);
+	temp = exp(t) / gamma(a);
 else
-	temp = torch_cephes_exp( t - torch_cephes_lgam(a) );
+	temp = exp( t - lgam(a) );
 
 h2 *= temp;
 err2 *= temp;
@@ -261,19 +259,19 @@ if( x < 0.0 )
 else
 	asum = h2;
 
-acanc = torch_cephes_fabs(err1) + torch_cephes_fabs(err2);
+acanc = fabs(err1) + fabs(err2);
 
 
 if( b < 0 )
 	{
 	temp = gamma(b);
 	asum *= temp;
-	acanc *= torch_cephes_fabs(temp);
+	acanc *= fabs(temp);
 	}
 
 
 if( asum != 0.0 )
-	acanc /= torch_cephes_fabs(asum);
+	acanc /= fabs(asum);
 
 acanc *= 30.0;	/* fudge factor, since error of asymptotic formula
 		 * often seems this much larger than advertised */
@@ -287,7 +285,7 @@ return( asum );
 
 /*							hyp2f0()	*/
 
-double torch_cephes_hyp2f0( a, b, x, type, err )
+double hyp2f0( a, b, x, type, err )
 double a, b, x;
 int type;	/* determines what converging factor to use */
 double *err;
@@ -315,12 +313,12 @@ do
 	u = an * (bn * x / n);
 
 	/* check for blowup */
-	temp = torch_cephes_fabs(u);
-	if( (temp > 1.0 ) && (maxt > (torch_cephes_MAXNUM/temp)) )
+	temp = fabs(u);
+	if( (temp > 1.0 ) && (maxt > (MAXNUM/temp)) )
 		goto error;
 
 	a0 *= u;
-	t = torch_cephes_fabs(a0);
+	t = fabs(a0);
 
 	/* terminating condition for asymptotic series */
 	if( t > tlast )
@@ -339,13 +337,13 @@ do
 	if( t > maxt )
 		maxt = t;
 	}
-while( t > torch_cephes_MACHEP );
+while( t > MACHEP );
 
 
 pdone:	/* series converged! */
 
 /* estimate error due to roundoff and cancellation */
-*err = torch_cephes_fabs(  torch_cephes_MACHEP * (n + maxt)  );
+*err = fabs(  MACHEP * (n + maxt)  );
 
 alast = a0;
 goto done;
@@ -373,7 +371,7 @@ default:
 }
 
 /* estimate error due to roundoff, cancellation, and nonconvergence */
-*err = torch_cephes_MACHEP * (n + maxt)  +  torch_cephes_fabs ( a0 );
+*err = MACHEP * (n + maxt)  +  fabs ( a0 );
 
 
 done:
@@ -382,7 +380,7 @@ return( sum );
 
 /* series blew up: */
 error:
-*err = torch_cephes_MAXNUM;
-torch_cephes_mtherr( "hyperg", TLOSS );
+*err = MAXNUM;
+mtherr( "hyperg", TLOSS );
 return( sum );
 }

@@ -142,21 +142,19 @@ static unsigned short Q[] = {
 #define L10EB 7.00731903251827651129E-4
 
 #ifdef ANSIPROT
-extern double torch_cephes_frexp ( double, int * );
-extern double torch_cephes_ldexp ( double, int );
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_p1evl ( double, void *, int );
-extern int torch_cephes_isnan ( double );
-extern int torch_cephes_isfinite ( double );
+extern double frexp ( double, int * );
+extern double ldexp ( double, int );
+extern double polevl ( double, void *, int );
+extern double p1evl ( double, void *, int );
+extern int isnan ( double );
+extern int isfinite ( double );
 #else
-double torch_cephes_frexp(), torch_cephes_ldexp(), torch_cephes_polevl(),
-    torch_cephes_p1evl();
-int torch_cephes_isnan(), torch_cephes_isfinite();
+double frexp(), ldexp(), polevl(), p1evl();
+int isnan(), isfinite();
 #endif
-extern double torch_cephes_LOGE2, torch_cephes_SQRT2, torch_cephes_INFINITY,
-    torch_cephes_NAN;
+extern double LOGE2, SQRT2, INFINITY, NAN;
 
-double torch_cephes_log10(x)
+double log10(x)
 double x;
 {
 VOLATILE double z;
@@ -167,11 +165,11 @@ short *q;
 int e;
 
 #ifdef NANS
-if( torch_cephes_isnan(x) )
+if( isnan(x) )
 	return(x);
 #endif
 #ifdef INFINITIES
-if( x == torch_cephes_INFINITY )
+if( x == INFINITY )
 	return(x);
 #endif
 /* Test for domain */
@@ -179,13 +177,13 @@ if( x <= 0.0 )
 	{
 	if( x == 0.0 )
 	        {
-		torch_cephes_mtherr( fname, SING );
-		return( -torch_cephes_INFINITY );
+		mtherr( fname, SING );
+		return( -INFINITY );
 	        }
 	else
 	        {
-		torch_cephes_mtherr( fname, DOMAIN );
-		return( torch_cephes_NAN );
+		mtherr( fname, DOMAIN );
+		return( NAN );
 	        }
 	}
 
@@ -200,7 +198,7 @@ e = ((e >> 7) & 0377) - 0200;	/* the exponent */
 #endif
 
 #ifdef IBMPC
-x = torch_cephes_frexp( x, &e );
+x = frexp( x, &e );
 /*
 q = (short *)&x;
 q += 3;
@@ -213,11 +211,11 @@ e = ((e >> 4) & 0x0fff) - 0x3fe;
 
 /* Equivalent C language standard library function: */
 #ifdef UNK
-x = torch_cephes_frexp( x, &e );
+x = frexp( x, &e );
 #endif
 
 #ifdef MIEEE
-x = torch_cephes_frexp( x, &e );
+x = frexp( x, &e );
 #endif
 
 /* logarithm using log(1+x) = x - .5x**2 + x**3 P(x)/Q(x) */
@@ -225,7 +223,7 @@ x = torch_cephes_frexp( x, &e );
 if( x < SQRTH )
 	{
 	e -= 1;
-	x = torch_cephes_ldexp( x, 1 ) - 1.0; /*  2x - 1  */
+	x = ldexp( x, 1 ) - 1.0; /*  2x - 1  */
 	}	
 else
 	{
@@ -235,8 +233,8 @@ else
 
 /* rational form */
 z = x*x;
-y = x * ( z * torch_cephes_polevl( x, P, 6 ) / torch_cephes_p1evl( x, Q, 6 ) );
-y = y - torch_cephes_ldexp( z, -1 );   /*  y - 0.5 * x**2  */
+y = x * ( z * polevl( x, P, 6 ) / p1evl( x, Q, 6 ) );
+y = y - ldexp( z, -1 );   /*  y - 0.5 * x**2  */
 
 /* multiply log of fraction by log10(e)
  * and base 2 exponent by log10(2)

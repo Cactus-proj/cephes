@@ -175,15 +175,15 @@ static double lossth = 1.0e14;
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_polevl ( double, void *, int );
-extern double torch_cephes_floor ( double );
-extern double torch_cephes_ldexp ( double, int );
+extern double polevl ( double, void *, int );
+extern double floor ( double );
+extern double ldexp ( double, int );
 #else
-double torch_cephes_polevl(), torch_cephes_floor(), torch_cephes_ldexp();
+double polevl(), floor(), ldexp();
 #endif
-extern double torch_cephes_PIO4;
+extern double PIO4;
 
-double torch_cephes_sindg(x)
+double sindg(x)
 double x;
 {
 double y, z, zz;
@@ -199,16 +199,16 @@ if( x < 0 )
 
 if( x > lossth )
 	{
-	torch_cephes_mtherr( "sindg", TLOSS );
+	mtherr( "sindg", TLOSS );
 	return(0.0);
 	}
 
-y = torch_cephes_floor( x/45.0 ); /* integer part of x/PI4 */
+y = floor( x/45.0 ); /* integer part of x/PIO4 */
 
 /* strip high bits of integer part to prevent integer overflow */
-z = torch_cephes_ldexp( y, -4 );
-z = torch_cephes_floor(z);           /* integer part of y/8 */
-z = y - torch_cephes_ldexp( z, 4 );  /* y - 16 * (y/16) */
+z = ldexp( y, -4 );
+z = floor(z);           /* integer part of y/8 */
+z = y - ldexp( z, 4 );  /* y - 16 * (y/16) */
 
 j = z; /* convert to integer for tests on the phase angle */
 /* map zeros to origin */
@@ -231,11 +231,11 @@ zz = z * z;
 
 if( (j==1) || (j==2) )
 	{
-	y = 1.0 - zz * torch_cephes_polevl( zz, coscof, 6 );
+	y = 1.0 - zz * polevl( zz, coscof, 6 );
 	}
 else
 	{
-	y = z  +  z * (zz * torch_cephes_polevl( zz, sincof, 5 ));
+	y = z  +  z * (zz * polevl( zz, sincof, 5 ));
 	}
 
 if(sign < 0)
@@ -248,7 +248,7 @@ return(y);
 
 
 
-double torch_cephes_cosdg(x)
+double cosdg(x)
 double x;
 {
 double y, z, zz;
@@ -261,14 +261,14 @@ if( x < 0 )
 
 if( x > lossth )
 	{
-	torch_cephes_mtherr( "cosdg", TLOSS );
+	mtherr( "cosdg", TLOSS );
 	return(0.0);
 	}
 
-y = torch_cephes_floor( x/45.0 );
-z = torch_cephes_ldexp( y, -4 );
-z = torch_cephes_floor(z);		/* integer part of y/8 */
-z = y - torch_cephes_ldexp( z, 4 );  /* y - 16 * (y/16) */
+y = floor( x/45.0 );
+z = ldexp( y, -4 );
+z = floor(z);		/* integer part of y/8 */
+z = y - ldexp( z, 4 );  /* y - 16 * (y/16) */
 
 /* integer and fractional part modulo one octant */
 j = z;
@@ -294,11 +294,11 @@ zz = z * z;
 
 if( (j==1) || (j==2) )
 	{
-	y = z  +  z * (zz * torch_cephes_polevl( zz, sincof, 5 ));
+	y = z  +  z * (zz * polevl( zz, sincof, 5 ));
 	}
 else
 	{
-	y = 1.0 - zz * torch_cephes_polevl( zz, coscof, 6 );
+	y = 1.0 - zz * polevl( zz, coscof, 6 );
 	}
 
 if(sign < 0)

@@ -65,20 +65,19 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 #endif
 
 #ifdef ANSIPROT
-extern double torch_cephes_fabs ( double );
-extern double torch_cephes_gamma ( double );
-extern double torch_cephes_lgam ( double );
-extern double torch_cephes_exp ( double );
-extern double torch_cephes_log ( double );
-extern double torch_cephes_floor ( double );
+extern double fabs ( double );
+extern double gamma ( double );
+extern double lgam ( double );
+extern double exp ( double );
+extern double log ( double );
+extern double floor ( double );
 #else
-double torch_cephes_fabs(), torch_cephes_gamma(), torch_cephes_lgam(),
-    torch_cephes_exp(), torch_cephes_log(), torch_cephes_floor();
+double fabs(), gamma(), lgam(), exp(), log(), floor();
 #endif
-extern double torch_cephes_MAXLOG, torch_cephes_MAXNUM;
-extern int torch_cephes_sgngam;
+extern double MAXLOG, MAXNUM;
+extern int sgngam;
 
-double torch_cephes_beta( a, b )
+double beta( a, b )
 double a, b;
 {
 double y;
@@ -88,47 +87,47 @@ sign = 1;
 
 if( a <= 0.0 )
 	{
-	if( a == torch_cephes_floor(a) )
+	if( a == floor(a) )
 		goto over;
 	}
 if( b <= 0.0 )
 	{
-	if( b == torch_cephes_floor(b) )
+	if( b == floor(b) )
 		goto over;
 	}
 
 
 y = a + b;
-if( torch_cephes_fabs(y) > MAXGAM )
+if( fabs(y) > MAXGAM )
 	{
-	y = torch_cephes_lgam(y);
-	sign *= torch_cephes_sgngam; /* keep track of the sign */
-	y = torch_cephes_lgam(b) - y;
-	sign *= torch_cephes_sgngam;
-	y = torch_cephes_lgam(a) + y;
-	sign *= torch_cephes_sgngam;
-	if( y > torch_cephes_MAXLOG )
+	y = lgam(y);
+	sign *= sgngam; /* keep track of the sign */
+	y = lgam(b) - y;
+	sign *= sgngam;
+	y = lgam(a) + y;
+	sign *= sgngam;
+	if( y > MAXLOG )
 		{
 over:
-		torch_cephes_mtherr( "beta", OVERFLOW );
-		return( sign * torch_cephes_MAXNUM );
+		mtherr( "beta", OVERFLOW );
+		return( sign * MAXNUM );
 		}
-	return( sign * torch_cephes_exp(y) );
+	return( sign * exp(y) );
 	}
 
-y = torch_cephes_gamma(y);
+y = gamma(y);
 if( y == 0.0 )
 	goto over;
 
 if( a > b )
 	{
-	y = torch_cephes_gamma(a)/y;
-	y *= torch_cephes_gamma(b);
+	y = gamma(a)/y;
+	y *= gamma(b);
 	}
 else
 	{
-	y = torch_cephes_gamma(b)/y;
-	y *= torch_cephes_gamma(a);
+	y = gamma(b)/y;
+	y *= gamma(a);
 	}
 
 return(y);
@@ -138,7 +137,7 @@ return(y);
 
 /* Natural log of |beta|.  Return the sign of beta in sgngam.  */
 
-double torch_cephes_lbeta( a, b )
+double lbeta( a, b )
 double a, b;
 {
 double y;
@@ -148,55 +147,55 @@ sign = 1;
 
 if( a <= 0.0 )
 	{
-	if( a == torch_cephes_floor(a) )
+	if( a == floor(a) )
 		goto over;
 	}
 if( b <= 0.0 )
 	{
-	if( b == torch_cephes_floor(b) )
+	if( b == floor(b) )
 		goto over;
 	}
 
 
 y = a + b;
-if( torch_cephes_fabs(y) > MAXGAM )
+if( fabs(y) > MAXGAM )
 	{
-	y = torch_cephes_lgam(y);
-	sign *= torch_cephes_sgngam; /* keep track of the sign */
-	y = torch_cephes_lgam(b) - y;
-	sign *= torch_cephes_sgngam;
-	y = torch_cephes_lgam(a) + y;
-	sign *= torch_cephes_sgngam;
-	torch_cephes_sgngam = sign;
+	y = lgam(y);
+	sign *= sgngam; /* keep track of the sign */
+	y = lgam(b) - y;
+	sign *= sgngam;
+	y = lgam(a) + y;
+	sign *= sgngam;
+	sgngam = sign;
 	return( y );
 	}
 
-y = torch_cephes_gamma(y);
+y = gamma(y);
 if( y == 0.0 )
 	{
 over:
-	torch_cephes_mtherr( "lbeta", OVERFLOW );
-	return( sign * torch_cephes_MAXNUM );
+	mtherr( "lbeta", OVERFLOW );
+	return( sign * MAXNUM );
 	}
 
 if( a > b )
 	{
-	y = torch_cephes_gamma(a)/y;
-	y *= torch_cephes_gamma(b);
+	y = gamma(a)/y;
+	y *= gamma(b);
 	}
 else
 	{
-	y = torch_cephes_gamma(b)/y;
-	y *= torch_cephes_gamma(a);
+	y = gamma(b)/y;
+	y *= gamma(a);
 	}
 
 if( y < 0 )
   {
-    torch_cephes_sgngam = -1;
+    sgngam = -1;
     y = -y;
   }
 else
-  torch_cephes_sgngam = 1;
+  sgngam = 1;
 
-return( torch_cephes_log(y) );
+return( log(y) );
 }
