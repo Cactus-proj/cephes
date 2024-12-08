@@ -14,7 +14,6 @@ TEST(ExpN, Errors) {
     EXPECT_TRUE(expn(1, 0.0) > 1e308);
     EXPECT_TRUE(expn(0, 0.0) > 1e308);
 }
-
 TEST(ExpN, CodecovTodo) {
     const double nan64 = std::numeric_limits<double>::quiet_NaN();
 
@@ -31,4 +30,52 @@ TEST(ExpN, CodecovTodo) {
     // Power series expansion
     EXPECT_NE(expn(1, 0.5), nan64);
     EXPECT_NE(expn(10, 0.5), nan64);
+}
+
+
+TEST(SiCi, Errors) {
+    int ret;
+    double x, si, ci;
+
+    // x == 0.0
+    ret = sici(0.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_EQ(si, 0.0);
+    EXPECT_LT(ci, -1e308);
+}
+TEST(SiCi, CodecovTodo) {
+    const double nan64 = std::numeric_limits<double>::quiet_NaN();
+    int ret;
+    double x, si, ci;
+
+    // x < 0.0
+    ret = sici(-1.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+
+    // x > 1.0e9
+    ret = sici(1e10, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+
+    // x > 4.0
+    // asympt
+    ret = sici(5.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+    // x >= 8.0
+    ret = sici(8.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+
+    // x <= 4.0
+    // asympt
+    ret = sici(3.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
 }
