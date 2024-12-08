@@ -15,7 +15,13 @@ Therefore, contributions regarding precision and error-related contributions are
 > which is a header-only library containing a modernized (C++17) refactoring of
 > the classic `AMOS/SPECFUN/Cephes/...` special function implementations.
 
-- [Markdown Docs](doc/markdown/index.md)
+## Docs
+
+[List of Cephes functions](doc/markdown/index.md)
+
+- [bessel](doc/markdown/bessel.md)
+- [exp_int](doc/markdown/exp_int.md)
+
 
 ## Test
 
