@@ -7,3 +7,4 @@ add_gtest(jv)
 
 add_gtest(i0)
 add_gtest(i0e)
+add_gtest(i1)
