@@ -1,5 +1,7 @@
 # Cephes Mathematical Functions Library
 
+[![Build](https://github.com/Cactus-proj/cephes/actions/workflows/build.yml/badge.svg)](https://github.com/Cactus-proj/cephes/actions/workflows/build.yml)
+
 > See the [master branch](https://github.com/Cactus-proj/cephes/tree/master)
 > for the original google-deepmind/torch-cephes.
 
