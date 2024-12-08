@@ -1,7 +1,6 @@
-#include <limits>
-#include <complex>
-#include <cephes/bessel.h>
 #include <xtest.hpp>
+#include <cephes/bessel.h>
+
 
 TEST(Airy, BasicAssertions) {
     const double nan64 = std::numeric_limits<double>::quiet_NaN();
