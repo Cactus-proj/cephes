@@ -79,3 +79,59 @@ TEST(SiCi, CodecovTodo) {
     EXPECT_NE(si, nan64);
     EXPECT_NE(ci, nan64);
 }
+
+
+TEST(ShiChi, Errors) {
+    int ret;
+    double x, si, ci;
+
+    // x == 0.0
+    ret = shichi(0.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_EQ(si, 0.0);
+    EXPECT_LT(ci, -1e308);
+}
+TEST(ShiChi, CodecovTodo) {
+    const double nan64 = std::numeric_limits<double>::quiet_NaN();
+    int ret;
+    double x, si, ci;
+
+    // x < 0.0
+    ret = shichi(-1.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+
+    // x >= 8.0
+    // chb:
+    ret = shichi(8.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+    // x < 18.0
+    ret = shichi(15.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+    // 18.0 <= x <= 88.0
+    ret = shichi(18.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+    ret = shichi(88.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+    // x > 88.0
+    ret = shichi(100.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+    
+    // x < 8.0
+    // power series expansion
+    ret = shichi(3.0, &si, &ci);
+    EXPECT_EQ(ret, 0);
+    EXPECT_NE(si, nan64);
+    EXPECT_NE(ci, nan64);
+}
