@@ -20,3 +20,4 @@ function(add_gtest test_name)
 endfunction()
 
 add_gtest(airy)
+add_gtest(exp_int)
