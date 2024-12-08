@@ -1,4 +1,4 @@
-Copyright (c) 2013, Julien Cornebise
+Copyright (c) 2013-2016, Julien Cornebise
 Copyright (c) 1984-2013, Stephen L. Moshier
 All rights reserved.
 
