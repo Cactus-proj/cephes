@@ -1,3 +1,6 @@
+# mconf.h
+include_directories(${CMAKE_SOURCE_DIR}/cephes)
+
 # locate all cephes subfolders to process
 FILE(GLOB src
     "bessel/*.c"

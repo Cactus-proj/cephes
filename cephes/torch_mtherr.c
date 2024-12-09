@@ -55,7 +55,7 @@
    */
 
 #include <stdio.h>
-#include "cmath/mconf.h"
+#include "mconf.h"
 
 int merror = 0;
 
