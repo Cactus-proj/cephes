@@ -1,5 +1,13 @@
 # .git-blame-ignore-revs
 
+# cephes.cmath: format code: chbevl,polevl
+f551e0bea3bcafda44ef4f39dbee52587a26c3d2
+# cephes.polyn: format code
+8314238f021ef05d0c02d6471ff142e3288e3e23
+# cephes.misc: format code
+f13cba3bd589fe12b625816c8e1788e0ea9e1a68
+# cephes.ellf: format code
+6c64cf0ce56e1d5ce9ca6510c5e93a1141ca71ec
 # cephes.cprob: format code
 c3bfb2e8dc818f5b6fbe8cc4657b8daf6abf4dd8
 # test: format code
