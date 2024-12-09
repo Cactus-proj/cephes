@@ -37,8 +37,3 @@
 * **k1**, [Modified Bessel function, third kind, order one](doubldoc.md#k1)
 * **k1e**, [Modified Bessel function, third kind, order one, exponentially scaled](doubldoc.md#k1e)
 * **kn**, [Modified Bessel function, third kind, integer order](doubldoc.md#kn)
-
-## Others
-
-* **psi**, [Psi (digamma) function](doubldoc.md#psi)
-* **struve**, [Struve function](doubldoc.md#struve)

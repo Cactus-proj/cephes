@@ -13,10 +13,6 @@ extern "C" {
 /** Airy Functions */
 int airy(double x, double *ai, double *aip, double *bi, double *bip);
 
-/** Hypergeometric Functions */
-double hyp2f1(double a, double b, double c, double x);
-double hyperg(double a, double b, double x);
-
 /** Bessel functions */
 double j0(double x);
 double j1(double x);
@@ -41,10 +37,6 @@ double k0e(double x);
 double k1(double x);
 double k1e(double x);
 double kn(int nn, double x);
-
-/** Others */
-double psi(double x);
-double struve(double v, double x);
 
 #if defined(__cplusplus)
 } // extern "C"
