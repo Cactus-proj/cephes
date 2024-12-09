@@ -22,6 +22,6 @@ function(add_gtest test_name)
     gtest_discover_tests(${test_name})
 endfunction()
 
-add_gtest(exp_int)
+add_subdirectory(exp_int)
 add_subdirectory(gamma)
 add_subdirectory(bessel)
