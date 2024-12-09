@@ -18,6 +18,8 @@ double zeta(double x, double q);
 /* misc/zetac.c */
 double zetac(double x);
 
+double struve(double v, double x);
+
 #if defined(__cplusplus)
 } // extern "C"
 #endif

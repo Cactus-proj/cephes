@@ -38,9 +38,6 @@ double k1(double x);
 double k1e(double x);
 double kn(int nn, double x);
 
-/** Others */
-double struve(double v, double x);
-
 #if defined(__cplusplus)
 } // extern "C"
 #endif
