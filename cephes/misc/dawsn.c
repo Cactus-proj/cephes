@@ -37,9 +37,8 @@
  *
  *
  */
-
-/*							dawsn.c */
 
+/*							dawsn.c */
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -47,6 +46,8 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 */
 
 #include "mconf.h"
+
+/* clang-format off */
 /* Dawson's integral, interval 0 to 3.25 */
 #ifdef UNK
 static double AN[10] = {
@@ -340,53 +341,51 @@ static unsigned short CD[20] = {
 0xbf4f,0xe79c,0xad3d,0x0a8d,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double chbevl ( double, void *, int );
-extern double sqrt ( double );
-extern double fabs ( double );
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
+extern double chbevl(double, void *, int);
+extern double sqrt(double);
+extern double fabs(double);
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
 #else
 double chbevl(), sqrt(), fabs(), polevl(), p1evl();
 #endif
 extern double PI, MACHEP;
 
-double dawsn( xx )
+double dawsn(xx)
 double xx;
 {
-double x, y;
-int sign;
+    double x, y;
+    int sign;
 
+    sign = 1;
+    if (xx < 0.0)
+    {
+        sign = -1;
+        xx = -xx;
+    }
 
-sign = 1;
-if( xx < 0.0 )
-	{
-	sign = -1;
-	xx = -xx;
-	}
+    if (xx < 3.25)
+    {
+        x = xx * xx;
+        y = xx * polevl(x, AN, 9) / polevl(x, AD, 10);
+        return (sign * y);
+    }
 
-if( xx < 3.25 )
-{
-x = xx*xx;
-y = xx * polevl( x, AN, 9 )/polevl( x, AD, 10 );
-return( sign * y );
-}
+    x = 1.0 / (xx * xx);
 
+    if (xx < 6.25)
+    {
+        y = 1.0 / xx + x * polevl(x, BN, 10) / (p1evl(x, BD, 10) * xx);
+        return (sign * 0.5 * y);
+    }
 
-x = 1.0/(xx*xx);
+    if (xx > 1.0e9)
+        return ((sign * 0.5) / xx);
 
-if( xx < 6.25 )
-	{
-	y = 1.0/xx + x * polevl( x, BN, 10) / (p1evl( x, BD, 10) * xx);
-	return( sign * 0.5 * y );
-	}
-
-
-if( xx > 1.0e9 )
-	return( (sign * 0.5)/xx );
-
-/* 6.25 to infinity */
-y = 1.0/xx + x * polevl( x, CN, 4) / (p1evl( x, CD, 5) * xx);
-return( sign * 0.5 * y );
+    /* 6.25 to infinity */
+    y = 1.0 / xx + x * polevl(x, CN, 4) / (p1evl(x, CD, 5) * xx);
+    return (sign * 0.5 * y);
 }

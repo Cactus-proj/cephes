@@ -1,4 +1,4 @@
- /*							zetac.c
+/*							zetac.c
  *
  *	Riemann zeta function
  *
@@ -43,7 +43,7 @@
  *
  *
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
@@ -53,6 +53,7 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 
 extern double MAXNUM, PI;
 
+/* clang-format off */
 /* Riemann zeta(x) - 1
  * for integer arguments between 0 and 30.
  */
@@ -487,6 +488,7 @@ static unsigned short S[20] = {
 0x40f2,0x2916,0x581e,0xb9a3,
 };
 #endif
+/* clang-format on */
 
 #define MAXL2 127
 
@@ -494,14 +496,14 @@ static unsigned short S[20] = {
  * Riemann zeta function, minus one
  */
 #ifdef ANSIPROT
-extern double sin ( double );
-extern double floor ( double );
-extern double gamma ( double );
-extern double pow ( double, double );
-extern double exp ( double );
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-double zetac ( double );
+extern double sin(double);
+extern double floor(double);
+extern double gamma(double);
+extern double pow(double, double);
+extern double exp(double);
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+double zetac(double);
 #else
 double sin(), floor(), gamma(), pow(), exp();
 double polevl(), p1evl(), zetac();
@@ -511,89 +513,85 @@ extern double MACHEP;
 double zetac(x)
 double x;
 {
-int i;
-double a, b, s, w;
+    int i;
+    double a, b, s, w;
 
-if( x < 0.0 )
-	{
+    if (x < 0.0)
+    {
 #ifdef DEC
-	if( x < -30.8148 )
+        if (x < -30.8148)
 #else
-	if( x < -170.6243 )
+        if (x < -170.6243)
 #endif
-		{
-		mtherr( "zetac", OVERFLOW );
-		return(0.0);
-		}
-	s = 1.0 - x;
-	w = zetac( s );
-	b = sin(0.5*PI*x) * pow(2.0*PI, x) * gamma(s) * (1.0 + w) / PI;
-	return(b - 1.0);
-	}
+        {
+            mtherr("zetac", OVERFLOW);
+            return (0.0);
+        }
+        s = 1.0 - x;
+        w = zetac(s);
+        b = sin(0.5 * PI * x) * pow(2.0 * PI, x) * gamma(s) * (1.0 + w) / PI;
+        return (b - 1.0);
+    }
 
-if( x >= MAXL2 )
-	return(0.0);	/* because first term is 2**-x */
+    if (x >= MAXL2)
+        return (0.0); /* because first term is 2**-x */
 
-/* Tabulated values for integer argument */
-w = floor(x);
-if( w == x )
-	{
-	i = x;
-	if( i < 31 )
-		{
+    /* Tabulated values for integer argument */
+    w = floor(x);
+    if (w == x)
+    {
+        i = x;
+        if (i < 31)
+        {
 #ifdef UNK
-		return( azetac[i] );
+            return (azetac[i]);
 #else
-		return( *(double *)&azetac[4*i]  );
+            return (*(double *)&azetac[4 * i]);
 #endif
-		}
-	}
+        }
+    }
 
+    if (x < 1.0)
+    {
+        w = 1.0 - x;
+        a = polevl(x, R, 5) / (w * p1evl(x, S, 5));
+        return (a);
+    }
 
-if( x < 1.0 )
-	{
-	w = 1.0 - x;
-	a = polevl( x, R, 5 ) / ( w * p1evl( x, S, 5 ));
-	return( a );
-	}
+    if (x == 1.0)
+    {
+        mtherr("zetac", SING);
+        return (MAXNUM);
+    }
 
-if( x == 1.0 )
-	{
-	mtherr( "zetac", SING );
-	return( MAXNUM );
-	}
+    if (x <= 10.0)
+    {
+        b = pow(2.0, x) * (x - 1.0);
+        w = 1.0 / x;
+        s = (x * polevl(w, P, 8)) / (b * p1evl(w, Q, 8));
+        return (s);
+    }
 
-if( x <= 10.0 )
-	{
-	b = pow( 2.0, x ) * (x - 1.0);
-	w = 1.0/x;
-	s = (x * polevl( w, P, 8 )) / (b * p1evl( w, Q, 8 ));
-	return( s );
-	}
+    if (x <= 50.0)
+    {
+        b = pow(2.0, -x);
+        w = polevl(x, A, 10) / p1evl(x, B, 10);
+        w = exp(w) + b;
+        return (w);
+    }
 
-if( x <= 50.0 )
-	{
-	b = pow( 2.0, -x );
-	w = polevl( x, A, 10 ) / p1evl( x, B, 10 );
-	w = exp(w) + b;
-	return(w);
-	}
+    /* Basic sum of inverse powers */
 
+    s = 0.0;
+    a = 1.0;
+    do
+    {
+        a += 2.0;
+        b = pow(a, -x);
+        s += b;
+    } while (b / s > MACHEP);
 
-/* Basic sum of inverse powers */
-
-
-s = 0.0;
-a = 1.0;
-do
-	{
-	a += 2.0;
-	b = pow( a, -x );
-	s += b;
-	}
-while( b/s > MACHEP );
-
-b = pow( 2.0, -x );
-s = (s + b)/(1.0-b);
-return(s);
+    b = pow(2.0, -x);
+    s = (s + b) / (1.0 - b);
+    return (s);
 }

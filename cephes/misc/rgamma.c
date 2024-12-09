@@ -38,7 +38,7 @@
  * For arguments less than -34.034 the peak error is on the
  * order of 5e-15 (DEC), excepting overflow or underflow.
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1985, 1987, 2000 by Stephen L. Moshier
@@ -46,6 +46,7 @@ Copyright 1985, 1987, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 /* Chebyshev coefficients for reciprocal gamma function
  * in interval 0 to 1.  Function is 1/(x gamma(x)) - 1
  */
@@ -133,77 +134,77 @@ static unsigned short R[] = {
 0x3fc0,0x536d,0x86e4,0x2299
 };
 #endif
+/* clang-format on */
 
 static char name[] = "rgamma";
 
 #ifdef ANSIPROT
-extern double chbevl ( double, void *, int );
-extern double exp ( double );
-extern double log ( double );
-extern double sin ( double );
-extern double lgam ( double );
+extern double chbevl(double, void *, int);
+extern double exp(double);
+extern double log(double);
+extern double sin(double);
+extern double lgam(double);
 #else
 double chbevl(), exp(), log(), sin(), lgam();
 #endif
 extern double PI, MAXLOG, MAXNUM;
 
-
 double rgamma(x)
 double x;
 {
-double w, y, z;
-int sign;
+    double w, y, z;
+    int sign;
 
-if( x > 34.84425627277176174)
-	{
-	mtherr( name, UNDERFLOW );
-	return(1.0/MAXNUM);
-	}
-if( x < -34.034 )
-	{
-	w = -x;
-	z = sin( PI*w );
-	if( z == 0.0 )
-		return(0.0);
-	if( z < 0.0 )
-		{
-		sign = 1;
-		z = -z;
-		}
-	else
-		sign = -1;
+    if (x > 34.84425627277176174)
+    {
+        mtherr(name, UNDERFLOW);
+        return (1.0 / MAXNUM);
+    }
+    if (x < -34.034)
+    {
+        w = -x;
+        z = sin(PI * w);
+        if (z == 0.0)
+            return (0.0);
+        if (z < 0.0)
+        {
+            sign = 1;
+            z = -z;
+        }
+        else
+            sign = -1;
 
-	y = log( w * z ) - log(PI) + lgam(w);
-	if( y < -MAXLOG )
-		{
-		mtherr( name, UNDERFLOW );
-		return( sign * 1.0 / MAXNUM );
-		}
-	if( y > MAXLOG )
-		{
-		mtherr( name, OVERFLOW );
-		return( sign * MAXNUM );
-		}
-	return( sign * exp(y));
-	}
-z = 1.0;
-w = x;
+        y = log(w * z) - log(PI) + lgam(w);
+        if (y < -MAXLOG)
+        {
+            mtherr(name, UNDERFLOW);
+            return (sign * 1.0 / MAXNUM);
+        }
+        if (y > MAXLOG)
+        {
+            mtherr(name, OVERFLOW);
+            return (sign * MAXNUM);
+        }
+        return (sign * exp(y));
+    }
+    z = 1.0;
+    w = x;
 
-while( w > 1.0 )	/* Downward recurrence */
-	{
-	w -= 1.0;
-	z *= w;
-	}
-while( w < 0.0 )	/* Upward recurrence */
-	{
-	z /= w;
-	w += 1.0;
-	}
-if( w == 0.0 )		/* Nonpositive integer */
-	return(0.0);
-if( w == 1.0 )		/* Other integer */
-	return( 1.0/z );
+    while (w > 1.0) /* Downward recurrence */
+    {
+        w -= 1.0;
+        z *= w;
+    }
+    while (w < 0.0) /* Upward recurrence */
+    {
+        z /= w;
+        w += 1.0;
+    }
+    if (w == 0.0) /* Nonpositive integer */
+        return (0.0);
+    if (w == 1.0) /* Other integer */
+        return (1.0 / z);
 
-y = w * ( 1.0 + chbevl( 4.0*w-2.0, R, 16 ) ) / z;
-return(y);
+    y = w * (1.0 + chbevl(4.0 * w - 2.0, R, 16)) / z;
+    return (y);
 }

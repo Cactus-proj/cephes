@@ -37,7 +37,7 @@
  *    DEC       0, 33      1.4e-17
  *
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
@@ -209,7 +209,7 @@ static unsigned short factbl[] = {
 /* clang-format on */
 
 #ifdef ANSIPROT
-double gamma ( double );
+double gamma(double);
 #else
 double gamma();
 #endif
@@ -218,48 +218,48 @@ extern double MAXNUM;
 double fac(i)
 int i;
 {
-double x, f, n;
-int j;
+    double x, f, n;
+    int j;
 
-if( i < 0 )
-	{
-	mtherr( "fac", SING );
-	return( MAXNUM );
-	}
+    if (i < 0)
+    {
+        mtherr("fac", SING);
+        return (MAXNUM);
+    }
 
-if( i > MAXFAC )
-	{
-	mtherr( "fac", OVERFLOW );
-	return( MAXNUM );
-	}
+    if (i > MAXFAC)
+    {
+        mtherr("fac", OVERFLOW);
+        return (MAXNUM);
+    }
 
-/* Get answer from table for small i. */
-if( i < 34 )
-	{
+    /* Get answer from table for small i. */
+    if (i < 34)
+    {
 #ifdef UNK
-	return( factbl[i] );
+        return (factbl[i]);
 #else
-	return( *(double *)(&factbl[4*i]) );
+        return (*(double *)(&factbl[4 * i]));
 #endif
-	}
-/* Use gamma function for large i. */
-if( i > 55 )
-	{
-	x = i + 1;
-	return( gamma(x) );
-	}
-/* Compute directly for intermediate i. */
-n = 34.0;
-f = 34.0;
-for( j=35; j<=i; j++ )
-	{
-	n += 1.0;
-	f *= n;
-	}
+    }
+    /* Use gamma function for large i. */
+    if (i > 55)
+    {
+        x = i + 1;
+        return (gamma(x));
+    }
+    /* Compute directly for intermediate i. */
+    n = 34.0;
+    f = 34.0;
+    for (j = 35; j <= i; j++)
+    {
+        n += 1.0;
+        f *= n;
+    }
 #ifdef UNK
-	f *= factbl[33];
+    f *= factbl[33];
 #else
-	f *= *(double *)(&factbl[4*33]);
+    f *= *(double *)(&factbl[4 * 33]);
 #endif
-return( f );
+    return (f);
 }
