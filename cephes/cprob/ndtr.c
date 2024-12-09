@@ -45,7 +45,7 @@
  * erfc underflow    x > 37.519379347       0.0
  *
  */
-/*							erf.c
+/*							erf.c
  *
  *	Error function
  *
@@ -63,7 +63,7 @@
  *
  * The integral is
  *
- *                           x 
+ *                           x
  *                            -
  *                 2         | |          2
  *   erf(x)  =  --------     |    exp( - t  ) dt.
@@ -87,7 +87,7 @@
  *    IEEE      0,1         30000       3.7e-16     1.0e-16
  *
  */
-/*							erfc.c
+/*							erfc.c
  *
  *	Complementary error function
  *
@@ -106,7 +106,7 @@
  *
  *  1 - erf(x) =
  *
- *                           inf. 
+ *                           inf.
  *                             -
  *                  2         | |          2
  *   erfc(x)  =  --------     |    exp( - t  ) dt
@@ -136,13 +136,11 @@
  *
  *
  */
-
 
 /*
 Cephes Math Library Release 2.9:  November, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 */
-
 
 #include "mconf.h"
 
@@ -154,6 +152,7 @@ extern double MAXLOG;
    generates two calls to the exponential function instead of one.  */
 #define USE_EXPXSQ 1
 
+/* clang-format off */
 #ifdef UNK
 static double P[] = {
  2.46196981473530512524E-10,
@@ -383,18 +382,19 @@ static unsigned short U[] = {
 };
 #define UTHRESH 37.519379347
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-extern double exp ( double );
-extern double log ( double );
-extern double fabs ( double );
-extern double sqrt ( double );
-extern double expx2 ( double, int );
-double erf ( double );
-double erfc ( double );
-static double erfce ( double );
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+extern double exp(double);
+extern double log(double);
+extern double fabs(double);
+extern double sqrt(double);
+extern double expx2(double, int);
+double erf(double);
+double erfc(double);
+static double erfce(double);
 #else
 double polevl(), p1evl(), exp(), log(), fabs();
 double erf(), erfc(), expx2(), sqrt();
@@ -404,87 +404,84 @@ static double erfce();
 double ndtr(a)
 double a;
 {
-double x, y, z;
+    double x, y, z;
 
-x = a * SQRTH;
-z = fabs(x);
+    x = a * SQRTH;
+    z = fabs(x);
 
-/* if( z < SQRTH ) */
-if( z < 1.0 )
-	y = 0.5 + 0.5 * erf(x);
+    /* if( z < SQRTH ) */
+    if (z < 1.0)
+        y = 0.5 + 0.5 * erf(x);
 
-else
-	{
+    else
+    {
 #ifdef USE_EXPXSQ
-	/* See below for erfce. */
-	y = 0.5 * erfce(z);
-	/* Multiply by exp(-x^2 / 2)  */
-	z = expx2(a, -1);
-	y = y * sqrt(z);
+        /* See below for erfce. */
+        y = 0.5 * erfce(z);
+        /* Multiply by exp(-x^2 / 2)  */
+        z = expx2(a, -1);
+        y = y * sqrt(z);
 #else
-	y = 0.5 * erfc(z);
+        y = 0.5 * erfc(z);
 #endif
-	if( x > 0 )
-		y = 1.0 - y;
-	}
+        if (x > 0)
+            y = 1.0 - y;
+    }
 
-return(y);
+    return (y);
 }
-
 
 double erfc(a)
 double a;
 {
-double p,q,x,y,z;
+    double p, q, x, y, z;
 
+    if (a < 0.0)
+        x = -a;
+    else
+        x = a;
 
-if( a < 0.0 )
-	x = -a;
-else
-	x = a;
+    if (x < 1.0)
+        return (1.0 - erf(a));
 
-if( x < 1.0 )
-	return( 1.0 - erf(a) );
+    z = -a * a;
 
-z = -a * a;
-
-if( z < -MAXLOG )
-	{
-under:
-	mtherr( "erfc", UNDERFLOW );
-	if( a < 0 )
-		return( 2.0 );
-	else
-		return( 0.0 );
-	}
+    if (z < -MAXLOG)
+    {
+    under:
+        mtherr("erfc", UNDERFLOW);
+        if (a < 0)
+            return (2.0);
+        else
+            return (0.0);
+    }
 
 #ifdef USE_EXPXSQ
-/* Compute z = exp(z).  */
-z = expx2(a, -1);
+    /* Compute z = exp(z).  */
+    z = expx2(a, -1);
 #else
-z = exp(z);
+    z = exp(z);
 #endif
-if( x < 8.0 )
-	{
-	p = polevl( x, P, 8 );
-	q = p1evl( x, Q, 8 );
-	}
-else
-	{
-	p = polevl( x, R, 5 );
-	q = p1evl( x, S, 6 );
-	}
-y = (z * p)/q;
+    if (x < 8.0)
+    {
+        p = polevl(x, P, 8);
+        q = p1evl(x, Q, 8);
+    }
+    else
+    {
+        p = polevl(x, R, 5);
+        q = p1evl(x, S, 6);
+    }
+    y = (z * p) / q;
 
-if( a < 0 )
-	y = 2.0 - y;
+    if (a < 0)
+        y = 2.0 - y;
 
-if( y == 0.0 )
-	goto under;
+    if (y == 0.0)
+        goto under;
 
-return(y);
+    return (y);
 }
-
 
 /* Exponentially scaled erfc function
    exp(x^2) erfc(x)
@@ -493,32 +490,29 @@ return(y);
 static double erfce(x)
 double x;
 {
-double p,q;
+    double p, q;
 
-if( x < 8.0 )
-	{
-	p = polevl( x, P, 8 );
-	q = p1evl( x, Q, 8 );
-	}
-else
-	{
-	p = polevl( x, R, 5 );
-	q = p1evl( x, S, 6 );
-	}
-return (p/q);
+    if (x < 8.0)
+    {
+        p = polevl(x, P, 8);
+        q = p1evl(x, Q, 8);
+    }
+    else
+    {
+        p = polevl(x, R, 5);
+        q = p1evl(x, S, 6);
+    }
+    return (p / q);
 }
-
-
 
 double erf(x)
 double x;
 {
-double y, z;
+    double y, z;
 
-if( fabs(x) > 1.0 )
-	return( 1.0 - erfc(x) );
-z = x * x;
-y = x * polevl( z, T, 4 ) / p1evl( z, U, 5 );
-return( y );
-
+    if (fabs(x) > 1.0)
+        return (1.0 - erfc(x));
+    z = x * x;
+    y = x * polevl(z, T, 4) / p1evl(z, U, 5);
+    return (y);
 }

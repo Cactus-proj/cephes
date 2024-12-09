@@ -45,6 +45,7 @@ Copyright 1984, 1987, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 /* Factorials of integers from 0 through 33 */
 #ifdef UNK
 static double factbl[] = {
@@ -205,6 +206,7 @@ static unsigned short factbl[] = {
 };
 #define MAXFAC 170
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
 double gamma ( double );

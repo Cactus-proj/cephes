@@ -58,6 +58,7 @@ Copyright 1984, 1987, 1992, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 static double A[] = {
  8.33333333333333333333E-2,
@@ -105,6 +106,7 @@ static unsigned short A[] = {
 0x3fb5,0x5555,0x5555,0x5555
 };
 #endif
+/* clang-format on */
 
 #define EUL 0.57721566490153286061
 
