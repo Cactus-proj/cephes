@@ -24,12 +24,10 @@ LIST(REMOVE_ITEM src
 # ignore files who are exact duplicates of cmath
 LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/drand.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/cprob/const.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/polevl.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/unity.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/misc/chbevl.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/misc/polevl.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ellf/const.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/polevl.c"
     )
 
