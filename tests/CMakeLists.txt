@@ -24,7 +24,7 @@ endfunction()
 
 add_subdirectory(exp_int)
 add_subdirectory(gamma)
-# add_subdirectory(error)
+add_subdirectory(error)
 add_subdirectory(bessel)
 add_subdirectory(hyper)
 # add_subdirectory(elliptic)
