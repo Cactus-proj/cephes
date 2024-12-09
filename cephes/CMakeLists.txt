@@ -23,7 +23,6 @@ LIST(REMOVE_ITEM src
 
 # ignore files who are exact duplicates of cmath
 LIST(REMOVE_ITEM src
-    "${CMAKE_CURRENT_SOURCE_DIR}/cprob/drand.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/unity.c"
     )
 
