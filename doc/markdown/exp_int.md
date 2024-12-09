@@ -1,4 +1,4 @@
-# cephes/Exponential integral
+# Exponential integral
 
 * **expn**, [Exponential integral En](doubldoc.md#expn)
 
