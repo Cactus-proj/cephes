@@ -25,7 +25,6 @@ LIST(REMOVE_ITEM src
 LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/drand.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/unity.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/chbevl.c"
     )
 
 # ignore rational polynomials of polyr.c,
