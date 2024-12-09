@@ -21,11 +21,6 @@ LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mod2pi.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/ellf.c")
 
-# ignore files who are exact duplicates of cmath
-LIST(REMOVE_ITEM src
-    "${CMAKE_CURRENT_SOURCE_DIR}/cprob/unity.c"
-    )
-
 # ignore rational polynomials of polyr.c,
 # because it conflict with the simpler polynomials of polyn.c
 LIST(REMOVE_ITEM src
