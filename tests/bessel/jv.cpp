@@ -53,5 +53,6 @@ TEST(BesselJv, CoSF_Table_5p17) {
     // EXPECT_REL_NEAR_F64(cephes::jv(100+nv, x),  4.122166908740485e-22);
 }
 TEST(BesselJv, Branches) {
-
+    // (x < 0.0) && (y != an)
+    EXPECT_REL_NEAR_F64(cephes::jv(1.1, -1.0), 0.0);
 }
