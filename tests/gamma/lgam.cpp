@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/gamma.h>
+#include <xtest.hpp>
 
-
-TEST(LnGamma, BasicAssertions) {
+TEST(LnGamma, BasicAssertions)
+{
     EXPECT_TRUE(std::isnan(cephes::lgam(xtest::NaN64)));
     EXPECT_TRUE(std::isinf(cephes::lgam(xtest::Inf64)));
     EXPECT_TRUE(std::isinf(cephes::lgam(0.0)));

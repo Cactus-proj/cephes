@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/hyper.h>
+#include <xtest.hpp>
 
-
-TEST(Hyp2f1, Errors) {
+TEST(Hyp2f1, Errors)
+{
     double a, b, c, x, y, y_ref;
 
     // c is a negative integer
@@ -12,6 +12,7 @@ TEST(Hyp2f1, Errors) {
     EXPECT_GT(cephes::hyp2f1(2.0, 3.0, 4.0, 2.0), 1e308);
 }
 
-TEST(Hyp2f1, Branches) {
+TEST(Hyp2f1, Branches)
+{
     double a, b, c, x, y, y_ref;
 }

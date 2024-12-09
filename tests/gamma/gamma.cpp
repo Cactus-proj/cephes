@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/gamma.h>
+#include <xtest.hpp>
 
-
-TEST(Gamma, BasicAssertions) {
+TEST(Gamma, BasicAssertions)
+{
     EXPECT_TRUE(std::isnan(cephes::gamma(xtest::NaN64)));
     EXPECT_TRUE(std::isnan(cephes::gamma(0.0)));
 
@@ -12,7 +12,8 @@ TEST(Gamma, BasicAssertions) {
     EXPECT_REL_NEAR_F64(cephes::gamma(10.0), 362880.0);
 }
 
-TEST(Gamma, BranchCov) {
+TEST(Gamma, BranchCov)
+{
     // fabs(x) > 33.0 && x < 0.0
     EXPECT_REL_NEAR_F64(cephes::gamma(-33.1), 8.23969199675675e-37);
 

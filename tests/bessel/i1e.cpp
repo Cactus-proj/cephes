@@ -1,11 +1,12 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
+#include <xtest.hpp>
 
 /**
     Table[NumberForm[Exp[-Abs[x]]*BesselI[1, x], 16],
         {x, {0.0, -10., 1.0, 8.0, 9.0, 10.0, 100.}}]
  */
-TEST(BesselI1Exp, Branches) {
+TEST(BesselI1Exp, Branches)
+{
     EXPECT_REL_NEAR_F64(cephes::i1e(0.0), 0.0);
 
     // x < 0

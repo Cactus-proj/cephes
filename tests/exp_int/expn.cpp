@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/exp_int.h>
+#include <xtest.hpp>
 
-
-TEST(ExpN, Errors) {
+TEST(ExpN, Errors)
+{
     // n < 0
     EXPECT_TRUE(cephes::expn(-1, 10.0) > 1e308);
     // x < 0
@@ -13,7 +13,8 @@ TEST(ExpN, Errors) {
     EXPECT_TRUE(cephes::expn(1, 0.0) > 1e308);
     EXPECT_TRUE(cephes::expn(0, 0.0) > 1e308);
 }
-TEST(ExpN, CodecovTodo) {
+TEST(ExpN, CodecovTodo)
+{
     const double nan64 = std::numeric_limits<double>::quiet_NaN();
 
     // x==0.0 && n >= 2
