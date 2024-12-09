@@ -13,10 +13,6 @@ extern "C" {
 /** Airy Functions */
 int airy(double x, double *ai, double *aip, double *bi, double *bip);
 
-/** Hypergeometric Functions */
-double hyp2f1(double a, double b, double c, double x);
-double hyperg(double a, double b, double x);
-
 /** Bessel functions */
 double j0(double x);
 double j1(double x);
