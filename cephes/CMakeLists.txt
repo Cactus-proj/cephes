@@ -34,12 +34,6 @@ LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/polevl.c"
     )
 
-# ignore files in misc who are exact duplicates of any other
-LIST(REMOVE_ITEM src
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/psi.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/revers.c"
-    )
-
 # ignore rational polynomials of polyr.c,
 # because it conflict with the simpler polynomials of polyn.c
 LIST(REMOVE_ITEM src
