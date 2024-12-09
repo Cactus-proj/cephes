@@ -40,5 +40,4 @@
 
 ## Others
 
-* **psi**, [Psi (digamma) function](doubldoc.md#psi)
 * **struve**, [Struve function](doubldoc.md#struve)

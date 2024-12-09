@@ -39,7 +39,6 @@ double k1e(double x);
 double kn(int nn, double x);
 
 /** Others */
-double psi(double x);
 double struve(double v, double x);
 
 #if defined(__cplusplus)
