@@ -21,5 +21,3 @@ add_gtest(k0e)
 add_gtest(k1)
 add_gtest(k1e)
 add_gtest(kn)
-
-add_gtest(psi)
