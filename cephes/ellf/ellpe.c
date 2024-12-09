@@ -21,7 +21,7 @@
  *             -
  *            | |                 2
  * E(m)  =    |    sqrt( 1 - m sin t ) dt
- *          | |    
+ *          | |
  *           -
  *            0
  *
@@ -49,7 +49,7 @@
  * ellpe domain      x<0, x>1            0.0
  *
  */
-
+
 /*							ellpe.c		*/
 
 /* Elliptic integral of second kind */
@@ -61,6 +61,7 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 static double P[] = {
   1.53552577301013293365E-4,
@@ -172,10 +173,11 @@ static unsigned short Q[] = {
 0x3fcf,0xffff,0xffff,0xf048
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double polevl ( double, void *, int );
-extern double log ( double );
+extern double polevl(double, void *, int);
+extern double log(double);
 #else
 double polevl(), log();
 #endif
@@ -184,12 +186,12 @@ double ellpe(x)
 double x;
 {
 
-if( (x <= 0.0) || (x > 1.0) )
-	{
-	if( x == 0.0 )
-		return( 1.0 );
-	mtherr( "ellpe", DOMAIN );
-	return( 0.0 );
-	}
-return( polevl(x,P,10) - log(x) * (x * polevl(x,Q,9)) );
+    if ((x <= 0.0) || (x > 1.0))
+    {
+        if (x == 0.0)
+            return (1.0);
+        mtherr("ellpe", DOMAIN);
+        return (0.0);
+    }
+    return (polevl(x, P, 10) - log(x) * (x * polevl(x, Q, 9)));
 }
