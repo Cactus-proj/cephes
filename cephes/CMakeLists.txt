@@ -29,7 +29,6 @@ LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/unity.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/misc/chbevl.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/misc/polevl.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ellf/cmplx.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/const.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/polevl.c"
     )
