@@ -1,0 +1,8 @@
+# .git-blame-ignore-revs
+
+# cephes.cprob: format code
+c3bfb2e8dc818f5b6fbe8cc4657b8daf6abf4dd8
+# test: format code
+b5212eb3312640d15495e8b255f7c25b8d92b530
+# cephes.bessel: format all codes
+e9ea29cabec8d0ce0740d8d881d635b29d90e4f8
