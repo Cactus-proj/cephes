@@ -10,6 +10,23 @@ TEST(LogGamma, BasicAssertions)
     EXPECT_REL_NEAR_F64(cephes::lgam(1.0), 0.0);
 }
 
+TEST(LogGamma, BranchCov)
+{
+    // if (x < -34.0)
+    EXPECT_TRUE(std::isinf(cephes::lgam(-35.0)));
+    EXPECT_REL_NEAR_F64(cephes::lgam(-35.1), -90.17418399135259);
+
+    // if (x < 13.0) && if (z < 0.0)
+
+    // if (x > MAXLGM)
+    EXPECT_TRUE(std::isinf(cephes::lgam(2.6e305)));
+    EXPECT_TRUE(std::isinf(cephes::lgam(xtest::Inf64)));
+    // (x <= MAXLGM) && (x > 1.0e8)
+    EXPECT_REL_NEAR_F64(cephes::lgam(2.0e8), 3.622765576264487e9);
+    // (x <= MAXLGM) && (x <= 1.0e8) && (x >= 1000.0)
+    EXPECT_REL_NEAR_F64(cephes::lgam(1.0e8), 1.7420680661038346e9);
+}
+
 /* Julia + SpecialFunctions (MPFR 4.2.0)
 ```jl
 using SpecialFunctions
