@@ -33,8 +33,8 @@ Therefore, contributions regarding precision and error-related contributions are
 
 ```sh
 # On Linux
-cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build && cmake --build build
-cd build/ && ctest && make coverage_html
+cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build && cmake --build build --parallel 8
+cd build/ && ctest -j8 && make coverage_html
 ```
 
 
