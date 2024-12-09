@@ -11,12 +11,6 @@ FILE(GLOB src
 # note: single/ is not compiled because it conflicts
 # with many functions in cmath and cprob :(
 
-# use our custom mtherr instead of cmath/mtherr.c
-LIST(REMOVE_ITEM src
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mtherr.c"
-    )
-
-
 # ignore files which have a main() 
 LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mtst.c"
@@ -28,15 +22,12 @@ LIST(REMOVE_ITEM src
 LIST(REMOVE_ITEM src
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/drand.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/const.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/cprob/mtherr.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/polevl.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/cprob/unity.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/misc/chbevl.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/misc/mtherr.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/misc/polevl.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/cmplx.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/const.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ellf/mtherr.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/ellf/polevl.c"
     )
 
