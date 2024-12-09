@@ -3,11 +3,11 @@ include_directories(${CMAKE_SOURCE_DIR}/cephes)
 
 # locate all cephes subfolders to process
 FILE(GLOB src
-    "bessel/*.c"
     "cmath/*.c"
+    "bessel/*.c"
     "cprob/*.c"
-    "misc/*.c"
     "ellf/*.c"
+    "misc/*.c"
     "polyn/*.c"
     "torch_mtherr.c"
     )
