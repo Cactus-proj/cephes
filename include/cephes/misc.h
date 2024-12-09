@@ -10,6 +10,9 @@ namespace cephes {
 extern "C" {
 #endif
 
+/* misc/ei.c */
+double ei(double x);
+
 /* misc/spence.c */
 double spence(double x);
 

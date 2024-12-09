@@ -1,4 +1,5 @@
 
+add_gtest(ei)
 add_gtest(spence)
 
 add_gtest(zeta)
