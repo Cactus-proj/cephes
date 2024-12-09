@@ -12,6 +12,21 @@ TEST(Gamma, BasicAssertions) {
     EXPECT_REL_NEAR_F64(cephes::gamma(10.0), 362880.0);
 }
 
+TEST(Gamma, BranchCov) {
+    // fabs(x) > 33.0 && x < 0.0
+    EXPECT_REL_NEAR_F64(cephes::gamma(-33.1), 8.23969199675675e-37);
+
+    // while (x < 0.0)
+    EXPECT_REL_NEAR_F64(cephes::gamma(-0.5), -3.544907701811032);
+    // while (x < 0.0) && x > -1.E-9
+    EXPECT_REL_NEAR_F64(cephes::gamma(-1.0e-100), -1.0e100);
+    EXPECT_REL_NEAR_F64(cephes::gamma(-1.0e-300), -1.0e300);
+    // small:  x < 1.e-9 && x != 0.0
+    EXPECT_REL_NEAR_F64(cephes::gamma(1.0e-10), 9.999999999422785e9);
+    EXPECT_REL_NEAR_F64(cephes::gamma(1.0e-100), 1.0e100);
+    EXPECT_REL_NEAR_F64(cephes::gamma(1.0e-300), 1.0e300);
+}
+
 /* Julia + SpecialFunctions (MPFR 4.2.0)
 ```jl
 using SpecialFunctions
