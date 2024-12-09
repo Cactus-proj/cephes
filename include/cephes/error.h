@@ -14,7 +14,6 @@ extern "C" {
 /* cephes/ndtr.c */
 double erf(double x);
 double erfc(double a);
-double ndtr(double a);
 
 /* cephes/dawsn.c */
 double dawsn(double xx);

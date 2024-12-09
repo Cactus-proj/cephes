@@ -1,5 +1,5 @@
 #include <xtest.hpp>
-#include <cephes/error.h>
+#include <cephes/prob.h>
 
 
 TEST(ndtr, Branches) {
