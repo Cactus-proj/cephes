@@ -13,6 +13,9 @@ extern "C" {
 /* misc/ei.c */
 double ei(double x);
 
+/* misc/polylog.c */
+double polylog(int n, double x);
+
 /* misc/spence.c */
 double spence(double x);
 
