@@ -1,5 +1,4 @@
-Copyright (c) 2024, Chengyu HAN <cyhan.dev@outlook.com> and contributors
-    https://github.com/Cactus-proj/cephes/graphs/contributors
+Copyright (c) 2024, cephes contributors: https://github.com/Cactus-proj/cephes/graphs/contributors
 Copyright (c) 2013-2016, Julien Cornebise
 Copyright (c) 1984-2013, Stephen L. Moshier
 All rights reserved.
