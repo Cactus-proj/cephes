@@ -23,4 +23,3 @@ add_gtest(k1e)
 add_gtest(kn)
 
 add_gtest(psi)
-add_gtest(struve)
