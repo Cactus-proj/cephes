@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/exp_int.h>
+#include <xtest.hpp>
 
-
-TEST(SiCi, Errors) {
+TEST(SiCi, Errors)
+{
     int ret;
     double x, si, ci;
 
@@ -12,7 +12,8 @@ TEST(SiCi, Errors) {
     EXPECT_EQ(si, 0.0);
     EXPECT_LT(ci, -1e308);
 }
-TEST(SiCi, CodecovTodo) {
+TEST(SiCi, CodecovTodo)
+{
     const double nan64 = std::numeric_limits<double>::quiet_NaN();
     int ret;
     double x, si, ci;

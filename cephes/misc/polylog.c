@@ -73,6 +73,7 @@ Copyright 1999 by Stephen L. Moshier
 #include "mconf.h"
 extern double PI;
 
+/* clang-format off */
 /* polylog(4, 1-x) = zeta(4) - x zeta(3) + x^2 A4(x)/B4(x)
    0 <= x <= 0.125
    Theoretical peak absolute error 4.5e-18  */
@@ -204,18 +205,19 @@ static short B4[48] = {
 0x3ae2,0x81e1,0x5f6f,0xbc13,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double spence ( double );
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-extern double zetac ( double );
-extern double pow ( double, double );
-extern double powi ( double, int );
-extern double log ( double );
-extern double fac ( int i );
-extern double fabs (double);
-double polylog (int, double);
+extern double spence(double);
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+extern double zetac(double);
+extern double pow(double, double);
+extern double powi(double, int);
+extern double log(double);
+extern double fac(int i);
+extern double fabs(double);
+double polylog(int, double);
 #else
 extern double spence(), polevl(), p1evl(), zetac();
 extern double pow(), powi(), log();
@@ -225,244 +227,236 @@ double polylog();
 #endif
 extern double MACHEP;
 
-double
-polylog (n, x)
-     int n;
-     double x;
+double polylog(n, x)
+int n;
+double x;
 {
-  double h, k, p, s, t, u, xc, z;
-  int i, j;
+    double h, k, p, s, t, u, xc, z;
+    int i, j;
 
-/*  This recurrence provides formulas for n < 2.
+    /*  This recurrence provides formulas for n < 2.
 
-    d                 1
-    --   Li (x)  =   ---  Li   (x)  .
-    dx     n          x     n-1
+        d                 1
+        --   Li (x)  =   ---  Li   (x)  .
+        dx     n          x     n-1
 
-*/
+    */
 
-  if (n == -1)
+    if (n == -1)
     {
-      p  = 1.0 - x;
-      u = x / p;
-      s = u * u + u;
-      return s;
+        p = 1.0 - x;
+        u = x / p;
+        s = u * u + u;
+        return s;
     }
 
-  if (n == 0)
+    if (n == 0)
     {
-      s = x / (1.0 - x);
-      return s;
+        s = x / (1.0 - x);
+        return s;
     }
 
-  /* Not implemented for n < -1.
-     Not defined for x > 1.  Use cpolylog if you need that.  */
-  if (x > 1.0 || n < -1)
+    /* Not implemented for n < -1.
+       Not defined for x > 1.  Use cpolylog if you need that.  */
+    if (x > 1.0 || n < -1)
     {
-      mtherr("polylog", DOMAIN);
-      return 0.0;
+        mtherr("polylog", DOMAIN);
+        return 0.0;
     }
 
-  if (n == 1)
+    if (n == 1)
     {
-      s = -log (1.0 - x);
-      return s;
+        s = -log(1.0 - x);
+        return s;
     }
 
-  /* Argument +1 */
-  if (x == 1.0 && n > 1)
+    /* Argument +1 */
+    if (x == 1.0 && n > 1)
     {
-      s = zetac ((double) n) + 1.0;
-      return s;
+        s = zetac((double)n) + 1.0;
+        return s;
     }
 
-  /* Argument -1.
-                        1-n
-     Li (-z)  = - (1 - 2   ) Li (z)
-       n                       n
-   */
-  if (x == -1.0 && n > 1)
+    /* Argument -1.
+                          1-n
+       Li (-z)  = - (1 - 2   ) Li (z)
+         n                       n
+     */
+    if (x == -1.0 && n > 1)
     {
-      /* Li_n(1) = zeta(n) */
-      s = zetac ((double) n) + 1.0;
-      s = s * (powi (2.0, 1 - n) - 1.0);
-      return s;
+        /* Li_n(1) = zeta(n) */
+        s = zetac((double)n) + 1.0;
+        s = s * (powi(2.0, 1 - n) - 1.0);
+        return s;
     }
 
-/*  Inversion formula:
- *                                                   [n/2]   n-2r
- *                n                  1     n           -  log    (z)
- *  Li (-z) + (-1)  Li (-1/z)  =  - --- log (z)  +  2  >  ----------- Li  (-1)
- *    n               n              n!                -   (n - 2r)!    2r
- *                                                    r=1
- */
-  if (x < -1.0 && n > 1)
+    /*  Inversion formula:
+     *                                                   [n/2]   n-2r
+     *                n                  1     n           -  log    (z)
+     *  Li (-z) + (-1)  Li (-1/z)  =  - --- log (z)  +  2  >  ----------- Li  (-1)
+     *    n               n              n!                -   (n - 2r)!    2r
+     *                                                    r=1
+     */
+    if (x < -1.0 && n > 1)
     {
-      double q, w;
-      int r;
+        double q, w;
+        int r;
 
-      w = log (-x);
-      s = 0.0;
-      for (r = 1; r <= n / 2; r++)
-	{
-	  j = 2 * r;
-	  p = polylog (j, -1.0);
-	  j = n - j;
-	  if (j == 0)
-	    {
-	      s = s + p;
-	      break;
-	    }
-	  q = (double) j;
-	  q = pow (w, q) * p / fac (j);
-	  s = s + q;
-	}
-      s = 2.0 * s;
-      q = polylog (n, 1.0 / x);
-      if (n & 1)
-	q = -q;
-      s = s - q;
-      s = s - pow (w, (double) n) / fac (n);
-      return s;
+        w = log(-x);
+        s = 0.0;
+        for (r = 1; r <= n / 2; r++)
+        {
+            j = 2 * r;
+            p = polylog(j, -1.0);
+            j = n - j;
+            if (j == 0)
+            {
+                s = s + p;
+                break;
+            }
+            q = (double)j;
+            q = pow(w, q) * p / fac(j);
+            s = s + q;
+        }
+        s = 2.0 * s;
+        q = polylog(n, 1.0 / x);
+        if (n & 1)
+            q = -q;
+        s = s - q;
+        s = s - pow(w, (double)n) / fac(n);
+        return s;
     }
 
-  if (n == 2)
+    if (n == 2)
     {
-      if (x < 0.0 || x > 1.0)
-	return (spence (1.0 - x));
+        if (x < 0.0 || x > 1.0)
+            return (spence(1.0 - x));
     }
 
+    /*  The power series converges slowly when x is near 1.  For n = 3, this
+        identity helps:
 
+        Li (-x/(1-x)) + Li (1-x) + Li (x)
+          3               3          3
+                       2                               2                 3
+         = Li (1) + (pi /6) log(1-x) - (1/2) log(x) log (1-x) + (1/6) log (1-x)
+             3
+    */
 
-  /*  The power series converges slowly when x is near 1.  For n = 3, this
-      identity helps:
-
-      Li (-x/(1-x)) + Li (1-x) + Li (x)
-        3               3          3
-                     2                               2                 3
-       = Li (1) + (pi /6) log(1-x) - (1/2) log(x) log (1-x) + (1/6) log (1-x)
-           3
-  */
-
-  if (n == 3)
+    if (n == 3)
     {
-      p = x * x * x;
-      if (x > 0.8)
-	{
-	  /* Thanks to Oscar van Vlijmen for detecting an error here.  */
-	  u = log(x);
-	  s = u * u * u / 6.0;
-	  xc = 1.0 - x;
-	  s = s - 0.5 * u * u * log(xc);
-          s = s + PI * PI * u / 6.0;
-          s = s - polylog (3, -xc/x);
-	  s = s - polylog (3, xc);
-	  s = s + zetac(3.0);
-	  s = s + 1.0;
-	  return s;
-	}
-      /* Power series  */
-      t = p / 27.0;
-      t = t + .125 * x * x;
-      t = t + x;
+        p = x * x * x;
+        if (x > 0.8)
+        {
+            /* Thanks to Oscar van Vlijmen for detecting an error here.  */
+            u = log(x);
+            s = u * u * u / 6.0;
+            xc = 1.0 - x;
+            s = s - 0.5 * u * u * log(xc);
+            s = s + PI * PI * u / 6.0;
+            s = s - polylog(3, -xc / x);
+            s = s - polylog(3, xc);
+            s = s + zetac(3.0);
+            s = s + 1.0;
+            return s;
+        }
+        /* Power series  */
+        t = p / 27.0;
+        t = t + .125 * x * x;
+        t = t + x;
 
-      s = 0.0;
-      k = 4.0;
-      do
-	{
-	  p = p * x;
-	  h = p / (k * k * k);
-	  s = s + h;
-	  k += 1.0;
-	}
-      while (fabs(h/s) > 1.1e-16);
-      return (s + t);
+        s = 0.0;
+        k = 4.0;
+        do
+        {
+            p = p * x;
+            h = p / (k * k * k);
+            s = s + h;
+            k += 1.0;
+        } while (fabs(h / s) > 1.1e-16);
+        return (s + t);
     }
 
-if (n == 4)
-  {
-    if (x >= 0.875)
-      {
-	u = 1.0 - x;
-	s = polevl(u, A4, 12) / p1evl(u, B4, 12);
-	s =  s * u * u - 1.202056903159594285400 * u;
-	s +=  1.0823232337111381915160;
-	return s;
-      }
-    goto pseries;
-  }
-
-
-  if (x < 0.75)
-    goto pseries;
-
-
-/*  This expansion in powers of log(x) is especially useful when
-    x is near 1.
-
-    See also the pari gp calculator.
-
-                      inf                  j
-                       -    z(n-j) (log(x))
-    polylog(n,x)  =    >   -----------------
-                       -           j!
-                      j=0
-
-      where
-
-      z(j) = Riemann zeta function (j), j != 1
-
-                              n-1
-                               -
-      z(1) =  -log(-log(x)) +  >  1/k
-                               -
-                              k=1
-  */
-
-  z = log(x);
-  h = -log(-z);
-  for (i = 1; i < n; i++)
-    h = h + 1.0/i;
-  p = 1.0;
-  s = zetac((double)n) + 1.0;
-  for (j=1; j<=n+1; j++)
-  {
-    p = p * z / j;
-    if (j == n-1)
-      s = s + h * p;
-    else
-      s = s + (zetac((double)(n-j)) + 1.0) * p;
-  }
-  j = n + 3;
-  z = z * z;
-  for(;;)
+    if (n == 4)
     {
-      p = p * z / ((j-1)*j);
-      h = (zetac((double)(n-j)) + 1.0);
-      h = h * p;
-      s = s + h;
-      if (fabs(h/s) < MACHEP)
-	break;
-      j += 2;
+        if (x >= 0.875)
+        {
+            u = 1.0 - x;
+            s = polevl(u, A4, 12) / p1evl(u, B4, 12);
+            s = s * u * u - 1.202056903159594285400 * u;
+            s += 1.0823232337111381915160;
+            return s;
+        }
+        goto pseries;
     }
-  return s;
 
+    if (x < 0.75)
+        goto pseries;
+
+    /*  This expansion in powers of log(x) is especially useful when
+        x is near 1.
+
+        See also the pari gp calculator.
+
+                          inf                  j
+                           -    z(n-j) (log(x))
+        polylog(n,x)  =    >   -----------------
+                           -           j!
+                          j=0
+
+          where
+
+          z(j) = Riemann zeta function (j), j != 1
+
+                                  n-1
+                                   -
+          z(1) =  -log(-log(x)) +  >  1/k
+                                   -
+                                  k=1
+      */
+
+    z = log(x);
+    h = -log(-z);
+    for (i = 1; i < n; i++)
+        h = h + 1.0 / i;
+    p = 1.0;
+    s = zetac((double)n) + 1.0;
+    for (j = 1; j <= n + 1; j++)
+    {
+        p = p * z / j;
+        if (j == n - 1)
+            s = s + h * p;
+        else
+            s = s + (zetac((double)(n - j)) + 1.0) * p;
+    }
+    j = n + 3;
+    z = z * z;
+    for (;;)
+    {
+        p = p * z / ((j - 1) * j);
+        h = (zetac((double)(n - j)) + 1.0);
+        h = h * p;
+        s = s + h;
+        if (fabs(h / s) < MACHEP)
+            break;
+        j += 2;
+    }
+    return s;
 
 pseries:
 
-  p = x * x * x;
-  k = 3.0;
-  s = 0.0;
-  do
+    p = x * x * x;
+    k = 3.0;
+    s = 0.0;
+    do
     {
-      p = p * x;
-      k += 1.0;
-      h = p / powi(k, n);
-      s = s + h;
-    }
-  while (fabs(h/s) > MACHEP);
-  s += x * x * x / powi(3.0,n);
-  s += x * x / powi(2.0,n);
-  s += x;
-  return s;
+        p = p * x;
+        k += 1.0;
+        h = p / powi(k, n);
+        s = s + h;
+    } while (fabs(h / s) > MACHEP);
+    s += x * x * x / powi(3.0, n);
+    s += x * x / powi(2.0, n);
+    s += x;
+    return s;
 }

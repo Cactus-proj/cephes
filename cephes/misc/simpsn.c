@@ -4,6 +4,7 @@
  * at equally spaced arguments
  */
 
+/* clang-format off */
 /* Coefficients for Cote integration formulas */
 
 /* Note: these numbers were computed using 40-decimal precision. */
@@ -62,20 +63,20 @@ static double simcon[] =
  -9.0005367135242894657916E+1,
 };
 */
-
+/* clang-format on */
+
 /*							simpsn.c 3	*/
-double simpsn( f, delta )
-double f[];	/* tabulated function */
-double delta;	/* spacing of arguments */
+double simpsn(f, delta)
+double f[];   /* tabulated function */
+double delta; /* spacing of arguments */
 {
-extern double simcon[];
-double ans;
-int i;
+    extern double simcon[];
+    double ans;
+    int i;
 
+    ans = simcon[NCOTE / 2] * f[NCOTE / 2];
+    for (i = 0; i < NCOTE / 2; i++)
+        ans += simcon[i] * (f[i] + f[NCOTE - i]);
 
-ans = simcon[NCOTE/2] * f[NCOTE/2];
-for( i=0; i < NCOTE/2; i++ )
-	ans += simcon[i] * ( f[i] + f[NCOTE-i] );
-
-return( ans * delta * NCOTE );
+    return (ans * delta * NCOTE);
 }

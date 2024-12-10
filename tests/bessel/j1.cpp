@@ -1,12 +1,13 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
+#include <xtest.hpp>
 
-
-TEST(BesselJ1, BasicAssertions) {
+TEST(BesselJ1, BasicAssertions)
+{
     EXPECT_EQ(cephes::j1(0.0), 0.0);
     EXPECT_EQ(cephes::j1(-0.0), 0.0);
 }
-TEST(BesselJ1, Branches) {
+TEST(BesselJ1, Branches)
+{
     double x, y, y_ref;
 
     // x <= 5.0

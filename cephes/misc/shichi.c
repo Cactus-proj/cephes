@@ -49,15 +49,15 @@
  *    DEC          Chi       2500       9.3e-17
  *    IEEE         Chi      30000       8.4e-16     1.4e-16
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 2000 by Stephen L. Moshier
 */
 
-
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 /* x exp(-x) shi(x), inverted interval 8 to 18 */
 static double S1[] = {
@@ -494,106 +494,102 @@ static unsigned short C2[] = {
 0x3ff0,0x9625,0x962f,0x25d7
 };
 #endif
-
-
+/* clang-format on */
 
 /* Sine and cosine integrals */
 
 #ifdef ANSIPROT
-extern double log ( double );
-extern double exp ( double );
-extern double fabs ( double );
-extern double chbevl ( double, void *, int );
+extern double log(double);
+extern double exp(double);
+extern double fabs(double);
+extern double chbevl(double, void *, int);
 #else
 double log(), exp(), fabs(), chbevl();
 #endif
 #define EUL 0.57721566490153286061
 extern double MACHEP, MAXNUM, PIO2;
 
-int shichi( x, si, ci )
+int shichi(x, si, ci)
 double x;
 double *si, *ci;
 {
-double k, z, c, s, a;
-short sign;
+    double k, z, c, s, a;
+    short sign;
 
-if( x < 0.0 )
-	{
-	sign = -1;
-	x = -x;
-	}
-else
-	sign = 0;
+    if (x < 0.0)
+    {
+        sign = -1;
+        x = -x;
+    }
+    else
+        sign = 0;
 
+    if (x == 0.0)
+    {
+        *si = 0.0;
+        *ci = -MAXNUM;
+        return (0);
+    }
 
-if( x == 0.0 )
-	{
-	*si = 0.0;
-	*ci = -MAXNUM;
-	return( 0 );
-	}
+    if (x >= 8.0)
+        goto chb;
 
-if( x >= 8.0 )
-	goto chb;
+    z = x * x;
 
-z = x * x;
+    /*	Direct power series expansion	*/
 
-/*	Direct power series expansion	*/
+    a = 1.0;
+    s = 1.0;
+    c = 0.0;
+    k = 2.0;
 
-a = 1.0;
-s = 1.0;
-c = 0.0;
-k = 2.0;
+    do
+    {
+        a *= z / k;
+        c += a / k;
+        k += 1.0;
+        a /= k;
+        s += a / k;
+        k += 1.0;
+    } while (fabs(a / s) > MACHEP);
 
-do
-	{
-	a *= z/k;
-	c += a/k;
-	k += 1.0;
-	a /= k;
-	s += a/k;
-	k += 1.0;
-	}
-while( fabs(a/s) > MACHEP );
-
-s *= x;
-goto done;
-
+    s *= x;
+    goto done;
 
 chb:
 
-if( x < 18.0 )
-	{
-	a = (576.0/x - 52.0)/10.0;
-	k = exp(x) / x;
-	s = k * chbevl( a, S1, 22 );
-	c = k * chbevl( a, C1, 23 );
-	goto done;
-	}
+    if (x < 18.0)
+    {
+        a = (576.0 / x - 52.0) / 10.0;
+        k = exp(x) / x;
+        s = k * chbevl(a, S1, 22);
+        c = k * chbevl(a, C1, 23);
+        goto done;
+    }
 
-if( x <= 88.0 )
-	{
-	a = (6336.0/x - 212.0)/70.0;
-	k = exp(x) / x;
-	s = k * chbevl( a, S2, 23 );
-	c = k * chbevl( a, C2, 24 );
-	goto done;
-	}
-else
-	{
-	if( sign )
-		*si = -MAXNUM;
-	else
-		*si = MAXNUM;
-	*ci = MAXNUM;
-	return(0);
-	}
+    if (x <= 88.0)
+    {
+        a = (6336.0 / x - 212.0) / 70.0;
+        k = exp(x) / x;
+        s = k * chbevl(a, S2, 23);
+        c = k * chbevl(a, C2, 24);
+        goto done;
+    }
+    else
+    {
+        if (sign)
+            *si = -MAXNUM;
+        else
+            *si = MAXNUM;
+        *ci = MAXNUM;
+        return (0);
+    }
 done:
-if( sign )
-	s = -s;
+    if (sign)
+        s = -s;
 
-*si = s;
+    *si = s;
 
-*ci = EUL + log(x) + c;
-return(0);
+    *ci = EUL + log(x) + c;
+    return (0);
 }

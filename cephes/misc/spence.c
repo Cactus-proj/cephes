@@ -39,9 +39,8 @@
  *
  *
  */
-
-/*							spence.c */
 
+/*							spence.c */
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -50,6 +49,7 @@ Copyright 1985, 1987, 1989, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 static double A[8] = {
   4.65128586073990045278E-5,
@@ -138,11 +138,12 @@ static unsigned short B[32] = {
 0x3ff0,0x0000,0x0000,0x0000,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double fabs ( double );
-extern double log ( double );
-extern double polevl ( double, void *, int );
+extern double fabs(double);
+extern double log(double);
+extern double polevl(double, void *, int);
 #else
 double fabs(), log(), polevl();
 #endif
@@ -151,55 +152,54 @@ extern double PI, MACHEP;
 double spence(x)
 double x;
 {
-double w, y, z;
-int flag;
+    double w, y, z;
+    int flag;
 
-if( x < 0.0 )
-	{
-	mtherr( "spence", DOMAIN );
-	return(0.0);
-	}
+    if (x < 0.0)
+    {
+        mtherr("spence", DOMAIN);
+        return (0.0);
+    }
 
-if( x == 1.0 )
-	return( 0.0 );
+    if (x == 1.0)
+        return (0.0);
 
-if( x == 0.0 )
-	return( PI*PI/6.0 );
+    if (x == 0.0)
+        return (PI * PI / 6.0);
 
-flag = 0;
+    flag = 0;
 
-if( x > 2.0 )
-	{
-	x = 1.0/x;
-	flag |= 2;
-	}
+    if (x > 2.0)
+    {
+        x = 1.0 / x;
+        flag |= 2;
+    }
 
-if( x > 1.5 )
-	{
-	w = (1.0/x) - 1.0;
-	flag |= 2;
-	}
+    if (x > 1.5)
+    {
+        w = (1.0 / x) - 1.0;
+        flag |= 2;
+    }
 
-else if( x < 0.5 )
-	{
-	w = -x;
-	flag |= 1;
-	}
+    else if (x < 0.5)
+    {
+        w = -x;
+        flag |= 1;
+    }
 
-else
-	w = x - 1.0;
+    else
+        w = x - 1.0;
 
+    y = -w * polevl(w, A, 7) / polevl(w, B, 7);
 
-y = -w * polevl( w, A, 7) / polevl( w, B, 7 );
+    if (flag & 1)
+        y = (PI * PI) / 6.0 - log(x) * log(1.0 - x) - y;
 
-if( flag & 1 )
-	y = (PI * PI)/6.0  - log(x) * log(1.0-x) - y;
+    if (flag & 2)
+    {
+        z = log(x);
+        y = -0.5 * z * z - y;
+    }
 
-if( flag & 2 )
-	{
-	z = log(x);
-	y = -0.5 * z * z  -  y;
-	}
-
-return( y );
+    return (y);
 }

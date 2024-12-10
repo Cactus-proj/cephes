@@ -26,6 +26,7 @@ Therefore, contributions regarding precision and error-related contributions are
 - [Bessel functions](doc/markdown/bessel.md)
 - [Hypergeometric functions](doc/markdown/hyper.md)
 - [Elliptic functions](doc/markdown/elliptic.md)
+- [Probability functions](doc/markdown/prob.md)
 - [Miscellaneous functions](doc/markdown/misc.md)
 
 
@@ -34,7 +35,7 @@ Therefore, contributions regarding precision and error-related contributions are
 ```sh
 # On Linux
 cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build && cmake --build build --parallel 8
-cd build/ && ctest -j8 && make coverage_html
+cd build/ && ctest -j8 --rerun-failed --output-on-failure && make coverage_html
 ```
 
 

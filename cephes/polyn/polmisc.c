@@ -34,6 +34,7 @@ void free ();
 /* Highest degree actually initialized at runtime.  */
 extern int MAXPOL;
 
+/* clang-format off */
 /* Taylor series coefficients for various functions
  */
 double patan[N+1] = {
@@ -44,7 +45,8 @@ double patan[N+1] = {
 double psin[N+1] = {
   0.0, 1.0, 0.0,   -1.0/6.0,  0.0, 1.0/120.0,  0.0,
   -1.0/5040.0, 0.0, 1.0/362880.0, 0.0, -1.0/39916800.0,
-  0.0, 1.0/6227020800.0, 0.0, -1.0/1.307674368e12, 0.0};
+  0.0, 1.0/6227020800.0, 0.0, -1.0/1.307674368e12, 0.0
+  };
 
 double pcos[N+1] = {
   1.0, 0.0,   -1.0/2.0,  0.0, 1.0/24.0,  0.0,
@@ -63,6 +65,7 @@ double psqrt[N+1] = {
   -429./32768., 715./65536., -2431./262144., 4199./524288., -29393./4194304.,
   52003./8388608., -185725./33554432., 334305./67108864.,
   -9694845./2147483648.};
+/* clang-format on */
 
 /* Arctangent of the ratio num/den of two polynomials.
  */

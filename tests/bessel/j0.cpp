@@ -1,11 +1,12 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
+#include <xtest.hpp>
 
-
-TEST(BesselJ0, BasicAssertions) {
+TEST(BesselJ0, BasicAssertions)
+{
     double x, y, y_ref;
 }
-TEST(BesselJ0, Branches) {
+TEST(BesselJ0, Branches)
+{
     double x, y, y_ref;
 
     // x <= 5.0 && x < 1.0e-5

@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/exp_int.h>
+#include <xtest.hpp>
 
-
-TEST(ShiChi, Errors) {
+TEST(ShiChi, Errors)
+{
     int ret;
     double x, si, ci;
 
@@ -12,7 +12,8 @@ TEST(ShiChi, Errors) {
     EXPECT_EQ(si, 0.0);
     EXPECT_LT(ci, -1e308);
 }
-TEST(ShiChi, CodecovTodo) {
+TEST(ShiChi, CodecovTodo)
+{
     const double nan64 = std::numeric_limits<double>::quiet_NaN();
     int ret;
     double x, si, ci;
@@ -48,7 +49,7 @@ TEST(ShiChi, CodecovTodo) {
     EXPECT_EQ(ret, 0);
     EXPECT_NE(si, nan64);
     EXPECT_NE(ci, nan64);
-    
+
     // x < 8.0
     // power series expansion
     ret = cephes::shichi(3.0, &si, &ci);

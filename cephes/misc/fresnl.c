@@ -52,7 +52,7 @@
  *   DEC        S(x)      0, 10        6000       2.2e-16     3.9e-17
  *   DEC        C(x)      0, 10        5000       2.3e-16     3.9e-17
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
@@ -60,6 +60,7 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 /* S(x) for small x */
 #ifdef UNK
 static double sn[6] = {
@@ -444,72 +445,67 @@ static unsigned short gd[44] = {
 0x3b6c,0x409d,0x624f,0xbe2b,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double fabs ( double );
-extern double cos ( double );
-extern double sin ( double );
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
+extern double fabs(double);
+extern double cos(double);
+extern double sin(double);
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
 #else
 double fabs(), cos(), sin(), polevl(), p1evl();
 #endif
 extern double PI, PIO2, MACHEP;
 
-int fresnl( xxa, ssa, cca )
+int fresnl(xxa, ssa, cca)
 double xxa, *ssa, *cca;
 {
-double f, g, cc, ss, c, s, t, u;
-double x, x2;
+    double f, g, cc, ss, c, s, t, u;
+    double x, x2;
 
-x = fabs(xxa);
-x2 = x * x;
-if( x2 < 2.5625 )
-	{
-	t = x2 * x2;
-	ss = x * x2 * polevl( t, sn, 5)/p1evl( t, sd, 6 );
-	cc = x * polevl( t, cn, 5)/polevl(t, cd, 6 );
-	goto done;
-	}
+    x = fabs(xxa);
+    x2 = x * x;
+    if (x2 < 2.5625)
+    {
+        t = x2 * x2;
+        ss = x * x2 * polevl(t, sn, 5) / p1evl(t, sd, 6);
+        cc = x * polevl(t, cn, 5) / polevl(t, cd, 6);
+        goto done;
+    }
 
+    if (x > 36974.0)
+    {
+        cc = 0.5;
+        ss = 0.5;
+        goto done;
+    }
 
+    /*		Asymptotic power series auxiliary functions
+     *		for large argument
+     */
+    x2 = x * x;
+    t = PI * x2;
+    u = 1.0 / (t * t);
+    t = 1.0 / t;
+    f = 1.0 - u * polevl(u, fn, 9) / p1evl(u, fd, 10);
+    g = t * polevl(u, gn, 10) / p1evl(u, gd, 11);
 
-
-
-
-if( x > 36974.0 )
-	{
-	cc = 0.5;
-	ss = 0.5;
-	goto done;
-	}
-
-
-/*		Asymptotic power series auxiliary functions
- *		for large argument
- */
-	x2 = x * x;
-	t = PI * x2;
-	u = 1.0/(t * t);
-	t = 1.0/t;
-	f = 1.0 - u * polevl( u, fn, 9)/p1evl(u, fd, 10);
-	g = t * polevl( u, gn, 10)/p1evl(u, gd, 11);
-
-	t = PIO2 * x2;
-	c = cos(t);
-	s = sin(t);
-	t = PI * x;
-	cc = 0.5  +  (f * s  -  g * c)/t;
-	ss = 0.5  -  (f * c  +  g * s)/t;
+    t = PIO2 * x2;
+    c = cos(t);
+    s = sin(t);
+    t = PI * x;
+    cc = 0.5 + (f * s - g * c) / t;
+    ss = 0.5 - (f * c + g * s) / t;
 
 done:
-if( xxa < 0.0 )
-	{
-	cc = -cc;
-	ss = -ss;
-	}
+    if (xxa < 0.0)
+    {
+        cc = -cc;
+        ss = -ss;
+    }
 
-*cca = cc;
-*ssa = ss;
-return(0);
+    *cca = cc;
+    *ssa = ss;
+    return (0);
 }

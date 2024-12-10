@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/elliptic.h>
+#include <xtest.hpp>
 
-
-TEST(EllipticJaco, Branches) {
+TEST(EllipticJaco, Branches)
+{
     double u, m, sn, cn, dn, ph;
     // m < 0.0 || m > 1.0
     u = 1.0;

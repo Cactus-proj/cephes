@@ -48,7 +48,7 @@
  *    DEC         Si         5000       4.4e-17     9.0e-18
  *    DEC         Ci         5300       7.9e-17     5.2e-18
  */
-
+
 /*
 Cephes Math Library Release 2.1:  January, 1989
 Copyright 1984, 1987, 1989 by Stephen L. Moshier
@@ -57,6 +57,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef UNK
 static double SN[] = {
 -8.39167827910303881427E-11,
@@ -574,102 +575,95 @@ static unsigned short GD8[] = {
 0x3cec,0x4945,0x8c03,0x63a9,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double log ( double );
-extern double sin ( double );
-extern double cos ( double );
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
+extern double log(double);
+extern double sin(double);
+extern double cos(double);
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
 #else
 double log(), sin(), cos(), polevl(), p1evl();
 #endif
 #define EUL 0.57721566490153286061
 extern double MAXNUM, PIO2, MACHEP;
 
-
-int sici( x, si, ci )
+int sici(x, si, ci)
 double x;
 double *si, *ci;
 {
-double z, c, s, f, g;
-short sign;
+    double z, c, s, f, g;
+    short sign;
 
-if( x < 0.0 )
-	{
-	sign = -1;
-	x = -x;
-	}
-else
-	sign = 0;
+    if (x < 0.0)
+    {
+        sign = -1;
+        x = -x;
+    }
+    else
+        sign = 0;
 
+    if (x == 0.0)
+    {
+        *si = 0.0;
+        *ci = -MAXNUM;
+        return (0);
+    }
 
-if( x == 0.0 )
-	{
-	*si = 0.0;
-	*ci = -MAXNUM;
-	return( 0 );
-	}
+    if (x > 1.0e9)
+    {
+        *si = PIO2 - cos(x) / x;
+        *ci = sin(x) / x;
+        return (0);
+    }
 
+    if (x > 4.0)
+        goto asympt;
 
-if( x > 1.0e9 )
-	{
-	*si = PIO2 - cos(x)/x;
-	*ci = sin(x)/x;
-	return( 0 );
-	}
+    z = x * x;
+    s = x * polevl(z, SN, 5) / polevl(z, SD, 5);
+    c = z * polevl(z, CN, 5) / polevl(z, CD, 5);
 
+    if (sign)
+        s = -s;
+    *si = s;
+    *ci = EUL + log(x) + c; /* real part if x < 0 */
+    return (0);
 
-
-if( x > 4.0 )
-	goto asympt;
-
-z = x * x;
-s = x * polevl( z, SN, 5 ) / polevl( z, SD, 5 );
-c = z * polevl( z, CN, 5 ) / polevl( z, CD, 5 );
-
-if( sign )
-	s = -s;
-*si = s;
-*ci = EUL + log(x) + c;	/* real part if x < 0 */
-return(0);
-
-
-
-/* The auxiliary functions are:
- *
- *
- * *si = *si - PIO2;
- * c = cos(x);
- * s = sin(x);
- *
- * t = *ci * s - *si * c;
- * a = *ci * c + *si * s;
- *
- * *si = t;
- * *ci = -a;
- */
-
+    /* The auxiliary functions are:
+     *
+     *
+     * *si = *si - PIO2;
+     * c = cos(x);
+     * s = sin(x);
+     *
+     * t = *ci * s - *si * c;
+     * a = *ci * c + *si * s;
+     *
+     * *si = t;
+     * *ci = -a;
+     */
 
 asympt:
 
-s = sin(x);
-c = cos(x);
-z = 1.0/(x*x);
-if( x < 8.0 )
-	{
-	f = polevl( z, FN4, 6 ) / (x * p1evl( z, FD4, 7 ));
-	g = z * polevl( z, GN4, 7 ) / p1evl( z, GD4, 7 );
-	}
-else
-	{
-	f = polevl( z, FN8, 8 ) / (x * p1evl( z, FD8, 8 ));
-	g = z * polevl( z, GN8, 8 ) / p1evl( z, GD8, 9 );
-	}
-*si = PIO2 - f * c - g * s;
-if( sign )
-	*si = -( *si );
-*ci = f * s - g * c;
+    s = sin(x);
+    c = cos(x);
+    z = 1.0 / (x * x);
+    if (x < 8.0)
+    {
+        f = polevl(z, FN4, 6) / (x * p1evl(z, FD4, 7));
+        g = z * polevl(z, GN4, 7) / p1evl(z, GD4, 7);
+    }
+    else
+    {
+        f = polevl(z, FN8, 8) / (x * p1evl(z, FD8, 8));
+        g = z * polevl(z, GN8, 8) / p1evl(z, GD8, 9);
+    }
+    *si = PIO2 - f * c - g * s;
+    if (sign)
+        *si = -(*si);
+    *ci = f * s - g * c;
 
-return(0);
+    return (0);
 }

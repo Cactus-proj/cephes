@@ -44,7 +44,6 @@
  * ndtri domain       x >= 1         MAXNUM
  *
  */
-
 
 /*
 Cephes Math Library Release 2.8:  June, 2000
@@ -54,6 +53,7 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 #include "mconf.h"
 extern double MAXNUM;
 
+/* clang-format off */
 #ifdef UNK
 /* sqrt(2pi) */
 static double s2pi = 2.50662827463100050242E0;
@@ -359,12 +359,13 @@ static unsigned short Q2[32] = {
 0x3e3d,0x29e5,0xb876,0x6b3d,
 };
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-extern double log ( double );
-extern double sqrt ( double );
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+extern double log(double);
+extern double sqrt(double);
 #else
 double polevl(), p1evl(), log(), sqrt();
 #endif
@@ -372,46 +373,46 @@ double polevl(), p1evl(), log(), sqrt();
 double ndtri(y0)
 double y0;
 {
-double x, y, z, y2, x0, x1;
-int code;
+    double x, y, z, y2, x0, x1;
+    int code;
 
-if( y0 <= 0.0 )
-	{
-	mtherr( "ndtri", DOMAIN );
-	return( -MAXNUM );
-	}
-if( y0 >= 1.0 )
-	{
-	mtherr( "ndtri", DOMAIN );
-	return( MAXNUM );
-	}
-code = 1;
-y = y0;
-if( y > (1.0 - 0.13533528323661269189) ) /* 0.135... = exp(-2) */
-	{
-	y = 1.0 - y;
-	code = 0;
-	}
+    if (y0 <= 0.0)
+    {
+        mtherr("ndtri", DOMAIN);
+        return (-MAXNUM);
+    }
+    if (y0 >= 1.0)
+    {
+        mtherr("ndtri", DOMAIN);
+        return (MAXNUM);
+    }
+    code = 1;
+    y = y0;
+    if (y > (1.0 - 0.13533528323661269189)) /* 0.135... = exp(-2) */
+    {
+        y = 1.0 - y;
+        code = 0;
+    }
 
-if( y > 0.13533528323661269189 )
-	{
-	y = y - 0.5;
-	y2 = y * y;
-	x = y + y * (y2 * polevl( y2, P0, 4)/p1evl( y2, Q0, 8 ));
-	x = x * s2pi; 
-	return(x);
-	}
+    if (y > 0.13533528323661269189)
+    {
+        y = y - 0.5;
+        y2 = y * y;
+        x = y + y * (y2 * polevl(y2, P0, 4) / p1evl(y2, Q0, 8));
+        x = x * s2pi;
+        return (x);
+    }
 
-x = sqrt( -2.0 * log(y) );
-x0 = x - log(x)/x;
+    x = sqrt(-2.0 * log(y));
+    x0 = x - log(x) / x;
 
-z = 1.0/x;
-if( x < 8.0 ) /* y > exp(-32) = 1.2664165549e-14 */
-	x1 = z * polevl( z, P1, 8 )/p1evl( z, Q1, 8 );
-else
-	x1 = z * polevl( z, P2, 8 )/p1evl( z, Q2, 8 );
-x = x0 - x1;
-if( code != 0 )
-	x = -x;
-return( x );
+    z = 1.0 / x;
+    if (x < 8.0) /* y > exp(-32) = 1.2664165549e-14 */
+        x1 = z * polevl(z, P1, 8) / p1evl(z, Q1, 8);
+    else
+        x1 = z * polevl(z, P2, 8) / p1evl(z, Q2, 8);
+    x = x0 - x1;
+    if (code != 0)
+        x = -x;
+    return (x);
 }

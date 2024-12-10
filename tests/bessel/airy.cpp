@@ -1,8 +1,8 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
+#include <xtest.hpp>
 
-
-TEST(Airy, BasicAssertions) {
+TEST(Airy, BasicAssertions)
+{
     const double nan64 = std::numeric_limits<double>::quiet_NaN();
     int ret;
     double x, ai, aip, bi, bip;
@@ -16,7 +16,8 @@ TEST(Airy, BasicAssertions) {
     EXPECT_TRUE(bip > 1e308);
 }
 
-TEST(Airy, Branches) {
+TEST(Airy, Branches)
+{
     int ret;
     double x, ai, aip, bi, bip, ref;
     double ai_ref, aip_ref, bi_ref, bip_ref;
@@ -30,9 +31,9 @@ TEST(Airy, Branches) {
         {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
         NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
      */
-    ai_ref  = -0.378814293677658;
-    aip_ref =  0.3145837692165989; 
-    bi_ref  = -0.1982896263749266; 
+    ai_ref = -0.378814293677658;
+    aip_ref = 0.3145837692165989;
+    bi_ref = -0.1982896263749266;
     bip_ref = -0.6756112226852585;
     XTEST_ISAPPROX_F64(ai);
     XTEST_ISAPPROX_F64(aip);
@@ -48,10 +49,10 @@ TEST(Airy, Branches) {
         {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
         NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
      */
-    ai_ref  =  0.0001083444281360744;
-    aip_ref = -0.0002474138908684624; 
-    bi_ref  =  657.7920441711713; 
-    bip_ref =  1435.81908021797;
+    ai_ref = 0.0001083444281360744;
+    aip_ref = -0.0002474138908684624;
+    bi_ref = 657.7920441711713;
+    bip_ref = 1435.81908021797;
     XTEST_ISAPPROX_F64(ai);
     XTEST_ISAPPROX_F64(aip);
     XTEST_ISAPPROX_F64(bi);
@@ -66,10 +67,10 @@ TEST(Airy, Branches) {
         {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
          NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
      */
-    ai_ref  =  1.099700975519552e-8;
-    aip_ref = -3.237725440447604e-8; 
-    bi_ref  =  4.965319541471301e6; 
-    bip_ref =  1.432630103066198e7;
+    ai_ref = 1.099700975519552e-8;
+    aip_ref = -3.237725440447604e-8;
+    bi_ref = 4.965319541471301e6;
+    bip_ref = 1.432630103066198e7;
     XTEST_ISAPPROX_F64(ai);
     XTEST_ISAPPROX_F64(aip);
     XTEST_ISAPPROX_F64(bi);

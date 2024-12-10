@@ -51,9 +51,8 @@
  * ellpk domain       x<0, x>1           0.0
  *
  */
-
-/*							ellpk.c */
 
+/*							ellpk.c */
 
 /*
 Cephes Math Library, Release 2.8:  June, 2000
@@ -62,6 +61,7 @@ Copyright 1984, 1987, 2000 by Stephen L. Moshier
 
 #include "mconf.h"
 
+/* clang-format off */
 #ifdef DEC
 static unsigned short P[] =
 {
@@ -195,11 +195,12 @@ static double Q[] =
 };
 static double C1 = 1.3862943611198906188E0; /* log(4) */
 #endif
+/* clang-format on */
 
 #ifdef ANSIPROT
-extern double polevl ( double, void *, int );
-extern double p1evl ( double, void *, int );
-extern double log ( double );
+extern double polevl(double, void *, int);
+extern double p1evl(double, void *, int);
+extern double log(double);
 #else
 double polevl(), p1evl(), log();
 #endif
@@ -209,26 +210,26 @@ double ellpk(x)
 double x;
 {
 
-if( (x < 0.0) || (x > 1.0) )
-	{
-	mtherr( "ellpk", DOMAIN );
-	return( 0.0 );
-	}
+    if ((x < 0.0) || (x > 1.0))
+    {
+        mtherr("ellpk", DOMAIN);
+        return (0.0);
+    }
 
-if( x > MACHEP )
-	{
-	return( polevl(x,P,10) - log(x) * polevl(x,Q,10) );
-	}
-else
-	{
-	if( x == 0.0 )
-		{
-		mtherr( "ellpk", SING );
-		return( MAXNUM );
-		}
-	else
-		{
-		return( C1 - 0.5 * log(x) );
-		}
-	}
+    if (x > MACHEP)
+    {
+        return (polevl(x, P, 10) - log(x) * polevl(x, Q, 10));
+    }
+    else
+    {
+        if (x == 0.0)
+        {
+            mtherr("ellpk", SING);
+            return (MAXNUM);
+        }
+        else
+        {
+            return (C1 - 0.5 * log(x));
+        }
+    }
 }

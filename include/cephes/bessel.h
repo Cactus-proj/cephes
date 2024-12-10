@@ -30,6 +30,7 @@ double iv(double v, double x);
 double y0(double x);
 double y1(double x);
 double yn(int n, double x);
+double yv(double v, double x);
 
 /** Modified Bessel functions - third kind */
 double k0(double x);
