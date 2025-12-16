@@ -22,4 +22,8 @@ TEST(EllipticK, ImplementationBranches) {
     double x_small = 1e-20; 
     double expected = 1.3862943611198906188 - 0.5 * std::log(x_small);
     EXPECT_REL_NEAR_F64(cephes::ellpk(x_small), expected);
+
+    // Generic value (Polynomial path)
+    // Wolfram result: EllipticK[0.5] = 1.854074677301372
+    EXPECT_REL_NEAR_F64(cephes::ellpk(0.5), 1.854074677301372);
 }

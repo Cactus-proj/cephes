@@ -12,4 +12,12 @@ TEST(EllipticE, ImplementationBranches) {
     
     // x == 0.0 (m=1) -> 1.0
     EXPECT_REL_NEAR_F64(cephes::ellpe(0.0), 1.0);
+
+    // Generic value
+    // Wolfram result: EllipticE[0.5] = 1.350643881047675
+    EXPECT_REL_NEAR_F64(cephes::ellpe(0.5), 1.350643881047675);
+
+    // Domain error (x < 0 || x > 1) -> 0.0
+    EXPECT_REL_NEAR_F64(cephes::ellpe(-1.0), 0.0);
+    EXPECT_REL_NEAR_F64(cephes::ellpe(2.0), 0.0);
 }

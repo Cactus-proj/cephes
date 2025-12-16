@@ -39,4 +39,13 @@ TEST(EllipticJaco, ImplementationBranches) {
     cephes::ellpj(u, m_near_1, &sn, &cn, &dn, &ph);
     // sn approx tanh(u)
     EXPECT_NEAR(sn, std::tanh(u), 1e-8);
+
+    // Generic case to trigger AGM loop
+    // Wolfram result: sn(0.5, 0.5) = 0.4707504736556571, cn(0.5, 0.5) = 0.88226639489044
+    // dn(0.5, 0.5) = 0.942972425777386, phi(0.5, 0.5) = 0.490141205414255
+    cephes::ellpj(0.5, 0.5, &sn, &cn, &dn, &ph);
+    EXPECT_REL_NEAR_F64(sn, 0.4707504736556571);
+    EXPECT_REL_NEAR_F64(cn, 0.88226639489044);
+    EXPECT_REL_NEAR_F64(dn, 0.942972425777386);
+    EXPECT_REL_NEAR_F64(ph, 0.490141205414255);
 }
