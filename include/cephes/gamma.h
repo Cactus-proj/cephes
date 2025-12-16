@@ -1,6 +1,6 @@
 #ifndef CEPHES_GAMMA_H
 /** Cephes double precision special functions suite
- * 
+ *
  * cephes/bessel
  */
 #define CEPHES_GAMMA_H
@@ -39,6 +39,6 @@ double beta(double a, double b);
 #if defined(__cplusplus)
 } // extern "C"
 #endif
-}; // ::cephes
+}; // namespace cephes
 
 #endif // CEPHES_GAMMA_H
