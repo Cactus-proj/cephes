@@ -13,11 +13,10 @@
  *
  *
  * DESCRIPTION:
- * 
+ *
  * Returns the absolute value of the argument.
  *
  */
-
 
 #include "mconf.h"
 /* Avoid using UNK if possible.  */
@@ -32,13 +31,12 @@
 double fabs(x)
 double x;
 {
-union
-  {
-    double d;
-    short i[4];
-  } u;
+    union {
+        double d;
+        short i[4];
+    } u;
 
-u.d = x;
+    u.d = x;
 #ifdef IBMPC
     u.i[3] &= 0x7fff;
 #endif
@@ -49,8 +47,8 @@ u.d = x;
     u.i[3] &= 0x7fff;
 #endif
 #ifdef UNK
-if( u.d < 0 )
-   u.d = -u.d;
+    if (u.d < 0)
+        u.d = -u.d;
 #endif
-return( u.d );
+    return (u.d);
 }

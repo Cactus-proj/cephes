@@ -1,6 +1,6 @@
 #ifndef CEPHES_EXP_INT_H
 /** Cephes double precision special functions suite
- * 
+ *
  * cephes/Exponential integral
  */
 #define CEPHES_EXP_INT_H

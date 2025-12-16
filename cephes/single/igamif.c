@@ -26,7 +26,7 @@
  *  where
  *
  *  t = 1 - d - ndtri(y) sqrt(d)
- * 
+ *
  * and
  *
  *  d = 1/9a,
@@ -44,7 +44,7 @@
  *    IEEE      0,100         5000       1.0e-5      1.5e-6
  *
  */
-
+
 /*
 Cephes Math Library Release 2.2:  July, 1992
 Copyright 1984, 1987, 1992 by Stephen L. Moshier
@@ -55,7 +55,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 
 extern float MACHEPF, MAXLOGF;
 
-#define fabsf(x) ( (x) < 0 ? -(x) : (x) )
+#define fabsf(x) ((x) < 0 ? -(x) : (x))
 
 #ifdef ANSIC
 float igamcf(float, float);
@@ -65,53 +65,49 @@ float igamcf();
 float ndtrif(), expf(), logf(), sqrtf(), lgamf();
 #endif
 
-
 #ifdef ANSIC
-float igamif( float aa, float yy0 )
+float igamif(float aa, float yy0)
 #else
-float igamif( aa, yy0 )
+float igamif(aa, yy0)
 double aa, yy0;
 #endif
 {
-float a, y0, d, y, x0, lgm;
-int i;
+    float a, y0, d, y, x0, lgm;
+    int i;
 
-a = aa;
-y0 = yy0;
-/* approximation to inverse function */
-d = 1.0/(9.0*a);
-y = ( 1.0 - d - ndtrif(y0) * sqrtf(d) );
-x0 = a * y * y * y;
+    a = aa;
+    y0 = yy0;
+    /* approximation to inverse function */
+    d = 1.0 / (9.0 * a);
+    y = (1.0 - d - ndtrif(y0) * sqrtf(d));
+    x0 = a * y * y * y;
 
-lgm = lgamf(a);
+    lgm = lgamf(a);
 
-for( i=0; i<10; i++ )
-	{
-	if( x0 <= 0.0 )
-		{
-		mtherr( "igamif", UNDERFLOW );
-		return(0.0);
-		}
-	y = igamcf(a,x0);
-/* compute the derivative of the function at this point */
-	d = (a - 1.0) * logf(x0) - x0 - lgm;
-	if( d < -MAXLOGF )
-		{
-		mtherr( "igamif", UNDERFLOW );
-		goto done;
-		}
-	d = -expf(d);
-/* compute the step to the next approximation of x */
-	if( d == 0.0 )
-		goto done;
-	d = (y - y0)/d;
-	x0 = x0 - d;
-	if( i < 3 )
-		continue;
-	if( fabsf(d/x0) < (2.0 * MACHEPF) )
-		goto done;
-	}
+    for (i = 0; i < 10; i++) {
+        if (x0 <= 0.0) {
+            mtherr("igamif", UNDERFLOW);
+            return (0.0);
+        }
+        y = igamcf(a, x0);
+        /* compute the derivative of the function at this point */
+        d = (a - 1.0) * logf(x0) - x0 - lgm;
+        if (d < -MAXLOGF) {
+            mtherr("igamif", UNDERFLOW);
+            goto done;
+        }
+        d = -expf(d);
+        /* compute the step to the next approximation of x */
+        if (d == 0.0)
+            goto done;
+        d = (y - y0) / d;
+        x0 = x0 - d;
+        if (i < 3)
+            continue;
+        if (fabsf(d / x0) < (2.0 * MACHEPF))
+            goto done;
+    }
 
 done:
-return( x0 );
+    return (x0);
 }

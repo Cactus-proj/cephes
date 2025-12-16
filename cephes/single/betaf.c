@@ -39,9 +39,8 @@
  *                  a or b <0 integer        0.0
  *
  */
-
-/*							beta.c	*/
 
+/*							beta.c	*/
 
 /*
 Cephes Math Library Release 2.2:  July, 1992
@@ -51,10 +50,9 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 
 #include "mconf.h"
 
-#define fabsf(x) ( (x) < 0 ? -(x) : (x) )
+#define fabsf(x) ((x) < 0 ? -(x) : (x))
 
 #define MAXGAM 34.84425627277176174
-
 
 extern float MAXLOGF, MAXNUMF;
 extern int sgngamf;
@@ -66,62 +64,54 @@ float gammaf(), lgamf(), expf(), floorf();
 #endif
 
 #ifdef ANSIC
-float betaf( float aa, float bb )
+float betaf(float aa, float bb)
 #else
-float betaf( aa, bb )
+float betaf(aa, bb)
 double aa, bb;
 #endif
 {
-float a, b, y;
-int sign;
+    float a, b, y;
+    int sign;
 
-sign = 1;
-a = aa;
-b = bb;
-if( a <= 0.0 )
-	{
-	if( a == floorf(a) )
-		goto over;
-	}
-if( b <= 0.0 )
-	{
-	if( b == floorf(b) )
-		goto over;
-	}
+    sign = 1;
+    a = aa;
+    b = bb;
+    if (a <= 0.0) {
+        if (a == floorf(a))
+            goto over;
+    }
+    if (b <= 0.0) {
+        if (b == floorf(b))
+            goto over;
+    }
 
+    y = a + b;
+    if (fabsf(y) > MAXGAM) {
+        y = lgamf(y);
+        sign *= sgngamf; /* keep track of the sign */
+        y = lgamf(b) - y;
+        sign *= sgngamf;
+        y = lgamf(a) + y;
+        sign *= sgngamf;
+        if (y > MAXLOGF) {
+        over:
+            mtherr("betaf", OVERFLOW);
+            return (sign * MAXNUMF);
+        }
+        return (sign * expf(y));
+    }
 
-y = a + b;
-if( fabsf(y) > MAXGAM )
-	{
-	y = lgamf(y);
-	sign *= sgngamf; /* keep track of the sign */
-	y = lgamf(b) - y;
-	sign *= sgngamf;
-	y = lgamf(a) + y;
-	sign *= sgngamf;
-	if( y > MAXLOGF )
-		{
-over:
-		mtherr( "betaf", OVERFLOW );
-		return( sign * MAXNUMF );
-		}
-	return( sign * expf(y) );
-	}
+    y = gammaf(y);
+    if (y == 0.0)
+        goto over;
 
-y = gammaf(y);
-if( y == 0.0 )
-	goto over;
+    if (a > b) {
+        y = gammaf(a) / y;
+        y *= gammaf(b);
+    } else {
+        y = gammaf(b) / y;
+        y *= gammaf(a);
+    }
 
-if( a > b )
-	{
-	y = gammaf(a)/y;
-	y *= gammaf(b);
-	}
-else
-	{
-	y = gammaf(b)/y;
-	y *= gammaf(a);
-	}
-
-return(y);
+    return (y);
 }

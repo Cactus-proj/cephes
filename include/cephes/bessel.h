@@ -1,6 +1,6 @@
 #ifndef CEPHES_BESSEL_H
 /** Cephes double precision special functions suite
- * 
+ *
  * cephes/bessel
  */
 #define CEPHES_BESSEL_H

@@ -40,7 +40,7 @@
  * log10f domain:       x < 0; returns -MAXL10
  * MAXL10 = 38.230809449325611792
  */
-
+
 /*
 Cephes Math Library Release 2.1:  December, 1988
 Copyright 1984, 1987, 1988 by Stephen L. Moshier
@@ -53,18 +53,8 @@ static char fname[] = {"log10"};
 /* Coefficients for log(1+x) = x - x**2/2 + x**3 P(x)/Q(x)
  * 1/sqrt(2) <= x < sqrt(2)
  */
-static float P[] = {
- 7.0376836292E-2,
--1.1514610310E-1,
- 1.1676998740E-1,
--1.2420140846E-1,
- 1.4249322787E-1,
--1.6668057665E-1,
- 2.0000714765E-1,
--2.4999993993E-1,
- 3.3333331174E-1
-};
-
+static float P[] = {7.0376836292E-2,  -1.1514610310E-1, 1.1676998740E-1,  -1.2420140846E-1, 1.4249322787E-1,
+                    -1.6668057665E-1, 2.0000714765E-1,  -2.4999993993E-1, 3.3333331174E-1};
 
 #define SQRTH 0.70710678118654752440
 #define L102A 3.0078125E-1
@@ -85,52 +75,46 @@ float log10f(xx)
 double xx;
 #endif
 {
-float x, y, z;
-int e;
+    float x, y, z;
+    int e;
 
-x = xx;
-/* Test for domain */
-if( x <= 0.0 )
-	{
-	if( x == 0.0 )
-		mtherr( fname, SING );
-	else
-		mtherr( fname, DOMAIN );
-	return( -MAXL10 );
-	}
+    x = xx;
+    /* Test for domain */
+    if (x <= 0.0) {
+        if (x == 0.0)
+            mtherr(fname, SING);
+        else
+            mtherr(fname, DOMAIN);
+        return (-MAXL10);
+    }
 
-/* separate mantissa from exponent */
+    /* separate mantissa from exponent */
 
-x = frexpf( x, &e );
+    x = frexpf(x, &e);
 
-/* logarithm using log(1+x) = x - .5x**2 + x**3 P(x) */
+    /* logarithm using log(1+x) = x - .5x**2 + x**3 P(x) */
 
-if( x < SQRTH )
-	{
-	e -= 1;
-	x = 2.0*x - 1.0;
-	}	
-else
-	{
-	x = x - 1.0;
-	}
+    if (x < SQRTH) {
+        e -= 1;
+        x = 2.0 * x - 1.0;
+    } else {
+        x = x - 1.0;
+    }
 
+    /* rational form */
+    z = x * x;
+    y = x * (z * polevlf(x, P, 8));
+    y = y - 0.5 * z; /*  y - 0.5 * x**2  */
 
-/* rational form */
-z = x*x;
-y = x * ( z * polevlf( x, P, 8 ) );
-y = y - 0.5 * z;   /*  y - 0.5 * x**2  */
+    /* multiply log of fraction by log10(e)
+     * and base 2 exponent by log10(2)
+     */
+    z = (x + y) * L10EB; /* accumulate terms in order of size */
+    z += y * L10EA;
+    z += x * L10EA;
+    x = e;
+    z += x * L102B;
+    z += x * L102A;
 
-/* multiply log of fraction by log10(e)
- * and base 2 exponent by log10(2)
- */
-z = (x + y) * L10EB;  /* accumulate terms in order of size */
-z += y * L10EA;
-z += x * L10EA;
-x = e;
-z += x * L102B;
-z += x * L102A;
-
-
-return( z );
+    return (z);
 }

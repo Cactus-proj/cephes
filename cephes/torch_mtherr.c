@@ -18,7 +18,7 @@
  *
  * This routine may be called to report one of the following
  * error conditions (in the include file mconf.h).
- *  
+ *
  *   Mnemonic        Value          Significance
  *
  *    DOMAIN            1       argument domain error
@@ -47,15 +47,15 @@
  * mconf.h
  *
  */
-
+
 /*
    Cephes Math Library Release 2.0:  April, 1987
    Copyright 1984, 1987 by Stephen L. Moshier
    Direct inquiries to 30 Frost Street, Cambridge, MA 02140
    */
 
-#include <stdio.h>
 #include "cmath/mconf.h"
+#include <stdio.h>
 
 int merror = 0;
 
@@ -66,20 +66,14 @@ char errtxt[MAXERRLEN];
  * messages is bound to the error codes defined
  * in mconf.h.
  */
-static char *ermsg[7] = {
-    "unknown",      /* error code 0 */
-    "domain",       /* error code 1 */
-    "singularity",  /* et seq.      */
-    "overflow",
-    "underflow",
-    "total loss of precision",
-    "partial loss of precision"
-};
+static char *ermsg[7] = {"unknown",     /* error code 0 */
+                         "domain",      /* error code 1 */
+                         "singularity", /* et seq.      */
+                         "overflow",    "underflow", "total loss of precision", "partial loss of precision"};
 
-
-int mtherr( name, code )
-    char *name;
-    int code;
+int mtherr(name, code)
+char *name;
+int code;
 {
 
     merror = code;
@@ -87,7 +81,7 @@ int mtherr( name, code )
     /* Display error message defined
      * by the code argument.
      */
-    if( (code <= 0) || (code >= 7) )
+    if ((code <= 0) || (code >= 7))
         code = 0;
 
     /* Display string passed by calling program,
@@ -95,10 +89,10 @@ int mtherr( name, code )
      * function in which the error occurred:
      */
     /* Set global error message word */
-    snprintf( errtxt, MAXERRLEN, "%s: %s error", name, ermsg[code] );
+    snprintf(errtxt, MAXERRLEN, "%s: %s error", name, ermsg[code]);
 
     /* Return to calling
      * program
      */
-    return( 0 );
+    return (0);
 }

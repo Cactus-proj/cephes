@@ -50,7 +50,7 @@
  *   message         condition      value returned
  * chdtrf domain  x < 0 or v < 1        0.0
  */
-/*							chdtrcf()
+/*							chdtrcf()
  *
  *	Complemented Chi-square distribution
  *
@@ -102,7 +102,7 @@
  *   message         condition      value returned
  * chdtrc domain  x < 0 or v < 1        0.0
  */
-/*							chdtrif()
+/*							chdtrif()
  *
  *	Inverse of complemented Chi-square distribution
  *
@@ -144,9 +144,8 @@
  *                     v < 1
  *
  */
-
-/*								chdtr() */
 
+/*								chdtr() */
 
 /*
 Cephes Math Library Release 2.2:  July, 1992
@@ -165,61 +164,56 @@ float igamcf(), igamf(), igamif();
 #ifdef ANSIC
 float chdtrcf(float dff, float xx)
 #else
-float chdtrcf(dff,xx)
+float chdtrcf(dff, xx)
 double dff, xx;
 #endif
 {
-float df, x;
+    float df, x;
 
-df = dff;
-x = xx;
+    df = dff;
+    x = xx;
 
-if( (x < 0.0) || (df < 1.0) )
-	{
-	mtherr( "chdtrcf", DOMAIN );
-	return(0.0);
-	}
-return( igamcf( 0.5*df, 0.5*x ) );
+    if ((x < 0.0) || (df < 1.0)) {
+        mtherr("chdtrcf", DOMAIN);
+        return (0.0);
+    }
+    return (igamcf(0.5 * df, 0.5 * x));
 }
-
 
 #ifdef ANSIC
 float chdtrf(float dff, float xx)
 #else
-float chdtrf(dff,xx)
+float chdtrf(dff, xx)
 double dff, xx;
 #endif
 {
-float df, x;
+    float df, x;
 
-df = dff;
-x = xx;
-if( (x < 0.0) || (df < 1.0) )
-	{
-	mtherr( "chdtrf", DOMAIN );
-	return(0.0);
-	}
-return( igamf( 0.5*df, 0.5*x ) );
+    df = dff;
+    x = xx;
+    if ((x < 0.0) || (df < 1.0)) {
+        mtherr("chdtrf", DOMAIN);
+        return (0.0);
+    }
+    return (igamf(0.5 * df, 0.5 * x));
 }
 
-
 #ifdef ANSIC
-float chdtrif( float dff, float yy )
+float chdtrif(float dff, float yy)
 #else
-float chdtrif( dff, yy )
+float chdtrif(dff, yy)
 double dff, yy;
 #endif
 {
-float y, df, x;
+    float y, df, x;
 
-y = yy;
-df = dff;
-if( (y < 0.0) || (y > 1.0) || (df < 1.0) )
-	{
-	mtherr( "chdtrif", DOMAIN );
-	return(0.0);
-	}
+    y = yy;
+    df = dff;
+    if ((y < 0.0) || (y > 1.0) || (df < 1.0)) {
+        mtherr("chdtrif", DOMAIN);
+        return (0.0);
+    }
 
-x = igamif( 0.5 * df, y );
-return( 2.0 * x );
+    x = igamif(0.5 * df, y);
+    return (2.0 * x);
 }
