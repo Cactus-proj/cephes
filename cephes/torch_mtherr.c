@@ -54,8 +54,8 @@
    Direct inquiries to 30 Frost Street, Cambridge, MA 02140
    */
 
-#include "cmath/mconf.h"
 #include <stdio.h>
+#include "mconf.h"
 
 int merror = 0;
 

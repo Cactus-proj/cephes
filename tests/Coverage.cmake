@@ -12,8 +12,7 @@ endif()
 
 # Add custom targets for generating coverage reports
 add_custom_target(coverage
-    COMMAND lcov --capture --directory cephes --base-directory ../cephes --output-file coverage.info
-    COMMAND lcov --output-file coverage.info --extract coverage.info '*/cephes/*'
+    COMMAND lcov --capture --directory cephes --output-file coverage.info
     COMMAND lcov --list coverage.info
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Generating coverage report"
