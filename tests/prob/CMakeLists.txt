@@ -1,2 +1,0 @@
-
-add_gtest(ndtr)

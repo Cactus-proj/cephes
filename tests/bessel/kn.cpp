@@ -6,7 +6,7 @@
         {nv, {0, 1, 10}},
         {x, {0.0, 1.0, 8.0, 9.0, 1.0, 100.}}]
 */
-TEST(BesselYn, Branches) {
+TEST(BesselKn, Branches) {
     EXPECT_GT(cephes::kn(0, 0.0), 1.0e308);  // +Inf
     EXPECT_GT(cephes::kn(1, 0.0), 1.0e308);  // +Inf
     EXPECT_GT(cephes::kn(10, 0.0), 1.0e308); // +Inf
