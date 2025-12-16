@@ -356,7 +356,7 @@ int na, nb;
 
         if (b[0].n != 0.0) {
             /* Optional message:
-                            printf( "poldiv singularity, divide quotient by x\n" );
+                    printf( "poldiv singularity, divide quotient by x\n" );
             */
             sing += 1;
         } else {

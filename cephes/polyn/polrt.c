@@ -48,10 +48,10 @@
 #include "mconf.h"
 /*
 typedef struct
-        {
-        double r;
-        double i;
-        }cmplx;
+    {
+    double r;
+    double i;
+    }cmplx;
 */
 #ifdef ANSIPROT
 extern double fabs(double);

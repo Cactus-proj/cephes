@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/exp_int.h>
-
+#include <xtest.hpp>
 
 TEST(ExpN, Errors) {
     // n < 0

@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/elliptic.h>
-
+#include <xtest.hpp>
 
 TEST(EllipticEInc, Branches) {
     // m == 0.0

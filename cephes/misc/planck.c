@@ -68,7 +68,7 @@ double polylog(), exp(), log1p(), expm1();
 double planckc(), plancki();
 #endif
 
-/*  NIST value (1999): 2 pi h c^2 = 3.741 7749(22) Å◊ 10-16 W m2  */
+/*  NIST value (1999): 2 pi h c^2 = 3.741 7749(22) ù◊ 10-16 W m2  */
 double planck_c1 = 3.7417749e-16;
 /*  NIST value (1999):  h c / k  = 0.014 387 69 m K */
 double planck_c2 = 0.01438769;

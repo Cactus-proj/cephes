@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/elliptic.h>
-
+#include <xtest.hpp>
 
 TEST(EllipticK, Branches) {
     // (x < 0.0) || (x > 1.0)

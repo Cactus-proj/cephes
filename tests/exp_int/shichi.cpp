@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/exp_int.h>
-
+#include <xtest.hpp>
 
 TEST(ShiChi, Errors) {
     int ret;
@@ -48,7 +47,7 @@ TEST(ShiChi, CodecovTodo) {
     EXPECT_EQ(ret, 0);
     EXPECT_NE(si, nan64);
     EXPECT_NE(ci, nan64);
-    
+
     // x < 8.0
     // power series expansion
     ret = cephes::shichi(3.0, &si, &ci);

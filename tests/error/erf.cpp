@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/error.h>
-
+#include <xtest.hpp>
 
 TEST(Erf, Branches) {
     // fabs(x) > 1.0

@@ -167,11 +167,11 @@ double x, q;
     s = pow( q, -x );
     a = q;
     do
-            {
-            a += 2.0;
-            b = pow( a, -x );
-            s += b;
-            }
+        {
+        a += 2.0;
+        b = pow( a, -x );
+        s += b;
+        }
     while( b/s > MACHEP );
 
     b = pow( 2.0, -x );

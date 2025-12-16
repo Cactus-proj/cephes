@@ -749,7 +749,7 @@ int zplnb() {
     lin[1].i = 0.0;
 
     if (kind != 3) { /* Butterworth or Chebyshev */
-                     /* generate the remaining zeros */
+        /* generate the remaining zeros */
         while (2 * zord - 1 > jt) {
             if (type != 3) {
                 printf("adding zero at Nyquist frequency\n");

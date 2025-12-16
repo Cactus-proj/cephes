@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/error.h>
-
+#include <xtest.hpp>
 
 TEST(Fresnel, Branches) {
     double x, s, c;

@@ -46,6 +46,7 @@ Copyright 1984, 1987, 1989, 2000 by Stephen L. Moshier
 */
 
 #include "mconf.h"
+
 /* Dawson's integral, interval 0 to 3.25 */
 #ifdef UNK
 static double AN[10] = {

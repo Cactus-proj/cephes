@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/gamma.h>
-
+#include <xtest.hpp>
 
 TEST(Fac, BasicAssertions) {
     EXPECT_REL_NEAR_F64(cephes::fac(0.0), 1.0);

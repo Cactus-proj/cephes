@@ -1,10 +1,7 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
+#include <xtest.hpp>
 
-
-TEST(BesselJ0, BasicAssertions) {
-    double x, y, y_ref;
-}
+TEST(BesselJ0, BasicAssertions) { double x, y, y_ref; }
 TEST(BesselJ0, Branches) {
     double x, y, y_ref;
 

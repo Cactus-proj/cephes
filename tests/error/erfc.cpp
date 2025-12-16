@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/error.h>
-
+#include <xtest.hpp>
 
 TEST(ErfC, Branches) {
     // z < -MAXLOG && a < 0

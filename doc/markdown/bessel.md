@@ -29,6 +29,7 @@
 * **y0**, [Bessel function of the second kind, order zero](doubldoc.md#y0)
 * **y1**, [Bessel function of the second kind, order one](doubldoc.md#y1)
 * **yn**, [Bessel function of second kind of integer order](doubldoc.md#yn)
+* **yv**, Bessel function of noninteger order
 
 ## Modified Bessel functions - third kind
 

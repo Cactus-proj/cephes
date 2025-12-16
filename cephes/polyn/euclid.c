@@ -193,10 +193,10 @@ double *num, *den;
     /* Zero. Return 0/1, gcd = denominator. */
     if (n == 0.0) {
         /*
-                if( *den < 0.0 )
-                        *den = -1.0;
-                else
-                        *den = 1.0;
+            if( *den < 0.0 )
+                *den = -1.0;
+            else
+                *den = 1.0;
         */
         *den = 1.0;
         return (d);

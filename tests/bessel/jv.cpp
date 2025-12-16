@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
-
+#include <xtest.hpp>
 
 /** Wolframe
     Table[NumberForm[BesselJ[nv + 1/4., x], 16],
@@ -10,7 +9,7 @@
 TEST(BesselJv, CoSF_Table_5p13) {
     double nv, x;
 
-    nv = 1/4;
+    nv = 1 / 4;
     x = 1.0;
     // TODO: large error
     // EXPECT_REL_NEAR_F64(cephes::jv(0+nv, x),    0.7522313333407901);
@@ -35,7 +34,7 @@ TEST(BesselJv, CoSF_Table_5p13) {
 TEST(BesselJv, CoSF_Table_5p17) {
     double nv, x;
 
-    nv = 3/4;
+    nv = 3 / 4;
     x = 1.0;
     // TODO: large error
     // EXPECT_REL_NEAR_F64(cephes::jv(0+nv, x),    0.5586524932048919);

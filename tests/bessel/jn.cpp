@@ -1,6 +1,5 @@
-#include <xtest.hpp>
 #include <cephes/bessel.h>
-
+#include <xtest.hpp>
 
 TEST(BesselJn, BasicAssertions) {
     EXPECT_REL_NEAR_F64(cephes::jn(5, 1.0), 0.0002497577302112345);
