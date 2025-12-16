@@ -1,4 +1,4 @@
-# cephes/misc
+# Miscellaneous functions
 
 * **spence**, [Dilogarithm](doubldoc.md#spence)
 * **zeta**, [Zeta function of two arguments](doubldoc.md#zeta)

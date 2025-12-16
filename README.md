@@ -15,12 +15,18 @@ Therefore, contributions regarding precision and error-related contributions are
 > which is a header-only library containing a modernized (C++17) refactoring of
 > the classic `AMOS/SPECFUN/Cephes/...` special function implementations.
 
+
 ## Docs
 
 [List of Cephes functions](doc/markdown/index.md)
 
-- [bessel](doc/markdown/bessel.md)
-- [exp_int](doc/markdown/exp_int.md)
+- [Exponential integral](doc/markdown/exp_int.md)
+- [Gamma functions](doc/markdown/gamma.md)
+- [Error functions](doc/markdown/gamma.md)
+- [Bessel functions](doc/markdown/bessel.md)
+- [Hypergeometric functions](doc/markdown/hyper.md)
+- [Elliptic functions](doc/markdown/elliptic.md)
+- [Miscellaneous functions](doc/markdown/misc.md)
 
 
 ## Test
@@ -30,6 +36,7 @@ Therefore, contributions regarding precision and error-related contributions are
 cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build && cmake --build build
 cd build/ && ctest && make coverage_html
 ```
+
 
 ## License
 
