@@ -34,8 +34,9 @@ Therefore, contributions regarding precision and error-related contributions are
 
 ```sh
 # On Linux
-cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build && cmake --build build --parallel 8
-ctest --test-dir build -j8 --rerun-failed --output-on-failure && cmake --build build --target coverage_html
+cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build
+cmake --build build --parallel 8 && ctest --test-dir build -j8 && cmake --build build --target coverage_html
+ctest --test-dir build --rerun-failed --output-on-failure
 ```
 
 
