@@ -16,6 +16,47 @@ TEST(Hyp2f1, Errors) {
     EXPECT_GT(cephes::hyp2f1(2.0, 3.0, 4.0, 2.0), 1e308);
 }
 
+TEST(Hyp2f1, SpecialValues) {
+    double a, b, c, x, y, y_ref;
+
+    // - x = 0       ⇒ 2F1(a, b; c; 0) = 1
+    a = 2.0; b = 3.0; c = 4.0; x = 0.0;
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = 1.0;
+    XTEST_ISAPPROX_F64(y);
+
+    // - a = 0       ⇒ 2F1(0, b; c; x) = 1
+    a = 0.0; b = 3.0; c = 4.0; x = 0.5;
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = 1.0;
+    XTEST_ISAPPROX_F64(y);
+
+    // - b = 0       ⇒ 2F1(a, 0; c; x) = 1
+    a = 2.0; b = 0.0; c = 4.0; x = 0.5;
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = 1.0;
+    XTEST_ISAPPROX_F64(y);
+
+    // - c = a       ⇒ 2F1(a, b; a; x) = (1 - x)^(-b)
+    a = 2.0; b = 3.0; c = a; x = 0.5;
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = std::pow(1.0 - x, -b);
+    XTEST_ISAPPROX_F64(y);
+
+    // - c = b       ⇒ 2F1(a, b; b; x) = (1 - x)^(-a)
+    a = 2.0; b = 3.0; c = b; x = -0.5;
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = std::pow(1.0 - x, -a);
+    XTEST_ISAPPROX_F64(y);
+
+    // - x = 1, Re(c - a - b) > 0 ⇒ Gauss sum Γ(c)Γ(c - a - b) / (Γ(c - a)Γ(c - b))
+    a = 0.5; b = 0.25; c = 1.5; x = 1.0;
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = std::tgamma(c) * std::tgamma(c - a - b) / (std::tgamma(c - a) * std::tgamma(c - b));
+    XTEST_ISAPPROX_F64(y);
+}
+
+
 static inline bool xtest_skip_near_one_int_d(double a, double b, double c, double x) {
     double d = c - a - b;
     double id = std::round(d);
