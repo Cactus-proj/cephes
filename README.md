@@ -18,16 +18,16 @@ Therefore, contributions regarding precision and error-related contributions are
 
 ## Docs
 
-[List of Cephes functions](doc/markdown/index.md)
+[List of Cephes functions](docs/index.md)
 
-- [Exponential integral](doc/markdown/exp_int.md)
-- [Gamma functions](doc/markdown/gamma.md)
-- [Error functions](doc/markdown/gamma.md)
-- [Bessel functions](doc/markdown/bessel.md)
-- [Hypergeometric functions](doc/markdown/hyper.md)
-- [Elliptic functions](doc/markdown/elliptic.md)
-- [Probability functions](doc/markdown/prob.md)
-- [Miscellaneous functions](doc/markdown/misc.md)
+- [Exponential integral](docs/exp_int.md)
+- [Gamma functions](docs/gamma.md)
+- [Error functions](docs/gamma.md)
+- [Bessel functions](docs/bessel.md)
+- [Hypergeometric functions](docs/hyper.md)
+- [Elliptic functions](docs/elliptic.md)
+- [Probability functions](docs/prob.md)
+- [Miscellaneous functions](docs/misc.md)
 
 
 ## Test
