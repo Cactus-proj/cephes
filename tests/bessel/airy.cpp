@@ -15,24 +15,74 @@ TEST(Airy, BasicAssertions) {
     EXPECT_TRUE(bip > 1e308);
 }
 
-TEST(Airy, Branches) {
+TEST(Airy, SpecialValues) {
+    const double inf64 = std::numeric_limits<double>::infinity();
     int ret;
-    double x, ai, aip, bi, bip, ref;
+    double x, ai, aip, bi, bip;
+
+    // +Inf
+    x = inf64;
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
+    EXPECT_EQ(ret, -1);
+    EXPECT_EQ(ai, 0.0);
+    EXPECT_EQ(aip, 0.0);
+    EXPECT_TRUE(bi > 1e308);
+    EXPECT_TRUE(bip > 1e308);
+}
+
+TEST(Airy, ImplementationBranches) {
+    int ret;
+    double x, ai, aip, bi, bip;
     double ai_ref, aip_ref, bi_ref, bip_ref;
 
     // x < -2.09
-    x = -3.0;
+    x = -5.0;
     ret = cephes::airy(x, &ai, &aip, &bi, &bip);
     EXPECT_EQ(ret, 0);
     /*
-        x = -3.0;
+        x = -5.0;
         {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
         NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
      */
-    ai_ref = -0.378814293677658;
-    aip_ref = 0.3145837692165989;
-    bi_ref = -0.1982896263749266;
-    bip_ref = -0.6756112226852585;
+    ai_ref = 0.3507610090241144;
+    aip_ref = 0.327192818554443;
+    bi_ref = -0.1383691349016005;
+    bip_ref = 0.7784117730018992;
+    XTEST_ISAPPROX_F64(ai);
+    XTEST_ISAPPROX_F64(aip);
+    XTEST_ISAPPROX_F64(bi);
+    XTEST_ISAPPROX_F64(bip);
+
+    // -2.09 <= x < 2.09 (Power series)
+    x = 0.0;
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
+    EXPECT_EQ(ret, 0);
+    /*
+        x = 0.0;
+        {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
+        NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
+     */
+    ai_ref = 0.3550280538878173;
+    aip_ref = -0.2588194037928068;
+    bi_ref = 0.6149266274460007;
+    bip_ref = 0.44828835735382633;
+    XTEST_ISAPPROX_F64(ai);
+    XTEST_ISAPPROX_F64(aip);
+    XTEST_ISAPPROX_F64(bi);
+    XTEST_ISAPPROX_F64(bip);
+
+    x = 2.0;
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
+    EXPECT_EQ(ret, 0);
+    /*
+        x = 2.0;
+        {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
+        NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
+     */
+    ai_ref = 0.03492413042327438;
+    aip_ref = -0.05309038443365364;
+    bi_ref = 3.298094999978214;
+    bip_ref = 4.1006820499328835;
     XTEST_ISAPPROX_F64(ai);
     XTEST_ISAPPROX_F64(aip);
     XTEST_ISAPPROX_F64(bi);
@@ -47,30 +97,39 @@ TEST(Airy, Branches) {
         {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
         NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
      */
-    ai_ref = 0.0001083444281360744;
+    ai_ref = 0.00010834442813607442;
     aip_ref = -0.0002474138908684624;
     bi_ref = 657.7920441711713;
-    bip_ref = 1435.81908021797;
+    bip_ref = 1435.8190802179702;
     XTEST_ISAPPROX_F64(ai);
     XTEST_ISAPPROX_F64(aip);
     XTEST_ISAPPROX_F64(bi);
     XTEST_ISAPPROX_F64(bip);
 
     // x > 8.3203353
-    x = 8.5;
+    x = 10.0;
     ret = cephes::airy(x, &ai, &aip, &bi, &bip);
     EXPECT_EQ(ret, 0);
     /*
-        x = 8.5;
+        x = 10.0;
         {NumberForm[AiryAi[x], 16], NumberForm[AiryAiPrime[x], 16],
-         NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
+        NumberForm[AiryBi[x], 16], NumberForm[AiryBiPrime[x], 16]}
      */
-    ai_ref = 1.099700975519552e-8;
-    aip_ref = -3.237725440447604e-8;
-    bi_ref = 4.965319541471301e6;
-    bip_ref = 1.432630103066198e7;
+    ai_ref = 1.1047532552898691e-10;
+    aip_ref = -3.520633676738926e-10;
+    bi_ref = 4.556411535482249e8;
+    bip_ref = 1.4292361344828472e9;
     XTEST_ISAPPROX_F64(ai);
     XTEST_ISAPPROX_F64(aip);
     XTEST_ISAPPROX_F64(bi);
     XTEST_ISAPPROX_F64(bip);
+
+    // Overflow
+    x = 104.0;
+    ret = cephes::airy(x, &ai, &aip, &bi, &bip);
+    EXPECT_EQ(ret, -1);
+    EXPECT_EQ(ai, 0.0);
+    EXPECT_EQ(aip, 0.0);
+    EXPECT_TRUE(bi > 1e308);
+    EXPECT_TRUE(bip > 1e308);
 }
