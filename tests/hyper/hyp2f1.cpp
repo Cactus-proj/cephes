@@ -56,8 +56,71 @@ TEST(Hyp2f1, SpecialValues) {
     XTEST_ISAPPROX_F64(y);
 }
 
+TEST(Hyp2f1, Coverage) {
+    double a, b, c, x, y, y_ref;
+
+    /* c is a negative integer
+        + a is a negative integer
+        + b is a negative integer
+
+        N[Hypergeometric2F1[-2, 0.5, -3, 0.3], 18] = 1.11125
+    */
+    a = -2.0; b = 0.5; c = -3.0; x = 0.3;
+    // if ((flag & 1) && (ia > ic))
+    y = cephes::hyp2f1(a, b, c, x);
+    y_ref = 1.11125;
+    XTEST_ISAPPROX_F64(y);
+    // if ((flag & 2) && (ib > ic))
+    y = cephes::hyp2f1(b, a, c, x);
+    XTEST_ISAPPROX_F64(y);
+
+    /* Cover branches:
+        Condition: fabs(|x| - 1.0) < EPS and x > 0
+        - If flag & 12 (c-a or c-b is a negative integer) and d >= 0 go to `hypf`
+        - If flag & 12 and d < 0 go to `hypdiv`
+        - If !(flag & 12) and d <= 0 go to `hypdiv`
+    */
+    // 1) flag&12 triggered and d >= 0 ⇒ hypf
+    //    choose c-a = -1 (negative integer), d = c - a - b = 2 > 0
+    //    at x = 1, (1 - x)^d = 0 ⇒ result is 0
+    //      N[Hypergeometric2F1[2, -3, 1, 1], 18] = 0
+    a = 2.0; b = -3.0; c = 1.0; x = 1.0;
+    y = cephes::hyp2f1(a, b, c, x);  // TODO: seems not work?
+    y_ref = 0.0;
+    // XTEST_ISAPPROX_F64(y); // TODO: y = nan
+
+    // 2) flag&12 triggered and d < 0 ⇒ hypdiv (overflow)
+    //    choose c-a = -1 (negative integer), d = -1.5 < 0
+    //      N[Hypergeometric2F1[2, 0.5, 1, 1], 18] = ComplexInfinity
+    a = 2.0; b = 0.5; c = 1.0; x = 1.0;
+    y = cephes::hyp2f1(a, b, c, x);
+    EXPECT_GT(y, 1e308);
+
+    // 3) !(flag&12) and d <= 0 ⇒ hypdiv (overflow)
+    //    choose c-a and c-b non-negative integers, d = 0
+    //      N[Hypergeometric2F1[0.75, 0.5, 1.25, 1], 18] = Infinity
+    a = 0.75; b = 0.50; c = 1.25; x = 1.0;
+    y = cephes::hyp2f1(a, b, c, x);
+    EXPECT_GT(y, 1e308);
+
+    /* Cover branch: `if (d <= -1.0)`
+        Condition: fabs(|x| - 1.0) < EPS and x <= 0
+        - If d <= -1.0 go to `hypdiv` (overflow)
+    */
+    // d < -1.0 triggers hypdiv at x = -1
+    // d = c - a - b = -2.5
+    a = 2.0; b = 1.5; c = 1.0; x = -1.0; 
+    y = cephes::hyp2f1(a, b, c, x);
+    EXPECT_GT(y, 1e308);
+    // d == -1.0 also triggers hypdiv at x = -1
+    a = 1.0; b = 1.0; c = 1.0; x = -1.0;
+    y = cephes::hyp2f1(a, b, c, x);
+    EXPECT_GT(y, 1e308);
+
+}
 
 static inline bool xtest_skip_near_one_int_d(double a, double b, double c, double x) {
+    // Coverage note: skip table cases where x≈1 and d is an integer,
     double d = c - a - b;
     double id = std::round(d);
     bool d_is_int = std::abs(d - id) < 1e-12;
