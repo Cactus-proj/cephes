@@ -3,6 +3,8 @@
 #include <xtest.hpp>
 
 TEST(Erf, SpecialValues) {
+    // NaN propagates
+    EXPECT_TRUE(std::isnan(cephes::erf(xtest::NaN64)));
     // erf(±0) returns ±0
     EXPECT_EQ(cephes::erf(0.0), 0.0);
     EXPECT_EQ(cephes::erf(-0.0), -0.0);

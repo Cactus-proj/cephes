@@ -2,6 +2,9 @@
 #include <xtest.hpp>
 
 TEST(ErfC, SpecialValues) {
+    // NaN propagates
+    EXPECT_TRUE(std::isnan(cephes::erfc(xtest::NaN64)));
+
     // x = 0 -> erfc(0) = 1
     EXPECT_EQ(cephes::erfc(0.0), 1.0);
     EXPECT_EQ(cephes::erfc(-0.0), 1.0);

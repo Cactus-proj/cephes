@@ -4,6 +4,11 @@
 
 TEST(Fresnel, SpecialValues) {
     double s, c;
+    // NaN
+    EXPECT_EQ(cephes::fresnl(xtest::NaN64, &s, &c), 0);
+    EXPECT_TRUE(std::isnan(s));
+    EXPECT_TRUE(std::isnan(c));
+
     // x = 0 -> S(0) = 0, C(0) = 0
     EXPECT_EQ(cephes::fresnl(0.0, &s, &c), 0);
     EXPECT_EQ(s, 0.0);
@@ -16,10 +21,6 @@ TEST(Fresnel, SpecialValues) {
     EXPECT_EQ(cephes::fresnl(-xtest::Inf64, &s, &c), 0);
     EXPECT_REL_NEAR_F64(s, -0.5);
     EXPECT_REL_NEAR_F64(c, -0.5);
-    // NaN
-    EXPECT_EQ(cephes::fresnl(xtest::NaN64, &s, &c), 0);
-    EXPECT_TRUE(std::isnan(s));
-    EXPECT_TRUE(std::isnan(c));
 
     // Large-argument limit: for big x -> S(x) ≈ 0.5, C(x) ≈ 0.5
     //  N[FresnelS[10^20], 18] = 0.500000000000000000
