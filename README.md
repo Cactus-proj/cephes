@@ -29,6 +29,9 @@ Therefore, contributions regarding precision and error-related contributions are
 - [Probability functions](docs/prob.md)
 - [Miscellaneous functions](docs/misc.md)
 
+## Features
+
+- [Bug? Features!](docs/features.md)
 
 ## Test
 
