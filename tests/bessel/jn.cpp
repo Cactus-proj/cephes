@@ -1,16 +1,45 @@
 #include <cephes/bessel.h>
 #include <xtest.hpp>
 
+TEST(BesselJn, BrokenTests) {
+    EXPECT_TRUE(std::isnan(cephes::jn(2, 0.0)));
+    EXPECT_TRUE(std::isnan(cephes::jn(-2, 0.0)));
+
+    GTEST_SKIP() << "Broken Tests";
+    /* Wolframe
+        BesselJ[2, 0.0] == 0
+        BesselJ[-2, 0.0] == 0
+    */
+    EXPECT_EQ(cephes::jn(2, 0.0), 0.0);   // NaN
+    EXPECT_EQ(cephes::jn(-2, 0.0), 0.0);  // NaN
+}
+
+TEST(BesselJn, SpecialValues) {
+    // J0(0) = 1
+    EXPECT_EQ(cephes::jn(0, 0.0), 1.0);
+
+    for (int i = 1; i < 128; ++i) {
+        SCOPED_TRACE(testing::Message() << "i=" << i);
+        if (i != 2) {
+            // J+-2(0) is broken
+            EXPECT_EQ(cephes::jn(i, 0.0), 0.0);
+            EXPECT_EQ(cephes::jn(-i, 0.0), 0.0);
+        }
+        EXPECT_TRUE(std::isnan(cephes::jn(i, xtest::NaN64)));
+        EXPECT_TRUE(std::isnan(cephes::jn(-i, xtest::NaN64)));
+    }
+}
+
 TEST(BesselJn, BasicAssertions) {
     EXPECT_REL_NEAR_F64(cephes::jn(5, 1.0), 0.0002497577302112345);
     EXPECT_REL_NEAR_F64(cephes::jn(10, 1.0), 2.630615123687453e-10);
     EXPECT_REL_NEAR_F64(cephes::jn(50, 1.0), 2.906004948173273e-80);
     EXPECT_REL_NEAR_F64(cephes::jn(100, 1.0), 8.43182878962688e-189);
 }
+
 TEST(BesselJn, Branches) {
     // n < 0
     EXPECT_REL_NEAR_F64(cephes::jn(-1, 0.0), 0.0);
-    EXPECT_TRUE(std::isnan(cephes::jn(-2, 0.0)));
 
     // x < 0.0
     EXPECT_REL_NEAR_F64(cephes::jn(0, -1.0), 0.7651976865579666);
