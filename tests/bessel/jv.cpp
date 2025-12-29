@@ -5,7 +5,7 @@ TEST(BesselJv, BrokenTests) {
     GTEST_SKIP() << "Broken Tests: rel_eps~3/60";
 }
 
-/** Wolframe
+/** Wolfram
     Table[NumberForm[BesselJ[nv + 1/4., x], 16],
         {nv, {0, 5, 10, 50, 100}},
         {x, {1, 50}}]
@@ -31,7 +31,7 @@ TEST(BesselJv, CoSF_Table_5p13) {
     EXPECT_REL_NEAR_F64_(cephes::jv(100+nv, x),  8.01262704186791e-22, 0.5);
 }
 
-/** Wolframe
+/** Wolfram
     Table[NumberForm[BesselJ[nv + 3/4., x], 16],
         {nv, {0, 5, 10, 50, 100}},
         {x, {1, 50}}]

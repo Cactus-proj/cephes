@@ -4,7 +4,7 @@
 
 TEST(BesselJ0, BrokenTests) {
     GTEST_SKIP() << "Broken Tests";
-    /* Wolframe 
+    /* Wolfram 
         BesselJ[0, Infinity] == 0
         BesselJ[0, -Infinity] == 0
     */

@@ -6,7 +6,7 @@ TEST(BesselJn, BrokenTests) {
     EXPECT_TRUE(std::isnan(cephes::jn(-2, 0.0)));
 
     GTEST_SKIP() << "Broken Tests";
-    /* Wolframe
+    /* Wolfram
         BesselJ[2, 0.0] == 0
         BesselJ[-2, 0.0] == 0
     */
