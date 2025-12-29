@@ -69,10 +69,36 @@ double i1(double x);
 double i1e(double x);
 double iv(double v, double x);
 
-/** Modified Bessel functions - second kind */
+/* Modified Bessel functions - second kind */
+/**
+ * @brief 
+ * 
+ * @param[in] x 
+ * @return double `Y_0(x)`
+ */
 double y0(double x);
+/**
+ * @brief Bessel function of the second kind of order one.
+ * 
+ * @param[in] x 
+ * @return double `Y_1(x)`
+ */
 double y1(double x);
+/**
+ * @brief Bessel function of the second kind of integer order `n`.
+ * 
+ * @param[in] n integer order
+ * @param[in] x 
+ * @return double `Y_n(x)`
+ */
 double yn(int n, double x);
+/**
+ * @brief Bessel function of the second kind of real order `v`.
+ * 
+ * @param[in] v real order
+ * @param[in] x 
+ * @return double `Y_v(x)`
+ */
 double yv(double v, double x);
 
 /** Modified Bessel functions - third kind */
