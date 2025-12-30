@@ -1,4 +1,4 @@
-#include <cephes/misc.h>
+#include <cephes/exp_int.h>
 #include <xtest.hpp>
 
 /*
