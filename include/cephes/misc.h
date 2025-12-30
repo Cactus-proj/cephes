@@ -10,9 +10,6 @@ namespace cephes {
 extern "C" {
 #endif
 
-/* misc/ei.c */
-double ei(double x);
-
 /* misc/polylog.c */
 double polylog(int n, double x);
 

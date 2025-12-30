@@ -4,7 +4,7 @@
  *
  * Source: `cephes/misc`
  * Provides:
- * - Exponential integral:  expn
+ * - Exponential integral:  ei, expn
  * - Sine and Cosine integral:  sici
  * - Hyperbolic Sine and Cosine integral:  shichi
  */
@@ -16,6 +16,13 @@ extern "C" {
 #endif
 
 /* Exponential integral */
+/**
+ * @brief Exponential integral
+ * 
+ * @param x non-negative
+ * @return double `Ei(x)`
+ */
+double ei(double x);
 /**
  * @brief Exponential integral
  * 
