@@ -25,12 +25,11 @@ jobs:
       run: sudo apt-get install -y lcov
 
     - name: Configure
-      run: cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build
+      run: cmake -S . -B build  -DCMAKE_BUILD_TYPE=Coverage -DBUILD_TESTS=ON
     - name: Build
-      run: cmake --build build
+      run: cmake --build build --parallel 4
     - name: Run Tests
-      working-directory: build
-      run: ctest
+      run: ctest --test-dir build -j4
     - name: Generating coverage report
       run: cmake --build build --target coverage_html
 
