@@ -1,6 +1,11 @@
 #ifndef CEPHES_HYPER_H
-/** Cephes: Hypergeometric Functions
+/** @file hyper.h
+ * Cephes: Hypergeometric Functions
  *
+ * Source: `cephes/bessel`
+ * Provides:
+ * - Gauss hypergeometric function:  hyp2f1
+ * - Confluent hypergeometric function:  hyperg
  */
 #define CEPHES_HYPER_H
 
@@ -10,7 +15,7 @@ extern "C" {
 #endif
 
 /**
- * @brief Computes the gauss hypergeometric function `2F1(a,b;c;x)`
+ * @brief Computes the Gauss hypergeometric function `2F1(a,b;c;x)`
  *
  * @param a
  * @param b
@@ -21,7 +26,7 @@ extern "C" {
 double hyp2f1(double a, double b, double c, double x);
 
 /**
- * @brief Computes the confluent hypergeometric function `1F1(a,b;x)` (`M(a,b,x)`)
+ * @brief Computes the Confluent hypergeometric function `1F1(a,b;x)` (`M(a,b,x)`)
  *
  * @param a
  * @param b, b must not be a negative integer or zero, unless a is an integer with `0 >= a > b`
