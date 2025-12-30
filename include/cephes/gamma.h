@@ -35,6 +35,7 @@ double rgamma(double x);
 /** Beta Functions */
 /* misc/beta.c */
 double beta(double a, double b);
+double lbeta(double a, double b);
 
 #if defined(__cplusplus)
 } // extern "C"
