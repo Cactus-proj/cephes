@@ -4,10 +4,10 @@
  * src: `cephes/bessel`
  *
  * - Airy Functions:  `airy`
- * - Bessel functions:  `j0`, `j1`, `jn`, `jv`
- * - Modified Bessel functions:  `i0`, `i0e`, `i1`, `i1e`, `iv`
- * - Modified Bessel functions - second kind: `y0`, `y1`, `yn`, `yv`
- * - Modified Bessel functions - third kind:  `k0`, `k0e`, `k1`, `k1e`, `kn`
+ * - Bessel functions, (First Kind):  `j0`, `j1`, `jn`, `jv`
+ * - Bessel functions, Second Kind:   `y0`, `y1`, `yn`, `yv`
+ * - Modified Bessel functions, first kind:   `i0`, `i0e`, `i1`, `i1e`, `iv`
+ * - Modified Bessel functions, second kind (third kind):  `k0`, `k0e`, `k1`, `k1e`, `kn`
  */
 #define CEPHES_BESSEL_H
 
