@@ -132,12 +132,49 @@ double yn(int n, double x);
  */
 double yv(double v, double x);
 
-/** Modified Bessel functions - third kind */
+/* Modified Bessel functions - second kind (third kind)
+
+  ## ref
+  - [DLMF: §10.25 Modified Bessel Functions](https://dlmf.nist.gov/10.25)
+  - [Modified Bessel Function of the Third Kind -- from Wolfram MathWorld](https://mathworld.wolfram.com/ModifiedBesselFunctionoftheThirdKind.html)
+  - [Modified Bessel Function of the Second Kind -- from Wolfram MathWorld](https://mathworld.wolfram.com/ModifiedBesselFunctionoftheSecondKind.html)
+ */
+/**
+ * @brief Modified Bessel function of the second kind of order zero.
+ * 
+ * @param[in] x non-negative
+ * @return double `K_0(x)`
+ */
 double k0(double x);
+/**
+ * @brief Modified Bessel function of the second kind of order zero, exponentially scaled.
+ * 
+ * @param[in] x non-negative
+ * @return double `K_0e(x) = exp(x)*K_0(x)`
+ */
 double k0e(double x);
+/**
+ * @brief Modified Bessel function of the second kind of order one.
+ * 
+ * @param[in] x non-negative
+ * @return double `K_1(x)`
+ */
 double k1(double x);
+/**
+ * @brief Modified Bessel function of the second kind of order one, exponentially scaled.
+ * 
+ * @param[in] x non-negative
+ * @return double `K_1e(x) = exp(x)*K_1(x)`
+ */
 double k1e(double x);
-double kn(int nn, double x);
+/**
+ * @brief Modified Bessel function of the second kind of integer order `n`.
+ * 
+ * @param[in] n integer order
+ * @param[in] x non-negative
+ * @return double `K_n(x)`
+ */
+double kn(int n, double x);
 
 #if defined(__cplusplus)
 } // extern "C"
