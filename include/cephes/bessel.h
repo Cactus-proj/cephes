@@ -62,11 +62,42 @@ double jn(int n, double x);
  */ 
 double jv(double v, double x);
 
-/** Modified Bessel functions */
+/* Modified Bessel functions */
+/**
+ * @brief Modified Bessel function of the first kind of order zero.
+ * 
+ * @param[in] x 
+ * @return double `I_0(x)`
+ */
 double i0(double x);
+/**
+ * @brief Modified Bessel function of the first kind of order zero, exponentially scaled.
+ * 
+ * @param[in] x 
+ * @return double `I_0e(x)`
+ */
 double i0e(double x);
+/**
+ * @brief Modified Bessel function of the first kind of order one.
+ * 
+ * @param[in] x 
+ * @return double `I_1(x)`
+ */
 double i1(double x);
+/**
+ * @brief Modified Bessel function of the first kind of order one, exponentially scaled.
+ * 
+ * @param[in] x 
+ * @return double `I_1e(x)`
+ */
 double i1e(double x);
+/**
+ * @brief Modified Bessel function of the first kind of real order `v`.
+ * 
+ * @param[in] v real order
+ * @param[in] x If `x` is negative, `v` must be integer valued.
+ * @return double `I_v(x)`
+ */
 double iv(double v, double x);
 
 /* Modified Bessel functions - second kind */
