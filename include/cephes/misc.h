@@ -10,6 +10,11 @@ namespace cephes {
 extern "C" {
 #endif
 
+double plancki(double lambda, double t);
+double planckc(double lambda, double t);
+double planckd(double lambda, double t);
+double planckw(double t);
+
 /* misc/polylog.c */
 double polylog(int n, double x);
 
