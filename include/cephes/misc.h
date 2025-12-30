@@ -24,6 +24,14 @@ double zeta(double x, double q);
 /* misc/zetac.c */
 double zetac(double x);
 
+/**
+ * @brief Struve function of order `v`.
+ * 
+ * @param v order
+ * @param x Negative x is rejected unless v is an integer.
+ * @return double `Hv(x)`
+ * @note `bessel/struve.c`
+ */
 double struve(double v, double x);
 
 #if defined(__cplusplus)
