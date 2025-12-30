@@ -1,5 +1,23 @@
 #include <cephes/bessel.h>
 #include <xtest.hpp>
+#include <random>
+
+TEST(BesselI1, SpecialValues) {
+    EXPECT_TRUE(std::isnan(cephes::i1(xtest::NaN64)));
+    EXPECT_TRUE(std::isnan(cephes::i1(-xtest::NaN64)));
+
+    EXPECT_EQ(cephes::i1(0.0), 0.0);
+}
+
+TEST(BesselI1, OddPropertyRandom) {
+    // Odd function: i1(-z) = -i1(z)
+    std::mt19937 rng(0xC0FFEEu);
+    std::uniform_real_distribution<double> dist(0.0, 1e10);
+    for (int i = 0; i < 128; ++i) {
+        double x = dist(rng);
+        EXPECT_REL_NEAR_F64(cephes::i1(-x), -cephes::i1(x));
+    }
+}
 
 /*
     Table[NumberForm[BesselI[1, x], 16],
