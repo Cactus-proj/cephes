@@ -100,9 +100,9 @@ double i1e(double x);
  */
 double iv(double v, double x);
 
-/* Modified Bessel functions - second kind */
+/* Bessel functions - second kind */
 /**
- * @brief 
+ * @brief Bessel function of the second kind of order zero.
  * 
  * @param[in] x 
  * @return double `Y_0(x)`
