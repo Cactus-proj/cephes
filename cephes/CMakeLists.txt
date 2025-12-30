@@ -1,9 +1,6 @@
 # mconf.h
 include_directories(${CMAKE_SOURCE_DIR}/cephes)
 
-# Ensure Position Independent Code for all targets (required for linking object libs into shared lib)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-
 # --- Module: cmath ---
 file(GLOB src_cmath "cmath/*.c")
 list(REMOVE_ITEM src_cmath

@@ -37,9 +37,15 @@ Therefore, contributions regarding precision and error-related contributions are
 
 ```sh
 # On Linux
-cmake -DCMAKE_BUILD_TYPE=Coverage -S . -B build
+# Coverage
+cmake -S . -B build  -DCMAKE_BUILD_TYPE=Coverage -DBUILD_TESTS=ON
 cmake --build build --parallel 8 && ctest --test-dir build -j8 && cmake --build build --target coverage_html
 ctest --test-dir build --rerun-failed --output-on-failure
+
+# Release
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./build/install_test
+cmake --build build --parallel 8
+cmake --install build
 ```
 
 
