@@ -30,7 +30,7 @@ jobs:
     - name: Configure
       run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libcephes
     - name: Build
-      run: cmake --build build --parallel 4
+      run: cmake --build build --config Release --parallel 4
     - name: Install
       run: cmake --install build
     - uses: actions/upload-artifact@v6
