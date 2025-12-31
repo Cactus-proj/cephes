@@ -2,12 +2,33 @@
 include_directories(${CMAKE_SOURCE_DIR}/cephes)
 
 # --- Module: cmath ---
-file(GLOB src_cmath "cmath/*.c")
-list(REMOVE_ITEM src_cmath
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mtst.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmath/dtestvec.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mod2pi.c"
+# file(GLOB src_cmath "cmath/*.c")
+# list(REMOVE_ITEM src_cmath
+#     "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mtst.c"
+#     "${CMAKE_CURRENT_SOURCE_DIR}/cmath/dtestvec.c"
+#     "${CMAKE_CURRENT_SOURCE_DIR}/cmath/mod2pi.c"
+# )
+set(cmath_srcs
+    "const.c"
+    "asin.c"
+    "atan.c"
+    "cosh.c"
+    "exp.c"
+    "floor.c"
+    "isnan.c"  # isnan, signbit, isfinite
+    "log.c"
+    "pow.c"
+    "powi.c"
+    "round.c"
+    "sin.c"
+    "sinh.c"
+    "sqrt.c"
+    "tan.c"
+    "tanh.c"
+    "unity.c"  # log1p
 )
+list(TRANSFORM cmath_srcs PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/cmath/")
+list(APPEND src_cmath ${cmath_srcs})
 add_library(cephes_cmath OBJECT ${src_cmath})
 
 # --- Module: bessel ---
@@ -21,7 +42,7 @@ add_library(cephes_cprob OBJECT ${src_cprob})
 # --- Module: ellf ---
 file(GLOB src_ellf "ellf/*.c")
 list(REMOVE_ITEM src_ellf
-    "${CMAKE_CURRENT_SOURCE_DIR}/ellf/ellf.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/ellf/ellf.c"  # tests
 )
 add_library(cephes_ellf OBJECT ${src_ellf})
 
