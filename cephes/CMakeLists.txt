@@ -30,9 +30,10 @@ file(GLOB src_misc "misc/*.c")
 add_library(cephes_misc OBJECT ${src_misc})
 
 # --- Module: polyn ---
-file(GLOB src_polyn "polyn/*.c")
-list(REMOVE_ITEM src_polyn
-    "${CMAKE_CURRENT_SOURCE_DIR}/polyn/polyr.c"
+# file(GLOB src_polyn "polyn/*.c")
+list(APPEND src_polyn
+    "${CMAKE_CURRENT_SOURCE_DIR}/polyn/chbevl.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/polyn/polevl.c"
 )
 add_library(cephes_polyn OBJECT ${src_polyn})
 
