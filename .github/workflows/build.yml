@@ -33,4 +33,5 @@ jobs:
       # TODO: build with:  --config Release
       run: cmake --build build --parallel 4
     - name: Install
+      if: matrix.os != 'windows-latest'
       run: cmake --install build
