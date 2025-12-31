@@ -29,4 +29,6 @@ install(TARGETS cephes
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES LICENSE.txt License-request-email.txt DESTINATION docs)
+install(FILES LICENSE.txt License-request-email.txt
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/licenses/${PROJECT_NAME}
+)

@@ -53,3 +53,10 @@ add_library(cephes SHARED
     $<TARGET_OBJECTS:cephes_polyn>
     # $<TARGET_OBJECTS:cephes_single>
 )
+
+# libcephes.[so|dll|dylib]
+set_target_properties(cephes PROPERTIES
+    OUTPUT_NAME "cephes"
+    PREFIX "lib"
+    WINDOWS_EXPORT_ALL_SYMBOLS ON
+)
