@@ -27,6 +27,9 @@ add_library(cephes_ellf OBJECT ${src_ellf})
 
 # --- Module: misc ---
 file(GLOB src_misc "misc/*.c")
+list(REMOVE_ITEM src_misc
+    "${CMAKE_CURRENT_SOURCE_DIR}/misc/simpsn.c"  # not use
+)
 add_library(cephes_misc OBJECT ${src_misc})
 
 # --- Module: polyn ---
