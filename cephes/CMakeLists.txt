@@ -10,22 +10,9 @@ include_directories(${CMAKE_SOURCE_DIR}/cephes)
 # )
 set(cmath_srcs
     "const.c"
-    "asin.c"
-    "atan.c"
-    "cosh.c"
-    "exp.c"
-    "floor.c"
     "isnan.c"  # isnan, signbit, isfinite
-    "log.c"
-    "pow.c"
     "powi.c"
-    "round.c"
-    "sin.c"
-    "sinh.c"
-    "sqrt.c"
-    "tan.c"
-    "tanh.c"
-    "unity.c"  # log1p
+    "round.c"  # will affect hyp2f1 acc
 )
 list(TRANSFORM cmath_srcs PREPEND "${CMAKE_CURRENT_SOURCE_DIR}/cmath/")
 list(APPEND src_cmath ${cmath_srcs})
