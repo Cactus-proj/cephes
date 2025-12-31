@@ -58,4 +58,5 @@ add_library(cephes SHARED
 set_target_properties(cephes PROPERTIES
     OUTPUT_NAME "cephes"
     PREFIX "lib"
+    WINDOWS_EXPORT_ALL_SYMBOLS ON
 )
