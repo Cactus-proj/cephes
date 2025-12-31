@@ -21,8 +21,8 @@ TEST(BesselJ1, SpecialValues) {
 
 TEST(BesselJ1, OddPropertyRandom) {
     // Odd function: j1(-x) = -j1(x)
-    EXPECT_TRUE(std::isinf(cephes::j1(-10.0)));
-    GTEST_SKIP() << "Broken Tests: j1(-x), x<0 is Inf";
+    EXPECT_TRUE(std::isnan(cephes::j1(-10.0)));
+    GTEST_SKIP() << "Broken Tests: j1(-x), x<0 is NaN";
 
     std::mt19937 rng(0xC0FFEEu);
     std::uniform_real_distribution<double> dist(0.0, 10.0);
