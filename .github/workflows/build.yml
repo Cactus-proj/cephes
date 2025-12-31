@@ -30,8 +30,20 @@ jobs:
     - name: Configure
       run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libcephes
     - name: Build
+      # Note: MSVC does not support Release build at this time.
+      #   error C2169: intrinsic function, cannot be defined
       # TODO: build with:  --config Release
       run: cmake --build build --parallel 4
     - name: Install
       if: matrix.os != 'windows-latest'
       run: cmake --install build
+
+    - name: Install.win
+      if: matrix.os == 'windows-latest'
+      # Workaround ........................vvvvv
+      run: cmake --install build  --config Debug
+    - uses: actions/upload-artifact@v6
+      if: matrix.os == 'windows-latest'
+      with:
+        name: libcephes-${{ matrix.os }}
+        path: libcephes/
