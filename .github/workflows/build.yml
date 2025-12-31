@@ -28,7 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8  # v6.0.1
     - name: Configure
-      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./libcephes
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="./libcephes"
     - name: Build
       # Note: MSVC does not support Release build at this time.
       #   error C2169: intrinsic function, cannot be defined
