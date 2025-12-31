@@ -44,7 +44,7 @@ ctest --test-dir build --rerun-failed --output-on-failure
 
 # Release
 cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=./build/install_test
-cmake --build build --config Release --parallel 8
+cmake --build build --parallel 8
 cmake --install build
 ```
 
