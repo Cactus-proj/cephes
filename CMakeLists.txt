@@ -32,3 +32,4 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLU
 install(FILES LICENSE.txt License-request-email.txt
     DESTINATION ${CMAKE_INSTALL_DATADIR}/licenses/${PROJECT_NAME}
 )
+install(FILES README.md docs/features.md docs/doubldoc.md TYPE DOC)
