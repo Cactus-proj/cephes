@@ -1,4 +1,3 @@
-
 # Cephes double precision special functions suite
 
 <a name="acosh"></a>

@@ -24,7 +24,10 @@ NOTE: This project currently focuses on *special functions*.
 
 [`cephes/*.h` Headers](include/cephes)
 
-[List of Cephes functions](docs/index.md)
+> By default, Cephes **does not signal any error** (domain, singularity, overflow, underflow, precision).
+> It is as non-intrusive as possible and tries to return a value which is hopefully usable: it might be NaN, it might be inf.
+
+[List of Cephes functions](docs/doubldoc.md)
 
 - [Exponential integral](docs/exp_int.md)
 - [Gamma functions](docs/gamma.md)
@@ -55,6 +58,9 @@ cmake --install build
 
 This project is licensed under a `BSD-3-Clause` style license.
 See [LICENSE](LICENSE.txt) for details.
+
+[Cephes mathematical library](http://www.netlib.org/cephes/),
+developed by [Stephen L. Moshier](http://www.moshier.net).
 
 For historical context, see the email communication with the original author:
 [License request email](License-request-email.txt).
