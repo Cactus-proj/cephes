@@ -1,5 +1,5 @@
 # mconf.h
-include_directories(${CMAKE_SOURCE_DIR}/cephes)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # --- Module: cmath ---
 # file(GLOB src_cmath "cmath/*.c")

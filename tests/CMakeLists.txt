@@ -1,6 +1,7 @@
 # Get googletest
 # https://google.github.io/googletest/quickstart-cmake.html
 # GoogleTest requires at least C++17
+enable_language(CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -21,7 +22,7 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 # Add include for tests
-include_directories(${CMAKE_SOURCE_DIR}/tests/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Add Tests
 function(add_cephes_test_module module_name)
