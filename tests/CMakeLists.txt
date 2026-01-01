@@ -1,6 +1,7 @@
 # Get googletest
 # https://google.github.io/googletest/quickstart-cmake.html
 # GoogleTest requires at least C++17
+enable_language(CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 

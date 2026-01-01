@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.14)
-project(cephes)
+project(cephes
+    VERSION 1.0.0
+    LANGUAGES C
+)
 
-enable_language(C)
 set(CMAKE_C_STANDARD 11)
 # Ensure Position Independent Code for all targets (required for shared lib)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
