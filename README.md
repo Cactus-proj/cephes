@@ -22,21 +22,151 @@ NOTE: This project currently focuses on *special functions*.
 
 ## Docs
 
+> NOTE: Only functions list in public headers are treated as public API.
+
 [`cephes/*.h` Headers](include/cephes)
 
 > By default, Cephes **does not signal any error** (domain, singularity, overflow, underflow, precision).
 > It is as non-intrusive as possible and tries to return a value which is hopefully usable: it might be NaN, it might be inf.
 
-[List of Cephes functions](docs/doubldoc.md)
+[List of All Cephes functions](docs/doubldoc.md)
 
-- [Exponential integral](docs/exp_int.md)
-- [Gamma functions](docs/gamma.md)
-- [Error functions](docs/error.md)
-- [Bessel functions](docs/bessel.md)
-- [Hypergeometric functions](docs/hyper.md)
-- [Elliptic functions](docs/elliptic.md)
-- [Probability functions](docs/prob.md)
-- [Miscellaneous functions](docs/misc.md)
+### Exponential integral
+
+- **ei**,     [Exponential Integral](doubldoc.md#ei)
+- **expn**,   [Exponential integral En](doubldoc.md#expn)
+- **sici**,   [Sine and cosine integrals](doubldoc.md#sici)
+- **shichi**, [Hyperbolic sine and cosine integrals](doubldoc.md#shichi)
+
+### Gamma Functions
+
+- **fac**,    [Factorial function](doubldoc.md#fac)
+- **gamma**,  [Gamma function](doubldoc.md#gamma)
+- **lgam**,   [Natural logarithm of gamma function](doubldoc.md#lgam)
+- **igam**,   [Incomplete gamma integral](doubldoc.md#igam)
+- **igamc**,  [Complemented incomplete gamma integral](doubldoc.md#igamc)
+- **igami**,  [Inverse of complemented imcomplete gamma integral](doubldoc.md#igami)
+- **incbet**, [Incomplete beta integral](doubldoc.md#incbet)
+- **incbi**,  [Inverse of imcomplete beta integral](doubldoc.md#incbi)
+- **psi**,    [Psi (digamma) function](doubldoc.md#psi)
+- **rgamma**, [Reciprocal gamma function](doubldoc.md#rgamma)
+- **beta**,   [Beta function](doubldoc.md#beta)
+
+### Error Functions
+
+- **erf**,    [Error function](doubldoc.md#erf)
+- **erfc**,   [Complementary error function](doubldoc.md#erfc)
+- **dawsn**,  [Dawson's Integral](doubldoc.md#dawsn)
+- **fresnl**, [Fresnel integral](doubldoc.md#fresnl)
+
+### Bessel functions
+
+#### Airy Functions
+
+- **airy**, [Airy functions](doubldoc.md#airy)
+
+#### Bessel function
+
+- **j0**, [Bessel function of order zero](doubldoc.md#j0)
+- **j1**, [Bessel function of order one](doubldoc.md#j1)
+- **jn**, [Bessel function of integer order](doubldoc.md#jn)
+- **jv**, [Bessel function of noninteger order](doubldoc.md#jv)
+
+#### Modified Bessel functions
+
+- **i0**,   [Modified Bessel function of order zero](doubldoc.md#i0)
+- **i0e**,  [Exponentially scaled modified Bessel function of order zero](doubldoc.md#i0e)
+- **i1**,   [Modified Bessel function of order one](doubldoc.md#i1)
+- **i1e**,  [Exponentially scaled modified Bessel function of order one](doubldoc.md#i1e)
+- **iv**,   [Modified Bessel function of noninteger order](doubldoc.md#iv)
+
+#### Modified Bessel functions - second kind
+
+- **y0**, [Bessel function of the second kind, order zero](doubldoc.md#y0)
+- **y1**, [Bessel function of the second kind, order one](doubldoc.md#y1)
+- **yn**, [Bessel function of second kind of integer order](doubldoc.md#yn)
+- **yv**, Bessel function of noninteger order
+
+#### Modified Bessel functions - third kind
+
+- **k0**,   [Modified Bessel function, third kind, order zero](doubldoc.md#k0)
+- **k0e**,  [Modified Bessel function, third kind, order zero, exponentially scaled](doubldoc.md#k0e)
+- **k1**,   [Modified Bessel function, third kind, order one](doubldoc.md#k1)
+- **k1e**,  [Modified Bessel function, third kind, order one, exponentially scaled](doubldoc.md#k1e)
+- **kn**,   [Modified Bessel function, third kind, integer order](doubldoc.md#kn)
+
+### Hypergeometric Functions
+
+- **hyp2f1**, [Gauss hypergeometric function](doubldoc.md#hyp2f1)
+- **hyperg**, [Confluent hypergeometric function](doubldoc.md#hyperg)
+
+### Elliptic Functions
+
+- **ellpk**, [Complete elliptic integral of the first kind](doubldoc.md#ellpk)
+- **ellik**, [Incomplete elliptic integral of the first kind](doubldoc.md#ellik)
+- **ellpe**, [Complete elliptic integral of the second kind](doubldoc.md#ellpe)
+- **ellie**, [Incomplete elliptic integral of the second kind](doubldoc.md#ellie)
+- **ellpj**, [Jacobian elliptic functions](doubldoc.md#ellpj)
+
+### Probability Functions
+
+#### Binomial distribution
+
+- **bdtr**, [Binomial distribution](doubldoc.md#bdtr)
+- **bdtrc**, [Complemented binomial distribution](doubldoc.md#bdtrc)
+- **bdtri**, [Inverse binomial distribution](doubldoc.md#bdtri)
+
+#### Beta distribution
+
+- **btdtr**, [Beta distribution](doubldoc.md#btdtr)
+
+#### Chi-square distribution
+
+- **chdtr**, [Chi-square distribution](doubldoc.md#chdtr)
+- **chdtrc**, [Complemented Chi-square distribution](doubldoc.md#chdtrc)
+- **chdtri**, [Inverse of complemented Chi-square distribution](doubldoc.md#chdtri)
+
+#### F distribution
+
+- **fdtr**, [F distribution](doubldoc.md#fdtr)
+- **fdtrc**, [Complemented F distribution](doubldoc.md#fdtrc)
+- **fdtri**, [Inverse of complemented F distribution](doubldoc.md#fdtri)
+
+#### Gamma distribution
+
+- **gdtr**, [Gamma distribution function](doubldoc.md#gdtr)
+- **gdtrc**, [Complemented gamma distribution function](doubldoc.md#gdtrc)
+
+#### Negative binomial distribution
+
+- **nbdtr**, [Negative binomial distribution](doubldoc.md#nbdtr)
+- **nbdtrc**, [Complemented negative binomial distribution](doubldoc.md#nbdtrc)
+- **nbdtri**, [Functional inverse of negative binomial distribution](doubldoc.md#nbdtri)
+
+#### Normal distribution
+
+- **ndtr**, [Normal distribution function](doubldoc.md#ndtr)
+- **ndtri**, [Inverse of normal distribution function](doubldoc.md#ndtri)
+
+#### Poisson distribution
+
+- **pdtr**, [Poisson distribution function](doubldoc.md#pdtr)
+- **pdtrc**, [Complemented Poisson distribution function](doubldoc.md#pdtrc)
+- **pdtri**, [Inverse of Poisson distribution function](doubldoc.md#pdtri)
+
+#### Student's t distribution
+
+- **stdtr**, [Student's t distribution](doubldoc.md#stdtr)
+- **stdtri**, [Functional inverse of Student's t distribution](doubldoc.md#stdtri)
+
+### Miscellaneous functions
+
+- **plancki**, [Integral of Planck's black body radiation formula](doubldoc.md#planck)
+- **polylog**, [Polylogarithms](doubldoc.md#polylog)
+- **spence**, [Dilogarithm](doubldoc.md#spence)
+- **zeta**, [Zeta function of two arguments](doubldoc.md#zeta)
+- **zetac**, [Riemann zeta function of two arguments](doubldoc.md#zetac)
+- **struve**, [Struve function](doubldoc.md#struve)
 
 
 ## Build and Test
