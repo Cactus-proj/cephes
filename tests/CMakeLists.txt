@@ -22,7 +22,7 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
 # Add include for tests
-include_directories(${CMAKE_SOURCE_DIR}/tests/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Add Tests
 function(add_cephes_test_module module_name)

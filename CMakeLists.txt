@@ -11,10 +11,10 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # Tests
 option(BUILD_TESTS "Build the tests" OFF)
 # Coverage
-include(${CMAKE_SOURCE_DIR}/tests/Coverage.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/tests/Coverage.cmake)
 
 # libcephes compilation and installation is in its own subdirectory
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_subdirectory(cephes)
 
 # --- Tests
@@ -30,7 +30,7 @@ install(TARGETS cephes
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES LICENSE.txt License-request-email.txt
     DESTINATION ${CMAKE_INSTALL_DATADIR}/licenses/${PROJECT_NAME}
 )
