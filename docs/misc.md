@@ -1,6 +1,6 @@
 # Miscellaneous functions
 
-* **ei**, [Exponential Integral](doubldoc.md#ei)
+* **plancki**, [Integral of Planck's black body radiation formula](doubldoc.md#planck)
 * **polylog**, [Polylogarithms](doubldoc.md#polylog)
 * **spence**, [Dilogarithm](doubldoc.md#spence)
 * **zeta**, [Zeta function of two arguments](doubldoc.md#zeta)

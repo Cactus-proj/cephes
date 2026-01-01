@@ -1,5 +1,6 @@
 # Exponential integral
 
+* **ei**, [Exponential Integral](doubldoc.md#ei)
 * **expn**, [Exponential integral En](doubldoc.md#expn)
 
 ## Sine and Cosine integral
