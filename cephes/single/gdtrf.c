@@ -44,7 +44,7 @@
  * gdtrf domain        x < 0            0.0
  *
  */
-/*							gdtrcf.c
+/*							gdtrcf.c
  *
  *	Complemented gamma distribution function
  *
@@ -90,9 +90,8 @@
  * gdtrcf domain        x < 0            0.0
  *
  */
-
-/*							gdtr()  */
 
+/*							gdtr()  */
 
 /*
 Cephes Math Library Release 2.2:  July, 1992
@@ -107,48 +106,41 @@ float igamf(float, float), igamcf(float, float);
 float igamf(), igamcf();
 #endif
 
-
-
 #ifdef ANSIC
-float gdtrf( float aa, float bb, float xx )
+float gdtrf(float aa, float bb, float xx)
 #else
-float gdtrf( aa, bb, xx )
+float gdtrf(aa, bb, xx)
 double aa, bb, xx;
 #endif
 {
-float a, b, x;
+    float a, b, x;
 
-a = aa;
-b = bb;
-x = xx;
+    a = aa;
+    b = bb;
+    x = xx;
 
-
-if( x < 0.0 )
-	{
-	mtherr( "gdtrf", DOMAIN );
-	return( 0.0 );
-	}
-return(  igamf( b, a * x )  );
+    if (x < 0.0) {
+        mtherr("gdtrf", DOMAIN);
+        return (0.0);
+    }
+    return (igamf(b, a * x));
 }
 
-
-
 #ifdef ANSIC
-float gdtrcf( float aa, float bb, float xx )
+float gdtrcf(float aa, float bb, float xx)
 #else
-float gdtrcf( aa, bb, xx )
+float gdtrcf(aa, bb, xx)
 double aa, bb, xx;
 #endif
 {
-float a, b, x;
+    float a, b, x;
 
-a = aa;
-b = bb;
-x = xx;
-if( x < 0.0 )
-	{
-	mtherr( "gdtrcf", DOMAIN );
-	return( 0.0 );
-	}
-return(  igamcf( b, a * x )  );
+    a = aa;
+    b = bb;
+    x = xx;
+    if (x < 0.0) {
+        mtherr("gdtrcf", DOMAIN);
+        return (0.0);
+    }
+    return (igamcf(b, a * x));
 }

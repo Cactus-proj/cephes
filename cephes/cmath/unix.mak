@@ -106,4 +106,3 @@ clean:
 	rm -f libmd.a
 	rm -f time-it
 	rm -f dtestvec
-

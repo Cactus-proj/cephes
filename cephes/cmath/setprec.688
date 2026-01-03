@@ -32,4 +32,3 @@ _dprec:
 _ldprec:
 	.word	0xf23c,0x9000,0x0000,0x0000
 	rts
-

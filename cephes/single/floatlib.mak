@@ -239,4 +239,3 @@ sindgf.obj sinf.obj sinhf.obj spencef.obj sqrtf.obj stdtrf.obj \
 struvef.obj tandgf.obj tanf.obj tanhf.obj ynf.obj zetaf.obj \
 zetacf.obj polevlf.obj
 	lib @floatlib.rsp
-

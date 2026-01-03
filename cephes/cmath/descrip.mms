@@ -89,11 +89,3 @@ sqrt.obj : sqrt.c,$(HFILES)
     CC $(CFLAGS) sqrt
 mtherr.obj : mtherr.c,$(HFILES)
     CC $(CFLAGS) mtherr
-
-
-
-
-
-
-
-

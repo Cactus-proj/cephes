@@ -80,4 +80,3 @@ getprec:
 	ret
 .Lfe4:
 	.size	getprec,.Lfe4-getprec
-

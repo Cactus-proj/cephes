@@ -59,7 +59,7 @@
  *  y[0] must be zero, and y[1] must be nonzero.
  *
  */
-
+
 /*
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1989, 1992, 2000 by Stephen L. Moshier
@@ -71,53 +71,50 @@ extern int MAXPOL; /* initialized by polini() */
 
 #ifdef ANSIPROT
 /* See polyn.c.  */
-void polmov ( double *, int, double * );
-void polclr ( double *, int );
-void poladd ( double *, int, double *, int, double * );
-void polmul ( double *, int, double *, int, double * );
-void * malloc ( long );
-void free ( void * );
+void polmov(double *, int, double *);
+void polclr(double *, int);
+void poladd(double *, int, double *, int, double *);
+void polmul(double *, int, double *, int, double *);
+void *malloc(long);
+void free(void *);
 #else
 void polmov(), polclr(), poladd(), polmul();
-void * malloc();
-void free ();
+void *malloc();
+void free();
 #endif
 
-void revers( y, x, n)
-double y[], x[];
+void revers(y, x, n) double y[], x[];
 int n;
 {
-double *yn, *yp, *ysum;
-int j;
+    double *yn, *yp, *ysum;
+    int j;
 
-if( y[1] == 0.0 )
-	mtherr( "revers", DOMAIN );
-/*	printf( "revers: y[1] = 0\n" );*/
-j = (MAXPOL + 1) * sizeof(double);
-yn = (double *)malloc(j);
-yp = (double *)malloc(j);
-ysum = (double *)malloc(j);
+    if (y[1] == 0.0)
+        mtherr("revers", DOMAIN);
+    /*	printf( "revers: y[1] = 0\n" );*/
+    j = (MAXPOL + 1) * sizeof(double);
+    yn = (double *)malloc(j);
+    yp = (double *)malloc(j);
+    ysum = (double *)malloc(j);
 
-polmov( y, n, yn );
-polclr( ysum, n );
-x[0] = 0.0;
-x[1] = 1.0/y[1];
-for( j=2; j<=n; j++ )
-	{
-/* A_(j-1) times the expansion of y^(j-1)  */
-	polmul( &x[j-1], 0, yn, n, yp );
-/* The expansion of the sum of A_k y^k up to k=j-1 */
-	poladd( yp, n, ysum, n, ysum );
-/* The expansion of y^j */
-	polmul( yn, n, y, n, yn );
-/* The coefficient A_j to make the sum up to k=j equal to zero */
-	x[j] = -ysum[j]/yn[j];
-	}
-free(yn);
-free(yp);
-free(ysum);
+    polmov(y, n, yn);
+    polclr(ysum, n);
+    x[0] = 0.0;
+    x[1] = 1.0 / y[1];
+    for (j = 2; j <= n; j++) {
+        /* A_(j-1) times the expansion of y^(j-1)  */
+        polmul(&x[j - 1], 0, yn, n, yp);
+        /* The expansion of the sum of A_k y^k up to k=j-1 */
+        poladd(yp, n, ysum, n, ysum);
+        /* The expansion of y^j */
+        polmul(yn, n, y, n, yn);
+        /* The coefficient A_j to make the sum up to k=j equal to zero */
+        x[j] = -ysum[j] / yn[j];
+    }
+    free(yn);
+    free(yp);
+    free(ysum);
 }
-
 
 #if 0
 /* Demonstration program

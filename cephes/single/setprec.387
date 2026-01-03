@@ -73,4 +73,3 @@ _getprec:
 	movl (%esp),%eax
 	leave
 	ret
-

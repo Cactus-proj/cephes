@@ -40,7 +40,7 @@
  *    IEEE       0,100       5000       6.9e-5      8.0e-6
  *
  */
-/*							pdtrcf()
+/*							pdtrcf()
  *
  *	Complemented poisson distribution
  *
@@ -82,7 +82,7 @@
  *    IEEE       0,100       5000       8.4e-5      1.2e-5
  *
  */
-/*							pdtrif()
+/*							pdtrif()
  *
  *	Inverse Poisson distribution
  *
@@ -125,7 +125,7 @@
  *                     k < 0
  *
  */
-
+
 /*
 Cephes Math Library Release 2.2:  July, 1992
 Copyright 1984, 1987, 1992 by Stephen L. Moshier
@@ -140,67 +140,60 @@ float igamf(float, float), igamcf(float, float), igamif(float, float);
 float igamf(), igamcf(), igamif();
 #endif
 
-
 #ifdef ANSIC
-float pdtrcf( int k, float mm )
+float pdtrcf(int k, float mm)
 #else
-float pdtrcf( k, mm )
+float pdtrcf(k, mm)
 int k;
 double mm;
 #endif
 {
-float v, m;
+    float v, m;
 
-m = mm;
-if( (k < 0) || (m <= 0.0) )
-	{
-	mtherr( "pdtrcf", DOMAIN );
-	return( 0.0 );
-	}
-v = k+1;
-return( igamf( v, m ) );
+    m = mm;
+    if ((k < 0) || (m <= 0.0)) {
+        mtherr("pdtrcf", DOMAIN);
+        return (0.0);
+    }
+    v = k + 1;
+    return (igamf(v, m));
 }
 
-
-
 #ifdef ANSIC
-float pdtrf( int k, float mm )
+float pdtrf(int k, float mm)
 #else
-float pdtrf( k, mm )
+float pdtrf(k, mm)
 int k;
 double mm;
 #endif
 {
-float v, m;
+    float v, m;
 
-m = mm;
-if( (k < 0) || (m <= 0.0) )
-	{
-	mtherr( "pdtr", DOMAIN );
-	return( 0.0 );
-	}
-v = k+1;
-return( igamcf( v, m ) );
+    m = mm;
+    if ((k < 0) || (m <= 0.0)) {
+        mtherr("pdtr", DOMAIN);
+        return (0.0);
+    }
+    v = k + 1;
+    return (igamcf(v, m));
 }
 
-
 #ifdef ANSIC
-float pdtrif( int k, float yy )
+float pdtrif(int k, float yy)
 #else
-float pdtrif( k, yy )
+float pdtrif(k, yy)
 int k;
 double yy;
 #endif
 {
-float v, y;
+    float v, y;
 
-y = yy;
-if( (k < 0) || (y < 0.0) || (y >= 1.0) )
-	{
-	mtherr( "pdtrif", DOMAIN );
-	return( 0.0 );
-	}
-v = k+1;
-v = igamif( v, y );
-return( v );
+    y = yy;
+    if ((k < 0) || (y < 0.0) || (y >= 1.0)) {
+        mtherr("pdtrif", DOMAIN);
+        return (0.0);
+    }
+    v = k + 1;
+    v = igamif(v, y);
+    return (v);
 }
