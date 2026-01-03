@@ -1,11 +1,6 @@
+# CEPHES MATHEMATICAL FUNCTION LIBRARY
 
-
-
-
-              CEPHES MATHEMATICAL FUNCTION LIBRARY
-
-
-     This computer software library is a collection of more than
+This computer software library is a collection of more than
 400 high quality mathematical routines for scientific and
 engineering applications.   All are written entirely in C
 language.  Many of the functions are supplied in six different
@@ -15,29 +10,29 @@ double (64-bit), and extended precision formats having 144-bit
 and 336-bit significands.  The extended precision arithmetic is
 included with the function library.
 
-     The library treats about 180 different mathematical
+The library treats about 180 different mathematical
 functions.  In addition to the elementary arithmetic and
 transcendental routines, the library includes a substantial
 collection of probability integrals, Bessel functions, and higher
 transcendental functions.
 
-     There are complex variable routines covering complex
+There are complex variable routines covering complex
 arithmetic, complex logarithm and exponential, and complex
 trigonometric functions.
 
-     Each function subroutine has been tested by comparing at a
+Each function subroutine has been tested by comparing at a
 large number of points against high precision check routines. 
 The test programs use floating point arithmetic having 144 bit
 (43 decimal) precision.  Thus the actual accuracy of each program
 is reported, not merely the result of a consistency test.  Test
 results are given with the description of each routine.
 
-     The routines have been characterized and tested in IEEE Std
+The routines have been characterized and tested in IEEE Std
 754 double precision arithmetic (both Intel and Motorola
 formats), used on IBM PC and a growing number of other computers,
 and also in the popular DEC/IBM double precision format.
 
-     For DEC and IEEE arithmetic, numerical constants and
+For DEC and IEEE arithmetic, numerical constants and
 approximation coefficients are supplied as integer arrays in
 order to eliminate conversion errors that might be introduced by
 the language compiler.  All coefficients are also supplied in the
@@ -45,12 +40,12 @@ normal decimal scientific notation so that the routines can be
 compiled and used on other machines that do not support either of
 the above numeric formats.
 
-     A single, common error handling routine is supplied.  Error
+A single, common error handling routine is supplied.  Error
 conditions produce a display of the function name and error type.
 The user may easily insert modifications to implement any desired
 action on specified types of error.
 
-     The following table summarizes the current contents of the
+The following table summarizes the current contents of the
 double precision library.  See also the corresponding
 documentation for the single and long double precision libraries.
 Accuracies reported for DEC and IEEE arithmetic are with
@@ -60,13 +55,16 @@ unit such as the 8087 or 68881 is used in conjunction with an
 optimizing compiler.  The accuracy figures are experimentally
 measured; they are not guaranteed maximum errors.
 
-    Documentation is included on the distribution media as
+Documentation is included on the distribution media as
 Unix-style manual pages that describe the functions and their
 invocation.  The primary documentation for the library functions
 is the book by Moshier, Methods and Programs for Mathematical
 Functions, Prentice-Hall, 1989.
-
 
+
+## Double Precision Functions
+
+```
 Function                        Name      Accuracy
 --------                        ----    DEC     IEEE
                                         ----    ----
@@ -265,16 +263,12 @@ Minimax rational approximations to functions    remes
 Digital elliptic filters                        ellf
 Numerical integration of the Moon and planets   de118
 IEEE compliance test for printf(), scanf()      ieetst
-
+```
 
 
+## Long Double Precision Functions
 
-
-
-                Long Double Precision Functions
-
-
-
+```
 Function                        Name    Accuracy
 --------                        ----    --------
 
@@ -307,17 +301,12 @@ Sine                            sinl    1e-19
 Square root                     sqrtl   8e-20
 Hyperbolic tangent              tanhl   1e-19
 Tangent                         tanl    2e-19
-
+```
 
 
+## Single Precision Routines
 
-
-
-
-
-                   Single Precision Routines
-
-
+```
 Function                        Name    Accuracy
 --------                        ----    --------
 
@@ -501,13 +490,13 @@ Arc sine                        casinf  1e-5
 Tangent                         ctanf   3e-7
 Arc tangent                     catanf  2e-6
 Cotangent                       ccotf   4e-7
+```
 
-
 
 
-         QLIB Extended Precision Mathematical Library
+## QLIB Extended Precision Mathematical Library
  
-
+```
 q100asm.bat    Create 100-decimal Q type library (for IBM PC MSDOS)
 q100asm.rsp    
 
@@ -745,9 +734,7 @@ lgamnum.doc    Stirling's formula
 lgamnum.tak    
 zeta.tak       zeta function
 ctest.tak      exercise complex variable calculator
-
-
-
+```
 
 
 A: absolute error; others are relative error (i.e., % of reading)
@@ -760,4 +747,3 @@ Release 1.2: May, 1986
 Release 2.0: April, 1987
 Release 2.1: March, 1989
 Release 2.2: July, 1992
-
