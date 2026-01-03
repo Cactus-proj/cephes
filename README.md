@@ -37,7 +37,7 @@ cmake --install build
 
 ## Docs
 
-> NOTE: Only functions list in public headers are treated as public API.
+> NOTE: Only functions listed in public headers are treated as public API.
 
 [`cephes/*.h` Headers](include/cephes)
 
@@ -60,7 +60,7 @@ cmake --install build
 - **lgam**,   [Natural logarithm of gamma function](doubldoc.md#lgam)
 - **igam**,   [Incomplete gamma integral](doubldoc.md#igam)
 - **igamc**,  [Complemented incomplete gamma integral](doubldoc.md#igamc)
-- **igami**,  [Inverse of complemented imcomplete gamma integral](doubldoc.md#igami)
+- **igami**,  [Inverse of complemented incomplete gamma integral](doubldoc.md#igami)
 - **psi**,    [Psi (digamma) function](doubldoc.md#psi)
 - **rgamma**, [Reciprocal gamma function](doubldoc.md#rgamma)
 
@@ -68,7 +68,7 @@ cmake --install build
 
 - **beta**,   [Beta function](doubldoc.md#beta)
 - **incbet**, [Incomplete beta integral](doubldoc.md#incbet)
-- **incbi**,  [Inverse of imcomplete beta integral](doubldoc.md#incbi)
+- **incbi**,  [Inverse of incomplete beta integral](doubldoc.md#incbi)
 
 ### Error Functions
 
