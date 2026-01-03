@@ -1569,10 +1569,11 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   function   # trials      peak         rms
  *    IEEE      sn          10000       1.7e-6      2.2e-7
  *    IEEE      cn          10000       1.6e-6      2.2e-7
- *    IEEE      dn          10000       1.4e-3      1.9e-5
+ *    IEEE      dn         100000       3.2e-6      2.6e-7
  *    IEEE      phi         10000       3.9e-7*     6.7e-8*
  *
- *  Peak error observed in consistency check using addition
+ * Larger errors occur for m near 1.
+ * Peak error observed in consistency check using addition
  * theorem for sn(u+v) was 4e-16 (absolute).  Also tested by
  * the above relation to the incomplete elliptic integral.
  * Accuracy deteriorates when u is large.
@@ -2720,6 +2721,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *  igamc( a, x ) = y.
  *
+ * It is valid in the right-hand tail of the distribution, y < 0.5.
  * Starting with the approximate value
  *
  *         3

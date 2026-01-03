@@ -51,7 +51,7 @@
  * expf overflow     x > MAXLOGF         MAXNUMF
  *
  */
-
+
 /*
 Cephes Math Library Release 2.2:  June, 1992
 Copyright 1984, 1987, 1989 by Stephen L. Moshier
@@ -67,13 +67,15 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 #include "mconf.h"
 extern float LOG2EF, MAXLOGF, MINLOGF, MAXNUMF;
 
-static float C1 = 0.693359375;
-static float C2 = -2.12194440e-4;
+static float C1 =   0.693359375;
+static float C2 =  -2.12194440e-4;
+
+
 
 #ifdef ANSIC
-float floorf(float), ldexpf(float, int);
+float floorf( float ), ldexpf( float, int );
 
-float expf(float xx)
+float expf( float xx )
 #else
 float floorf();
 float ldexpf();
@@ -82,41 +84,47 @@ float expf(xx)
 double xx;
 #endif
 {
-    float x, z;
-    int n;
+float x, z;
+int n;
 
-    x = xx;
+x = xx;
 
-    if (x > MAXLOGF) {
-        mtherr("expf", OVERFLOW);
-        return (MAXNUMF);
-    }
 
-    if (x < MINLOGF) {
-        mtherr("expf", UNDERFLOW);
-        return (0.0);
-    }
+if( x > MAXLOGF)
+	{
+	mtherr( "expf", OVERFLOW );
+	return( MAXNUMF );
+	}
 
-    /* Express e**x = e**g 2**n
-     *   = e**g e**( n loge(2) )
-     *   = e**( g + n loge(2) )
-     */
-    z = floorf(LOG2EF * x + 0.5); /* floor() truncates toward -infinity. */
-    x -= z * C1;
-    x -= z * C2;
-    n = z;
+if( x < MINLOGF )
+	{
+	mtherr( "expf", UNDERFLOW );
+	return(0.0);
+	}
 
-    z = x * x;
-    /* Theoretical peak relative error in [-0.5, +0.5] is 4.2e-9. */
-    z = (((((1.9875691500E-4 * x + 1.3981999507E-3) * x + 8.3334519073E-3) * x + 4.1665795894E-2) * x +
-          1.6666665459E-1) *
-             x +
-         5.0000001201E-1) *
-            z +
-        x + 1.0;
+/* Express e**x = e**g 2**n
+ *   = e**g e**( n loge(2) )
+ *   = e**( g + n loge(2) )
+ */
+z = floorf( LOG2EF * x + 0.5 ); /* floor() truncates toward -infinity. */
+x -= z * C1;
+x -= z * C2;
+n = z;
 
-    /* multiply by power of 2 */
-    x = ldexpf(z, n);
+z = x * x;
+/* Theoretical peak relative error in [-0.5, +0.5] is 4.2e-9. */
+z =
+((((( 1.9875691500E-4  * x
+   + 1.3981999507E-3) * x
+   + 8.3334519073E-3) * x
+   + 4.1665795894E-2) * x
+   + 1.6666665459E-1) * x
+   + 5.0000001201E-1) * z
+   + x
+   + 1.0;
 
-    return (x);
+/* multiply by power of 2 */
+x = ldexpf( z, n );
+
+return( x );
 }

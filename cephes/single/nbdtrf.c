@@ -43,7 +43,7 @@
  *    IEEE       0,100       5000       1.5e-4      1.9e-5
  *
  */
-/*							nbdtrcf.c
+/*							nbdtrcf.c
  *
  *	Complemented negative binomial distribution
  *
@@ -85,7 +85,7 @@
  *    IEEE       0,100       5000       1.4e-4      2.0e-5
  *
  */
-
+
 /*
 Cephes Math Library Release 2.2:  July, 1992
 Copyright 1984, 1987 by Stephen L. Moshier
@@ -100,49 +100,54 @@ float incbetf(float, float, float);
 float incbetf();
 #endif
 
+
 #ifdef ANSIC
-float nbdtrcf(int k, int n, float pp)
+float nbdtrcf( int k, int n, float pp )
 #else
-float nbdtrcf(k, n, pp)
+float nbdtrcf( k, n, pp )
 int k, n;
 double pp;
 #endif
 {
-    float dk, dn, p;
+float dk, dn, p;
 
-    p = pp;
-    if ((p < 0.0) || (p > 1.0))
-        goto domerr;
-    if (k < 0) {
-    domerr:
-        mtherr("nbdtrf", DOMAIN);
-        return (0.0);
-    }
+p = pp;
+if( (p < 0.0) || (p > 1.0) )
+	goto domerr;
+if( k < 0 )
+	{
+domerr:
+	mtherr( "nbdtrf", DOMAIN );
+	return( 0.0 );
+	}
 
-    dk = k + 1;
-    dn = n;
-    return (incbetf(dk, dn, 1.0 - p));
+dk = k+1;
+dn = n;
+return( incbetf( dk, dn, 1.0 - p ) );
 }
 
+
+
 #ifdef ANSIC
-float nbdtrf(int k, int n, float pp)
+float nbdtrf( int k, int n, float pp )
 #else
-float nbdtrf(k, n, pp)
+float nbdtrf( k, n, pp )
 int k, n;
 double pp;
 #endif
 {
-    float dk, dn, p;
+float dk, dn, p;
 
-    p = pp;
-    if ((p < 0.0) || (p > 1.0))
-        goto domerr;
-    if (k < 0) {
-    domerr:
-        mtherr("nbdtrf", DOMAIN);
-        return (0.0);
-    }
-    dk = k + 1;
-    dn = n;
-    return (incbetf(dn, dk, p));
+p = pp;
+if( (p < 0.0) || (p > 1.0) )
+	goto domerr;
+if( k < 0 )
+	{
+domerr:
+	mtherr( "nbdtrf", DOMAIN );
+	return( 0.0 );
+	}
+dk = k+1;
+dn = n;
+return( incbetf( dn, dk, p ) );
 }
