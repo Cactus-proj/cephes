@@ -1,144 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<HTML>
-<HEAD>
-   <TITLE>Single (float) precision special functions suite</TITLE>
-   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
-   <META NAME="description" CONTENT="Single precision special functions suite of Cephes Mathematical Library.">
-   <META NAME="keywords" CONTENT="numerical analysis, special functions, Cephes">
-   <META NAME="GENERATOR" CONTENT="Mozilla/4.04 [en] (X11; I; Linux 2.0.32 i486) [Netscape]">
-</HEAD>
-<BODY>
-<H3>Cephes Mathematical Library</H3>
-<H3>Source code archives</H3>
-<BR><A HREF="singledoc.html">Documentation for single.zip.</A>
-<BR><A HREF="doubledoc.html">Documentation for double.zip.</A>
-<BR><A HREF="ldoubledoc.html">Documentation for ldouble.zip.</A>
-<BR><A HREF="128bitdoc.html">Documentation for 128bit.shar.gz.</A>
-<BR><A HREF="qlibedoc.html">Documentation for qlib.zip.</A>
-<H3>Single Precision Special Functions</H3>
-Select function name for additional information.
-For other precisions, see the archives and descriptions listed above.
-<DIR>
-<LI><A HREF="#acosh">acoshf, Inverse hyperbolic cosine</A>
-<LI><A HREF="#airy">airyf, Airy function</A>
-<LI><A HREF="#asin">asinf, Inverse circular sine</A>
-<LI><A HREF="#acos">acosf, Inverse circular cosine</A>
-<LI><A HREF="#asinh">asinhf, Inverse hyperbolic sine</A>
-<LI><A HREF="#atan">atanf, Inverse circular tangent</A>
-<LI><A HREF="#atan2">atan2f, Quadrant correct inverse circular tangent</A>
-<LI><A HREF="#atanh">atanhf, Inverse hyperbolic tangent</A>
-<LI><A HREF="#bdtr">bdtrf, Binomial distribution</A>
-<LI><A HREF="#bdtrc">bdtrcf, Complemented binomial distribution</A>
-<LI><A HREF="#bdtri">bdtrif, Inverse binomial distribution</A>
-<LI><A HREF="#beta">betaf, Beta function</A>
-<LI><A HREF="#cbrt">cbrtf, Cube root</A>
-<LI><A HREF="#chbevl">chbevlf, Evaluate Chebyshev series</A>
-<LI><A HREF="#chdtr">chdtrf, Chi-square distribution</A>
-<LI><A HREF="#chdtrc">chdtrcf, Complemented Chi-square distribution</A>
-<LI><A HREF="#chdtri">chdtrif, Inverse of complemented Chi-square distribution</A>
-<LI><A HREF="#clog">clogf, Complex natural logarithm</A>
-<LI><A HREF="#cexp">cexpf, Complex exponential</A>
-<LI><A HREF="#csin">csinf, Complex circular sine</A>
-<LI><A HREF="#ccos">ccosf, Complex circular cosine</A>
-<LI><A HREF="#ctan">ctanf, Complex circular tangent</A>
-<LI><A HREF="#ccot">ccotf, Complex circular cotangent</A>
-<LI><A HREF="#casin">casinf, Complex circular arc sine</A>
-<LI><A HREF="#cacos">cacosf, Complex circular arc cosine</A>
-<LI><A HREF="#catan">catanf, Complex circular arc tangent</A>
-<LI><A HREF="#cmplx">cmplxf, Complex arithmetic</A>
-<LI><A HREF="#cosh">coshf, Hyperbolic cosine</A>
-<LI><A HREF="#dawsn">dawsnf, Dawson's Integral</A>
-<LI><A HREF="#ellie">ellief, Incomplete elliptic integral of the second kind</A>
-<LI><A HREF="#ellik">ellikf, Incomplete elliptic integral of the first kind</A>
-<LI><A HREF="#ellpe">ellpef, Complete elliptic integral of the second kind</A>
-<LI><A HREF="#ellpj">ellpjf, Jacobian Elliptic Functions</A>
-<LI><A HREF="#ellpk">ellpkf, Complete elliptic integral of the first kind</A>
-<LI><A HREF="#exp10">exp10f, Base 10 exponential function</A>
-<LI><A HREF="#exp2">exp2f, Base 2 exponential function</A>
-<LI><A HREF="#exp">expf, Exponential function</A>
-<LI><A HREF="#expn">expnf, Exponential integral En</A>
-<LI><A HREF="#expx2">expx2f, Exponential of squared argument</A>
-<LI><A HREF="#fac">facf, Factorial function</A>
-<LI><A HREF="#fdtr">fdtrf, F distribution</A>
-<LI><A HREF="#fdtrc">fdtrcf, Complemented F distribution</A>
-<LI><A HREF="#fdtri">fdtrif, Inverse of complemented F distribution</A>
-<LI><A HREF="#ceil">ceilf, Round up to integer</A>
-<LI><A HREF="#floor">floorf, Round down to integer</A>
-<LI><A HREF="#frexp">frexpf, Extract exponent and significand</A>
-<LI><A HREF="#ldexp">ldexpf, Apply exponent</A>
-<LI><A HREF="#signbit">signbitf, Extract sign</A>
-<LI><A HREF="#isnan">isnanf, Test for not a number</A>
-<LI><A HREF="#isfinite">isfinitef, Test for infinity</A>
-<LI><A HREF="#fresnl">fresnlf, Fresnel integral</A>
-<LI><A HREF="#gamma">gammaf, Gamma function</A>
-<LI><A HREF="#lgam">lgamf, Natural logarithm of gamma function</A>
-<LI><A HREF="#gdtr">gdtrf, Gamma distribution function</A>
-<LI><A HREF="#gdtrc">gdtrcf, Complemented gamma distribution function</A>
-<LI><A HREF="#hyp2f1">hyp2f1f, Gauss hypergeometric function</A>
-<LI><A HREF="#hyperg">hypergf, Confluent hypergeometric function</A>
-<LI><A HREF="#i0">i0f, Modified Bessel function of order zero</A>
-<LI><A HREF="#i0e">i0ef, Modified Bessel function of order zero, exponentially scaled</A>
-<LI><A HREF="#i1">i1f, Modified Bessel function of order one</A>
-<LI><A HREF="#i1e">i1ef, Modified Bessel function of order one, exponentially scaled</A>
-<LI><A HREF="#igam">igamf, Incomplete gamma integral</A>
-<LI><A HREF="#igamc">igamcf, Complemented incomplete gamma integral</A>
-<LI><A HREF="#igami">igamif, Inverse of complemented incomplete gamma integral</A>
-<LI><A HREF="#incbet">incbetf, Incomplete beta integral</A>
-<LI><A HREF="#incbi">incbif, Inverse of incomplete beta integral</A>
-<LI><A HREF="#iv">ivf, Modified Bessel function of noniteger order</A>
-<LI><A HREF="#j0">j0f, Bessel function of order zero</A>
-<LI><A HREF="#y0">y0f, Bessel function of the second kind, order zero</A>
-<LI><A HREF="#j1">j1f, Bessel function of order one</A>
-<LI><A HREF="#y1">y1f, Bessel function of the second kind, order one</A>
-<LI><A HREF="#jn">jnf, Bessel function of integer order</A>
-<LI><A HREF="#jv">jvf, Bessel function of noninteger order</A>
-<LI><A HREF="#k0">k0f, Modified Bessel function, third kind, order zero</A>
-<LI><A HREF="#k0e">k0ef, Modified Bessel function, third kind, order zero, exponentially scaled</A>
-<LI><A HREF="#k1">k1f, Modified Bessel function, third kind, order one</A>
-<LI><A HREF="#k1e">k1ef, Modified Bessel function, third kind, order one, exponentially scaled</A>
-<LI><A HREF="#kn">knf, Modified Bessel function, third kind, integer order</A>
-<LI><A HREF="#log10">log10f, Common logarithm</A>
-<LI><A HREF="#log2">log2f, Base 2 logarithm</A>
-<LI><A HREF="#log">logf, Natural logarithm</A>
-<LI><A HREF="#mtherr">mtherrf, Library common error handling routine</A>
-<LI><A HREF="#nbdtr">nbdtrf, Negative binomial distribution</A>
-<LI><A HREF="#nbdtrc">nbdtrcf, Complemented negative binomial distribution</A>
-<LI><A HREF="#ndtr">ndtrf, Normal distribution function</A>
-<LI><A HREF="#erf">erff, Error function</A>
-<LI><A HREF="#erfc">erfcf, Complementary error function</A>
-<LI><A HREF="#ndtri">ndtrif, Inverse of normal distribution function</A>
-<LI><A HREF="#pdtr">pdtrf, Poisson distribution</A>
-<LI><A HREF="#pdtrc">pdtrcf, Compemented Poisson distribution</A>
-<LI><A HREF="#pdtri">pdtrif, Inverse Poisson distribution</A>
-<LI><A HREF="#polevl">polevlf, Evaluate polynomial</A>
-<LI><A HREF="#p1evl">p1evlf, Evaluate polynomial</A>
-<LI><A HREF="#polyn">polynf, Arithmetic on polynomials</A>
-<LI><A HREF="#pow">powf, Power function</A>
-<LI><A HREF="#powi">powif, Real raised to integer power</A>
-<LI><A HREF="#psi">psif, Psi (digamma) function</A>
-<LI><A HREF="#rgamma">rgamma, Reciprocal gamma function</A>
-<LI><A HREF="#shichi">shichif, Hyperbolic sine and cosine integrals</A>
-<LI><A HREF="#sici">sicif, Sine and cosine integrals</A>
-<LI><A HREF="#sindg">sindgf, Circular sine of angle in degrees</A>
-<LI><A HREF="#cosdg">cosdgf, Circular cosine of angle in degrees</A>
-<LI><A HREF="#sin">sinf, Circular sine</A>
-<LI><A HREF="#cos">cosf, Circular cosine</A>
-<LI><A HREF="#sinh">sinhf, Hyperbolic sine</A>
-<LI><A HREF="#spence">spencef, Dilogarithm</A>
-<LI><A HREF="#sqrt">sqrtf, Square root</A>
-<LI><A HREF="#stdtr">stdtrf, Student's t distribution</A>
-<LI><A HREF="#struve">struvef, Struve function</A>
-<LI><A HREF="#tandg">tandgf, Circular tangent of angle in degrees</A>
-<LI><A HREF="#cotdg">cotdgf, Circular cotangent of angle in degrees</A>
-<LI><A HREF="#tan">tanf, Circular tangent</A>
-<LI><A HREF="#cot">cotf, Circular cotangent</A>
-<LI><A HREF="#tanh">tanhf, Hyperbolic tangent</A>
-<LI><A HREF="#yn">ynf, Bessel function of the second kind, integer order</A>
-<LI><A HREF="#zetac">zetacf, Riemann zeta function</A>
-<LI><A HREF="#zeta">zetaf, Two-argument zeta function</A>
-</DIR>
-<A NAME="acosh">&nbsp;</A>
-<PRE>
 /*							acoshf.c
  *
  *	Inverse hyperbolic cosine
@@ -157,7 +16,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * Returns inverse hyperbolic cosine of argument.
  *
- * If 1 &lt;= x &lt; 1.5, a polynomial approximation
+ * If 1 <= x < 1.5, a polynomial approximation
  *
  *	sqrt(z) * P(z)
  *
@@ -178,12 +37,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * acoshf domain      |x| &lt; 1            0.0
+ * acoshf domain      |x| < 1            0.0
  *
  */
-</PRE>
-<A NAME="airy">&nbsp;</A>
-<PRE>
+
 /*							airy.c
  *
  *	Airy function
@@ -195,7 +52,7 @@ For other precisions, see the archives and descriptions listed above.
  * float x, ai, aip, bi, bip;
  * int airyf();
  *
- * airyf( x, &amp;ai, &amp;aip, &amp;bi, &amp;bip );
+ * airyf( x, _&ai, _&aip, _&bi, _&bip );
  *
  *
  *
@@ -214,8 +71,8 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  * ACCURACY:
- * Error criterion is absolute when function &lt;= 1, relative
- * when function &gt; 1, except * denotes relative error criterion.
+ * Error criterion is absolute when function <= 1, relative
+ * when function > 1, except * denotes relative error criterion.
  * For large negative x, the absolute error increases as x^1.5.
  * For large positive x, the relative error increases as x^1.5.
  *
@@ -228,9 +85,7 @@ For other precisions, see the archives and descriptions listed above.
  * IEEE        -10, 10    Bi'       50000       2.2e-6      3.5e-7
  *
  */
-</PRE>
-<A NAME="asin">&nbsp;</A>
-<PRE>
+
 /*							asinf.c
  *
  *	Inverse circular sine
@@ -250,7 +105,7 @@ For other precisions, see the archives and descriptions listed above.
  * Returns radian angle between -pi/2 and +pi/2 whose sine is x.
  *
  * A polynomial of the form x + x**3 P(x**2)
- * is used for |x| in the interval [0, 0.5].  If |x| &gt; 0.5 it is
+ * is used for |x| in the interval [0, 0.5].  If |x| > 0.5 it is
  * transformed by the identity
  *
  *    asin(x) = pi/2 - 2 asin( sqrt( (1-x)/2 ) ).
@@ -266,13 +121,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * asinf domain        |x| &gt; 1           0.0
+ * asinf domain        |x| > 1           0.0
  *
  */
-</PRE>
-<A NAME="acos">&nbsp;</A>
-<PRE>
-/*							acosf()
+/*							acosf()
  *
  *	Inverse circular cosine
  *
@@ -293,11 +145,11 @@ For other precisions, see the archives and descriptions listed above.
  *
  * Analytically, acos(x) = pi/2 - asin(x).  However if |x| is
  * near 1, there is cancellation error in subtracting asin(x)
- * from pi/2.  Hence if x &lt; -0.5,
+ * from pi/2.  Hence if x < -0.5,
  *
  *    acos(x) =	 pi - 2.0 * asin( sqrt((1+x)/2) );
  *
- * or if x &gt; +0.5,
+ * or if x > +0.5,
  *
  *    acos(x) =	 2.0 * asin(  sqrt((1-x)/2) ).
  *
@@ -312,11 +164,9 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * acosf domain        |x| &gt; 1           0.0
+ * acosf domain        |x| > 1           0.0
  */
-</PRE>
-<A NAME="asinh">&nbsp;</A>
-<PRE>
+
 /*							asinhf.c
  *
  *	Inverse hyperbolic sine
@@ -335,7 +185,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * Returns inverse hyperbolic sine of argument.
  *
- * If |x| &lt; 0.5, the function is approximated by a rational
+ * If |x| < 0.5, the function is approximated by a rational
  * form  x + x**3 P(x)/Q(x).  Otherwise,
  *
  *     asinh(x) = log( x + sqrt(1 + x*x) ).
@@ -349,9 +199,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE     -3,3        100000       2.4e-7      4.1e-8
  *
  */
-</PRE>
-<A NAME="atan">&nbsp;</A>
-<PRE>
+
 /*							atanf.c
  *
  *	Inverse circular tangent
@@ -385,10 +233,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -10, 10     100000      1.9e-7      4.1e-8
  *
  */
-</PRE>
-<A NAME="atan2">&nbsp;</A>
-<PRE>
-/*							atan2f()
+/*							atan2f()
  *
  *	Quadrant correct inverse circular tangent
  *
@@ -406,7 +251,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * Returns radian angle whose tangent is y/x.
  * Define compile time symbol ANSIC = 1 for ANSI standard,
- * range -PI &lt; z &lt;= +PI, args (y,x); else ANSIC = 0 for range
+ * range -PI < z <= +PI, args (y,x); else ANSIC = 0 for range
  * 0 to 2PI, args (x,y).
  *
  *
@@ -419,9 +264,7 @@ For other precisions, see the archives and descriptions listed above.
  * See atan.c.
  *
  */
-</PRE>
-<A NAME="atanh">&nbsp;</A>
-<PRE>
+
 /*							atanhf.c
  *
  *	Inverse hyperbolic tangent
@@ -441,7 +284,7 @@ For other precisions, see the archives and descriptions listed above.
  * Returns inverse hyperbolic tangent of argument in the range
  * MINLOGF to MAXLOGF.
  *
- * If |x| &lt; 0.5, a polynomial approximation is used.
+ * If |x| < 0.5, a polynomial approximation is used.
  * Otherwise,
  *        atanh(x) = 0.5 * log( (1+x)/(1-x) ).
  *
@@ -454,9 +297,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -1,1        100000      1.4e-7      3.1e-8
  *
  */
-</PRE>
-<A NAME="bdtr">&nbsp;</A>
-<PRE>
+
 /*							bdtrf.c
  *
  *	Binomial distribution
@@ -479,7 +320,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *   k
  *   --  ( n )   j      n-j
- *   &gt;   (   )  p  (1-p)
+ *   >   (   )  p  (1-p)
  *   --  ( j )
  *  j=0
  *
@@ -501,15 +342,12 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * bdtrf domain        k &lt; 0            0.0
- *                     n &lt; k
- *                     x &lt 0, x &gt; 1
+ * bdtrf domain        k < 0            0.0
+ *                     n < k
+ *                     x < 0, x > 1
  *
  */
-</PRE>
-<A NAME="bdtrc">&nbsp;</A>
-<PRE>
-/*							bdtrcf()
+/*							bdtrcf()
  *
  *	Complemented binomial distribution
  *
@@ -531,7 +369,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *   n
  *   --  ( n )   j      n-j
- *   &gt;   (   )  p  (1-p)
+ *   >   (   )  p  (1-p)
  *   --  ( j )
  *  j=k+1
  *
@@ -553,12 +391,9 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * bdtrcf domain     x&lt;0, x&gt;1, n&lt;k       0.0
+ * bdtrcf domain     x<0, x>1, n<k       0.0
  */
-</PRE>
-<A NAME="bdtri">&nbsp;</A>
-<PRE>
-/*							bdtrif()
+/*							bdtrif()
  *
  *	Inverse binomial distribution
  *
@@ -596,13 +431,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * bdtrif domain    k &lt; 0, n &lt;= k         0.0
- *                  x &lt; 0, x &gt; 1
+ * bdtrif domain    k < 0, n <= k         0.0
+ *                  x < 0, x > 1
  *
  */
-</PRE>
-<A NAME="beta">&nbsp;</A>
-<PRE>
+
 /*							betaf.c
  *
  *	Beta function
@@ -640,13 +473,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition          value returned
- * betaf overflow   log(beta) &gt; MAXLOG       0.0
- *                  a or b &lt; 0 integer        0.0
+ * betaf overflow   log(beta) > MAXLOG       0.0
+ *                  a or b <0 integer        0.0
  *
  */
-</PRE>
-<A NAME="cbrt">&nbsp;</A>
-<PRE>
+
 /*							cbrtf.c
  *
  *	Cube root
@@ -680,9 +511,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0,1e38      100000      7.6e-8      2.7e-8
  *
  */
-</PRE>
-<A NAME="chbevl">&nbsp;</A>
-<PRE>
+
 /*							chbevlf.c
  *
  *	Evaluate Chebyshev series
@@ -704,7 +533,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *        N-1
  *         - '
- *  y  =   &gt;   coef[i] T (x/2)
+ *  y  =   >   coef[i] T (x/2)
  *         -            i
  *        i=0
  *
@@ -715,14 +544,14 @@ For other precisions, see the archives and descriptions listed above.
  * coefficients, not the order.
  *
  * If coefficients are for the interval a to b, x must
- * have been transformed to x -&gt; 2(2x - b - a)/(b-a) before
+ * have been transformed to x -> 2(2x - b - a)/(b-a) before
  * entering the routine.  This maps x from (a, b) to (-1, 1),
  * over which the Chebyshev polynomials are defined.
  *
  * If the coefficients are for the inverted interval, in
  * which (a, b) is mapped to (1/b, 1/a), the transformation
- * required is x -&gt; 2(2ab/x - b - a)/(b-a).  If b is infinity,
- * this becomes x -&gt; 4a/x - 1.
+ * required is x -> 2(2ab/x - b - a)/(b-a).  If b is infinity,
+ * this becomes x -> 4a/x - 1.
  *
  *
  *
@@ -734,9 +563,7 @@ For other precisions, see the archives and descriptions listed above.
  * the same degree.
  *
  */
-</PRE>
-<A NAME="chdtr">&nbsp;</A>
-<PRE>
+
 /*							chdtrf.c
  *
  *	Chi-square distribution
@@ -787,12 +614,9 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * chdtrf domain  x &lt; 0 or v &lt; 1        0.0
+ * chdtrf domain  x < 0 or v < 1        0.0
  */
-</PRE>
-<A NAME="chdtrc">&nbsp;</A>
-<PRE>
-/*							chdtrcf()
+/*							chdtrcf()
  *
  *	Complemented Chi-square distribution
  *
@@ -842,12 +666,9 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * chdtrc domain  x &lt; 0 or v &lt; 1        0.0
+ * chdtrc domain  x < 0 or v < 1        0.0
  */
-</PRE>
-<A NAME="chdtri">&nbsp;</A>
-<PRE>
-/*							chdtrif()
+/*							chdtrif()
  *
  *	Inverse of complemented Chi-square distribution
  *
@@ -885,13 +706,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * chdtri domain   y &lt; 0 or y &gt; 1        0.0
- *                     v &lt; 1
+ * chdtri domain   y < 0 or y > 1        0.0
+ *                     v < 1
  *
  */
-</PRE>
-<A NAME="clog">&nbsp;</A>
-<PRE>
+
 /*							clogf.c
  *
  *	Complex natural logarithm
@@ -903,7 +722,7 @@ For other precisions, see the archives and descriptions listed above.
  * void clogf();
  * cmplxf z, w;
  *
- * clogf( &amp;z, &amp;w );
+ * clogf( &z, &w );
  *
  *
  *
@@ -929,10 +748,7 @@ For other precisions, see the archives and descriptions listed above.
  * In IEEE arithmetic the peak absolute error is 3.1e-7.
  *
  */
-</PRE>
-<A NAME="cexp">&nbsp;</A>
-<PRE>
-/*							cexpf()
+/*							cexpf()
  *
  *	Complex exponential function
  *
@@ -943,7 +759,7 @@ For other precisions, see the archives and descriptions listed above.
  * void cexpf();
  * cmplxf z, w;
  *
- * cexpf( &amp;z, &amp;w );
+ * cexpf( &z, &w );
  *
  *
  *
@@ -968,10 +784,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -10,+10     30000       1.4e-7      4.5e-8
  *
  */
-</PRE>
-<A NAME="csin">&nbsp;</A>
-<PRE>
-/*							csinf()
+/*							csinf()
  *
  *	Complex circular sine
  *
@@ -982,7 +795,7 @@ For other precisions, see the archives and descriptions listed above.
  * void csinf();
  * cmplxf z, w;
  *
- * csinf( &amp;z, &amp;w );
+ * csinf( &z, &w );
  *
  *
  *
@@ -1004,10 +817,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -10,+10     30000       1.9e-7      5.5e-8
  *
  */
-</PRE>
-<A NAME="ccos">&nbsp;</A>
-<PRE>
-/*							ccosf()
+/*							ccosf()
  *
  *	Complex circular cosine
  *
@@ -1018,7 +828,7 @@ For other precisions, see the archives and descriptions listed above.
  * void ccosf();
  * cmplxf z, w;
  *
- * ccosf( &amp;z, &amp;w );
+ * ccosf( &z, &w );
  *
  *
  *
@@ -1039,10 +849,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      -10,+10     30000       1.8e-7       5.5e-8
  */
-</PRE>
-<A NAME="ctan">&nbsp;</A>
-<PRE>
-/*							ctanf()
+/*							ctanf()
  *
  *	Complex circular tangent
  *
@@ -1053,7 +860,7 @@ For other precisions, see the archives and descriptions listed above.
  * void ctanf();
  * cmplxf z, w;
  *
- * ctanf( &amp;z, &amp;w );
+ * ctanf( &z, &w );
  *
  *
  *
@@ -1079,10 +886,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      -10,+10     30000       3.3e-7       5.1e-8
  */
-</PRE>
-<A NAME="ccot">&nbsp;</A>
-<PRE>
-/*							ccotf()
+/*							ccotf()
  *
  *	Complex circular cotangent
  *
@@ -1093,7 +897,7 @@ For other precisions, see the archives and descriptions listed above.
  * void ccotf();
  * cmplxf z, w;
  *
- * ccotf( &amp;z, &amp;w );
+ * ccotf( &z, &w );
  *
  *
  *
@@ -1120,10 +924,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -10,+10     30000       3.6e-7       5.7e-8
  * Also tested by ctan * ccot = 1 + i0.
  */
-</PRE>
-<A NAME="casin">&nbsp;</A>
-<PRE>
-/*							casinf()
+/*							casinf()
  *
  *	Complex circular arc sine
  *
@@ -1134,7 +935,7 @@ For other precisions, see the archives and descriptions listed above.
  * void casinf();
  * cmplxf z, w;
  *
- * casinf( &amp;z, &amp;w );
+ * casinf( &z, &w );
  *
  *
  *
@@ -1154,10 +955,7 @@ For other precisions, see the archives and descriptions listed above.
  * Larger relative error can be observed for z near zero.
  *
  */
-</PRE>
-<A NAME="cacos">&nbsp;</A>
-<PRE>
-/*							cacosf()
+/*							cacosf()
  *
  *	Complex circular arc cosine
  *
@@ -1168,7 +966,7 @@ For other precisions, see the archives and descriptions listed above.
  * void cacosf();
  * cmplxf z, w;
  *
- * cacosf( &amp;z, &amp;w );
+ * cacosf( &z, &w );
  *
  *
  *
@@ -1187,10 +985,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -10,+10     30000       9.2e-6       1.2e-6
  *
  */
-</PRE>
-<A NAME="catan">&nbsp;</A>
-<PRE>
-/*							catan()
+/*							catan()
  *
  *	Complex circular arc tangent
  *
@@ -1201,7 +996,7 @@ For other precisions, see the archives and descriptions listed above.
  * void catan();
  * cmplxf z, w;
  *
- * catan( &amp;z, &amp;w );
+ * catan( &z, &w );
  *
  *
  *
@@ -1233,9 +1028,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -10,+10     30000        2.3e-6      5.2e-8
  *
  */
-</PRE>
-<A NAME="cmplx">&nbsp;</A>
-<PRE>
+
 /*							cmplxf.c
  *
  *	Complex number arithmetic
@@ -1292,9 +1085,86 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE       cmul       30000       1.1e-7      3.7e-8
  *    IEEE       cdiv       30000       2.1e-7      5.7e-8
  */
-</PRE>
-<A NAME="cosh">&nbsp;</A>
-<PRE>
+
+/*							cabsf()
+ *
+ *	Complex absolute value
+ *
+ *
+ *
+ * SYNOPSIS:
+ *
+ * float cabsf();
+ * cmplxf z;
+ * float a;
+ *
+ * a = cabsf( &z );
+ *
+ *
+ *
+ * DESCRIPTION:
+ *
+ *
+ * If z = x + iy
+ *
+ * then
+ *
+ *       a = sqrt( x**2 + y**2 ).
+ * 
+ * Overflow and underflow are avoided by testing the magnitudes
+ * of x and y before squaring.  If either is outside half of
+ * the floating point full scale range, both are rescaled.
+ *
+ *
+ * ACCURACY:
+ *
+ *                      Relative error:
+ * arithmetic   domain     # trials      peak         rms
+ *    IEEE      -10,+10     30000       1.2e-7      3.4e-8
+ */
+/*							csqrtf()
+ *
+ *	Complex square root
+ *
+ *
+ *
+ * SYNOPSIS:
+ *
+ * void csqrtf();
+ * cmplxf z, w;
+ *
+ * csqrtf( &z, &w );
+ *
+ *
+ *
+ * DESCRIPTION:
+ *
+ *
+ * If z = x + iy,  r = |z|, then
+ *
+ *                       1/2
+ * Im w  =  [ (r - x)/2 ]   ,
+ *
+ * Re w  =  y / 2 Im w.
+ *
+ *
+ * Note that -w is also a square root of z.  The solution
+ * reported is always in the upper half plane.
+ *
+ * Because of the potential for cancellation error in r - x,
+ * the result is sharpened by doing a Heron iteration
+ * (see sqrt.c) in complex arithmetic.
+ *
+ *
+ *
+ * ACCURACY:
+ *
+ *                      Relative error:
+ * arithmetic   domain     # trials      peak         rms
+ *    IEEE      -10,+10    100000       1.8e-7       4.2e-8
+ *
+ */
+
 /*							coshf.c
  *
  *	Hyperbolic cosine
@@ -1328,13 +1198,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * coshf overflow  |x| &gt; MAXLOGF       MAXNUMF
+ * coshf overflow  |x| > MAXLOGF       MAXNUMF
  *
  *
  */
-</PRE>
-<A NAME="dawsn">&nbsp;</A>
-<PRE>
+
 /*							dawsnf.c
  *
  *	Dawson's Integral
@@ -1373,9 +1241,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="ellie">&nbsp;</A>
-<PRE>
+
 /*							ellief.c
  *
  *	Incomplete elliptic integral of the second kind
@@ -1420,9 +1286,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="ellik">&nbsp;</A>
-<PRE>
+
 /*							ellikf.c
  *
  *	Incomplete elliptic integral of the first kind
@@ -1469,9 +1333,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="ellpe">&nbsp;</A>
-<PRE>
+
 /*							ellpef.c
  *
  *	Complete elliptic integral of the second kind
@@ -1519,12 +1381,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * ellpef domain     x&lt;0, x&gt;1            0.0
+ * ellpef domain     x<0, x>1            0.0
  *
  */
-</PRE>
-<A NAME="ellpj">&nbsp;</A>
-<PRE>
+
 /*							ellpjf.c
  *
  *	Jacobian Elliptic Functions
@@ -1536,7 +1396,7 @@ For other precisions, see the archives and descriptions listed above.
  * float u, m, sn, cn, dn, phi;
  * int ellpj();
  *
- * ellpj( u, m, &amp;sn, &amp;cn, &amp;dn, &amp;phi );
+ * ellpj( u, m, _&sn, _&cn, _&dn, _&phi );
  *
  *
  *
@@ -1558,7 +1418,7 @@ For other precisions, see the archives and descriptions listed above.
  * Computation is by means of the arithmetic-geometric mean
  * algorithm, except when m is within 1e-9 of 0 or 1.  In the
  * latter case with m close to 1, the approximation applies
- * only for phi &lt; pi/2.
+ * only for phi < pi/2.
  *
  * ACCURACY:
  *
@@ -1578,9 +1438,7 @@ For other precisions, see the archives and descriptions listed above.
  * Accuracy deteriorates when u is large.
  *
  */
-</PRE>
-<A NAME="ellpk">&nbsp;</A>
-<PRE>
+
 /*							ellpkf.c
  *
  *	Complete elliptic integral of the first kind
@@ -1630,12 +1488,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * ellpkf domain      x&lt;0, x&gt;1           0.0
+ * ellpkf domain      x<0, x>1           0.0
  *
  */
-</PRE>
-<A NAME="exp10">&nbsp;</A>
-<PRE>
+
 /*							exp10f.c
  *
  *	Base 10 exponential function
@@ -1656,7 +1512,7 @@ For other precisions, see the archives and descriptions listed above.
  * Returns 10 raised to the x power.
  *
  * Range reduction is accomplished by expressing the argument
- * as 10**x = 2**n 10**f, with |f| &lt; 0.5 log10(2).
+ * as 10**x = 2**n 10**f, with |f| < 0.5 log10(2).
  * A polynomial approximates 10**f.
  *
  *
@@ -1670,15 +1526,13 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * exp10 underflow    x &lt; -MAXL10        0.0
- * exp10 overflow     x &gt; MAXL10       MAXNUM
+ * exp10 underflow    x < -MAXL10        0.0
+ * exp10 overflow     x > MAXL10       MAXNUM
  *
  * IEEE single arithmetic: MAXL10 = 38.230809449325611792.
  *
  */
-</PRE>
-<A NAME="exp2">&nbsp;</A>
-<PRE>
+
 /*							exp2f.c
  *
  *	Base 2 exponential function
@@ -1718,14 +1572,12 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * exp underflow    x &lt; -MAXL2        0.0
- * exp overflow     x &gt; MAXL2         MAXNUMF
+ * exp underflow    x < -MAXL2        0.0
+ * exp overflow     x > MAXL2         MAXNUMF
  *
  * For IEEE arithmetic, MAXL2 = 127.
  */
-</PRE>
-<A NAME="exp">&nbsp;</A>
-<PRE>
+
 /*							expf.c
  *
  *	Exponential function
@@ -1775,13 +1627,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * expf underflow    x &lt; MINLOGF         0.0
- * expf overflow     x &gt; MAXLOGF         MAXNUMF
+ * expf underflow    x < MINLOGF         0.0
+ * expf overflow     x > MAXLOGF         MAXNUMF
  *
  */
-</PRE>
-<A NAME="expn">&nbsp;</A>
-<PRE>
+
 /*							expnf.c
  *
  *		Exponential integral En
@@ -1825,39 +1675,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0, 30       10000       5.6e-7      1.2e-7
  *
  */
-</PRE>
-<A NAME="expx2">&nbsp;</A>
-<PRE>
-/*							expx2f.c
- *
- *	Exponential of squared argument
- *
- *
- *
- * SYNOPSIS:
- *
- * double x, y, expx2f();
- *
- * y = expx2f( x );
- *
- *
- *
- * DESCRIPTION:
- *
- * Computes y = exp(x*x) while suppressing error amplification
- * that would ordinarily arise from the inexactness of the argument x*x.
- * 
- *
- * ACCURACY:
- *
- *                      Relative error:
- * arithmetic    domain     # trials      peak       rms
- *   IEEE      -9.4, 9.4      10^7       1.7e-7     4.7e-8
- *
- */
-</PRE>
-<A NAME="fac">&nbsp;</A>
-<PRE>
+
 /*							facf.c
  *
  *	Factorial function
@@ -1887,13 +1705,11 @@ For other precisions, see the archives and descriptions listed above.
  *
  * ACCURACY:
  *
- * For i &lt; 34 the values are simply tabulated, and have
+ * For i < 34 the values are simply tabulated, and have
  * full machine accuracy.
  *
  */
-</PRE>
-<A NAME="fdtr">&nbsp;</A>
-<PRE>
+
 /*							fdtrf.c
  *
  *	F distribution
@@ -1935,13 +1751,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * fdtrf domain    a&lt;0, b&lt;0, x&lt;0         0.0
+ * fdtrf domain    a<0, b<0, x<0         0.0
  *
  */
-</PRE>
-<A NAME="fdtrc">&nbsp;</A>
-<PRE>
-/*							fdtrcf()
+/*							fdtrcf()
  *
  *	Complemented F distribution
  *
@@ -1988,13 +1801,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * fdtrcf domain   a&lt;0, b&lt;0, x&lt;0         0.0
+ * fdtrcf domain   a<0, b<0, x<0         0.0
  *
  */
-</PRE>
-<A NAME="fdtri">&nbsp;</A>
-<PRE>
-/*							fdtrif()
+/*							fdtrif()
  *
  *	Inverse of complemented F distribution
  *
@@ -2040,26 +1850,15 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * fdtrif domain  y &lt;= 0 or y &gt; 1       0.0
- *                     v &lt; 1
+ * fdtrif domain  y <= 0 or y > 1       0.0
+ *                     v < 1
  *
  */
-</PRE>
-<A NAME="ceil">&nbsp;</A>
-<A NAME="floor">&nbsp;</A>
-<A NAME="frexp">&nbsp;</A>
-<A NAME="ldexp">&nbsp;</A>
-<A NAME="signbit">&nbsp;</A>
-<A NAME="isnan">&nbsp;</A>
-<A NAME="isfinite">&nbsp;</A>
-<PRE>
+
 /*							ceilf()
  *							floorf()
  *							frexpf()
  *							ldexpf()
- *							signbitf()
- *							isnanf()
- *							isfinitef()
  *
  *	Single precision floating point numeric utilities
  *
@@ -2069,16 +1868,12 @@ For other precisions, see the archives and descriptions listed above.
  *
  * float x, y;
  * float ceilf(), floorf(), frexpf(), ldexpf();
- * int signbit(), isnan(), isfinite();
  * int expnt, n;
  *
  * y = floorf(x);
  * y = ceilf(x);
- * y = frexpf( x, &amp;expnt );
+ * y = frexpf( x, &expnt );
  * y = ldexpf( x, n );
- * n = signbit(x);
- * n = isnan(x);
- * n = isfinite(x);
  *
  *
  *
@@ -2097,9 +1892,7 @@ For other precisions, see the archives and descriptions listed above.
  * power of two to expnt and the significand between 0.5 and 1
  * to y.  Thus  x = y * 2**expn.
  *
- * ldexpf() multiplies x by 2**n.
- *
- * signbit(x) returns 1 if the sign bit of x is 1, else 0.
+ * sldexp() multiplies x by 2**n.
  *
  * These functions are part of the standard C run time library
  * for many but not all C compilers.  The ones supplied are
@@ -2111,9 +1904,7 @@ For other precisions, see the archives and descriptions listed above.
  * in the arithmetic.  Some modifications will be required if
  * the arithmetic has abrupt rather than gradual underflow.
  */
-</PRE>
-<A NAME="fresnl">&nbsp;</A>
-<PRE>
+
 /*							fresnlf.c
  *
  *	Fresnel integral
@@ -2125,7 +1916,7 @@ For other precisions, see the archives and descriptions listed above.
  * float x, S, C;
  * void fresnlf();
  *
- * fresnlf( x, &amp;S, &amp;C );
+ * fresnlf( x, _&S, _&C );
  *
  *
  * DESCRIPTION:
@@ -2150,7 +1941,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  * The integrals are evaluated by power series for small x.
- * For x &gt;= 1 auxiliary functions f(x) and g(x) are employed
+ * For x >= 1 auxiliary functions f(x) and g(x) are employed
  * such that
  *
  * C(x) = 0.5 + f(x) sin( pi/2 x**2 ) - g(x) cos( pi/2 x**2 )
@@ -2166,9 +1957,7 @@ For other precisions, see the archives and descriptions listed above.
  *   IEEE       S(x)      0, 10       30000       1.1e-6      1.9e-7
  *   IEEE       C(x)      0, 10       30000       1.1e-6      2.0e-7
  */
-</PRE>
-<A NAME="gamma">&nbsp;</A>
-<PRE>
+
 /*							gammaf.c
  *
  *	Gamma function
@@ -2207,10 +1996,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE       -33,0      100,000     6.1e-7      1.2e-7
  *
  *
- */
-</PRE>
-<A NAME="lgam">&nbsp;</A>
-<PRE>
+ */
 /*							lgamf()
  *
  *	Natural logarithm of gamma function
@@ -2259,9 +2045,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE    -2, +3              100000     4.0e-7      5.6e-8
  *
  */
-</PRE>
-<A NAME="gdtr">&nbsp;</A>
-<PRE>
+
 /*							gdtrf.c
  *
  *	Gamma distribution function
@@ -2305,13 +2089,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * gdtrf domain        x &lt; 0            0.0
+ * gdtrf domain        x < 0            0.0
  *
  */
-</PRE>
-<A NAME="gdtrc">&nbsp;</A>
-<PRE>
-/*							gdtrcf.c
+/*							gdtrcf.c
  *
  *	Complemented gamma distribution function
  *
@@ -2354,12 +2135,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * gdtrcf domain        x &lt; 0            0.0
+ * gdtrcf domain        x < 0            0.0
  *
  */
-</PRE>
-<A NAME="hyp2f1">&nbsp;</A>
-<PRE>
+
 /*							hyp2f1f.c
  *
  *	Gauss hypergeometric function   F
@@ -2381,7 +2160,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *           inf.
  *            -   a(a+1)...(a+k) b(b+1)...(b+k)   k+1
- *   =  1 +   &gt;   -----------------------------  x   .
+ *   =  1 +   >   -----------------------------  x   .
  *            -         c(c+1)...(c+k) (k+1)!
  *          k = 0
  *
@@ -2390,24 +2169,22 @@ For other precisions, see the archives and descriptions listed above.
  *	Linear transformation if c - a or c - b negative integer
  *	Special case c = a or c = b
  *	Linear transformation for  x near +1
- *	Transformation for x &lt; -0.5
- *	Psi function expansion if x &gt; 0.5 and c - a - b integer
- *      Conditionally, a recurrence on c to make c-a-b &gt; 0
+ *	Transformation for x < -0.5
+ *	Psi function expansion if x > 0.5 and c - a - b integer
+ *      Conditionally, a recurrence on c to make c-a-b > 0
  *
- * |x| &gt; 1 is rejected.
+ * |x| > 1 is rejected.
  *
  * The parameters a, b, c are considered to be integer
  * valued if they are within 1.0e-6 of the nearest integer.
  *
  * ACCURACY:
  *
- *                      Relative error (-1 &lt; x &lt; 1):
+ *                      Relative error (-1 < x < 1):
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      0,3         30000       5.8e-4      4.3e-6
  */
-</PRE>
-<A NAME="hyperg">&nbsp;</A>
-<PRE>
+
 /*							hypergf.c
  *
  *	Confluent hypergeometric function
@@ -2435,7 +2212,7 @@ For other precisions, see the archives and descriptions listed above.
  * this power series.
  *
  * As is evident from the formula, b must not be a negative
- * integer or zero unless a is an integer with 0 &gt;= a &gt; b.
+ * integer or zero unless a is an integer with 0 >= a > b.
  *
  * The routine attempts both a direct summation of the series
  * and an asymptotic expansion.  In each case error due to
@@ -2461,9 +2238,7 @@ For other precisions, see the archives and descriptions listed above.
  * self-estimated relative error is greater than 1.0e-3.
  *
  */
-</PRE>
-<A NAME="i0">&nbsp;</A>
-<PRE>
+
 /*							i0f.c
  *
  *	Modified Bessel function of order zero
@@ -2498,10 +2273,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0,30        100000      4.0e-7      7.9e-8
  *
  */
-</PRE>
-<A NAME="i0e">&nbsp;</A>
-<PRE>
-/*							i0ef.c
+/*							i0ef.c
  *
  *	Modified Bessel function of order zero,
  *	exponentially scaled
@@ -2533,9 +2305,7 @@ For other precisions, see the archives and descriptions listed above.
  * See i0f().
  *
  */
-</PRE>
-<A NAME="i1">&nbsp;</A>
-<PRE>
+
 /*							i1f.c
  *
  *	Modified Bessel function of order one
@@ -2571,10 +2341,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="i1e">&nbsp;</A>
-<PRE>
-/*							i1ef.c
+/*							i1ef.c
  *
  *	Modified Bessel function of order one,
  *	exponentially scaled
@@ -2606,9 +2373,7 @@ For other precisions, see the archives and descriptions listed above.
  * See i1().
  *
  */
-</PRE>
-<A NAME="igam">&nbsp;</A>
-<PRE>
+
 /*							igamf.c
  *
  *	Incomplete gamma integral
@@ -2650,10 +2415,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0,30        20000       7.8e-6      5.9e-7
  *
  */
-</PRE>
-<A NAME="igamc">&nbsp;</A>
-<PRE>
-/*							igamcf()
+/*							igamcf()
  *
  *	Complemented incomplete gamma integral
  *
@@ -2697,9 +2459,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0,30        30000       7.8e-6      5.9e-7
  *
  */
-</PRE>
-<A NAME="igami">&nbsp;</A>
-<PRE>
+
 /*							igamif()
  *
  *      Inverse of complemented imcomplete gamma integral
@@ -2746,9 +2506,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0,100         5000       1.0e-5      1.5e-6
  *
  */
-</PRE>
-<A NAME="incbet">&nbsp;</A>
-<PRE>
+
 /*							incbetf.c
  *
  *	Incomplete beta integral
@@ -2774,7 +2532,7 @@ For other precisions, see the archives and descriptions listed above.
  *  | (a) | (b)   -
  *                 0
  *
- * The domain of definition is 0 &lt;= x &lt;= 1.  In this
+ * The domain of definition is 0 <= x <= 1.  In this
  * implementation a and b are restricted to positive values.
  * The integral from x to 1 may be obtained by the symmetry
  * relation
@@ -2782,7 +2540,7 @@ For other precisions, see the archives and descriptions listed above.
  *    1 - incbet( a, b, x )  =  incbet( b, a, 1-x ).
  *
  * The integral is evaluated by a continued fraction expansion.
- * If a &lt; 1, the function calls itself recursively after a
+ * If a < 1, the function calls itself recursively after a
  * transformation to increase a to a+1.
  *
  * ACCURACY:
@@ -2804,11 +2562,9 @@ For other precisions, see the archives and descriptions listed above.
  *
  * ERROR MESSAGES:
  *   message         condition      value returned
- * incbetf domain     x&lt;0, x&gt;1          0.0
+ * incbetf domain     x<0, x>1          0.0
  */
-</PRE>
-<A NAME="incbi">&nbsp;</A>
-<PRE>
+
 /*							incbif()
  *
  *      Inverse of imcomplete beta integral
@@ -2843,9 +2599,7 @@ For other precisions, see the archives and descriptions listed above.
  * Overflow and larger errors may occur for one of a or b near zero
  *  and the other large.
  */
-</PRE>
-<A NAME="iv">&nbsp;</A>
-<PRE>
+
 /*							ivf.c
  *
  *	Modified Bessel function of noninteger order
@@ -2882,7 +2636,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain     # trials      peak         rms
  *                      Relative error:
  *    IEEE      0,15          3000      4.7e-6      5.4e-7
- *          Absolute error (relative when function &gt; 1)
+ *          Absolute error (relative when function > 1)
  *    IEEE      0,30          5000      8.5e-6      1.3e-6
  *
  * Accuracy is diminished if v is near a negative integer.
@@ -2892,9 +2646,7 @@ For other precisions, see the archives and descriptions listed above.
  * See also hyperg.c.
  *
  */
-</PRE>
-<A NAME="j0">&nbsp;</A>
-<PRE>
+
 /*							j0f.c
  *
  *	Bessel function of order zero
@@ -2941,10 +2693,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      2, 32       100000      1.9e-7      5.4e-8
  *
  */
-</PRE>
-<A NAME="y0">&nbsp;</A>
-<PRE>
-/*							y0f.c
+/*							y0f.c
  *
  *	Bessel function of the second kind, order zero
  *
@@ -2985,16 +2734,14 @@ For other precisions, see the archives and descriptions listed above.
  *
  * ACCURACY:
  *
- *  Absolute error, when y0(x) &lt; 1; else relative error:
+ *  Absolute error, when y0(x) < 1; else relative error:
  *
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      0,  2       100000      2.4e-7      3.4e-8
  *    IEEE      2, 32       100000      1.8e-7      5.3e-8
  *
  */
-</PRE>
-<A NAME="j1">&nbsp;</A>
-<PRE>
+
 /*							j1f.c
  *
  *	Bessel function of order one
@@ -3038,10 +2785,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="y1">&nbsp;</A>
-<PRE>
-/*							y1
+/*							y1.c
  *
  *	Bessel function of second kind of order one
  *
@@ -3086,12 +2830,10 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      0,  2       100000       2.2e-7     4.6e-8
  *    IEEE      2, 32       100000       1.9e-7     5.3e-8
  *
- * (error criterion relative when |y1| &gt; 1).
+ * (error criterion relative when |y1| > 1).
  *
  */
-</PRE>
-<A NAME="jn">&nbsp;</A>
-<PRE>
+
 /*							jnf.c
  *
  *	Bessel function of integer order
@@ -3133,9 +2875,7 @@ For other precisions, see the archives and descriptions listed above.
  * Not suitable for large n or x. Use jvf() instead.
  *
  */
-</PRE>
-<A NAME="jv">&nbsp;</A>
-<PRE>
+
 /*							jvf.c
  *
  *	Bessel function of noninteger order
@@ -3167,7 +2907,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * ACCURACY:
  * Results for integer v are indicated by *.
- * Error criterion is absolute, except relative when |jv()| &gt; 1.
+ * Error criterion is absolute, except relative when |jv()| > 1.
  *
  * arithmetic     domain      # trials      peak         rms
  *                v      x
@@ -3175,9 +2915,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE     -17,0    0,125   30000      1.1e-5      4.0e-7
  *    IEEE    -100,0    0,125    3000      1.5e-4      7.8e-6
  */
-</PRE>
-<A NAME="k0">&nbsp;</A>
-<PRE>
+
 /*							k0f.c
  *
  *	Modified Bessel function, third kind, order zero
@@ -3206,7 +2944,7 @@ For other precisions, see the archives and descriptions listed above.
  * ACCURACY:
  *
  * Tested at 2000 random points between 0 and 8.  Peak absolute
- * error (relative when K0 &gt; 1) was 1.46e-14; rms, 4.26e-15.
+ * error (relative when K0 > 1) was 1.46e-14; rms, 4.26e-15.
  *                      Relative error:
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      0, 30       30000       7.8e-7      8.5e-8
@@ -3214,13 +2952,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- *  K0 domain          x &lt;= 0          MAXNUM
+ *  K0 domain          x <= 0          MAXNUM
  *
  */
-</PRE>
-<A NAME="k0e">&nbsp;</A>
-<PRE>
-/*							k0ef()
+/*							k0ef()
  *
  *	Modified Bessel function, third kind, order zero,
  *	exponentially scaled
@@ -3250,9 +2985,7 @@ For other precisions, see the archives and descriptions listed above.
  * See k0().
  *
  */
-</PRE>
-<A NAME="k1">&nbsp;</A>
-<PRE>
+
 /*							k1f.c
  *
  *	Modified Bessel function, third kind, order one
@@ -3287,13 +3020,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * k1 domain          x &lt;= 0          MAXNUM
+ * k1 domain          x <= 0          MAXNUM
  *
  */
-</PRE>
-<A NAME="k1e">&nbsp;</A>
-<PRE>
-/*							k1ef.c
+/*							k1ef.c
  *
  *	Modified Bessel function, third kind, order one,
  *	exponentially scaled
@@ -3325,9 +3055,7 @@ For other precisions, see the archives and descriptions listed above.
  * See k1().
  *
  */
-</PRE>
-<A NAME="kn">&nbsp;</A>
-<PRE>
+
 /*							knf.c
  *
  *	Modified Bessel function, third kind, integer order
@@ -3356,16 +3084,14 @@ For other precisions, see the archives and descriptions listed above.
  *
  * ACCURACY:
  *
- *          Absolute error, relative when function &gt; 1:
+ *          Absolute error, relative when function > 1:
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      0,30        10000       2.0e-4      3.8e-6
  *
  *  Error is high only near the crossover point x = 9.55
  * between the two expansions used.
  */
-</PRE>
-<A NAME="log10">&nbsp;</A>
-<PRE>
+
 /*							log10f.c
  *
  *	Common logarithm
@@ -3405,12 +3131,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  * log10f singularity:  x = 0; returns -MAXL10
- * log10f domain:       x &lt; 0; returns -MAXL10
+ * log10f domain:       x < 0; returns -MAXL10
  * MAXL10 = 38.230809449325611792
  */
-</PRE>
-<A NAME="log2">&nbsp;</A>
-<PRE>
+
 /*							log2f.c
  *
  *	Base 2 logarithm
@@ -3454,11 +3178,9 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  * log singularity:  x = 0; returns MINLOGF/log(2)
- * log domain:       x &lt; 0; returns MINLOGF/log(2)
+ * log domain:       x < 0; returns MINLOGF/log(2)
  */
-</PRE>
-<A NAME="log">&nbsp;</A>
-<PRE>
+
 /*							logf.c
  *
  *	Natural logarithm
@@ -3499,11 +3221,9 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  * logf singularity:  x = 0; returns MINLOG
- * logf domain:       x &lt; 0; returns MINLOG
+ * logf domain:       x < 0; returns MINLOG
  */
-</PRE>
-<A NAME="mtherr">&nbsp;</A>
-<PRE>
+
 /*							mtherr.c
  *
  *	Library common error handling routine
@@ -3553,9 +3273,7 @@ For other precisions, see the archives and descriptions listed above.
  * mconf.h
  *
  */
-</PRE>
-<A NAME="nbdtr">&nbsp;</A>
-<PRE>
+
 /*							nbdtrf.c
  *
  *	Negative binomial distribution
@@ -3578,7 +3296,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *   k
  *   --  ( n+j-1 )   n      j
- *   &gt;   (       )  p  (1-p)
+ *   >   (       )  p  (1-p)
  *   --  (   j   )
  *  j=0
  *
@@ -3601,10 +3319,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE       0,100       5000       1.5e-4      1.9e-5
  *
  */
-</PRE>
-<A NAME="nbdtrc">&nbsp;</A>
-<PRE>
-/*							nbdtrcf.c
+/*							nbdtrcf.c
  *
  *	Complemented negative binomial distribution
  *
@@ -3626,7 +3341,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *   inf
  *   --  ( n+j-1 )   n      j
- *   &gt;   (       )  p  (1-p)
+ *   >   (       )  p  (1-p)
  *   --  (   j   )
  *  j=k+1
  *
@@ -3646,9 +3361,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE       0,100       5000       1.4e-4      2.0e-5
  *
  */
-</PRE>
-<A NAME="ndtr">&nbsp;</A>
-<PRE>
+
 /*							ndtrf.c
  *
  *	Normal distribution function
@@ -3695,10 +3408,7 @@ For other precisions, see the archives and descriptions listed above.
  * See erfcf().
  *
  */
-</PRE>
-<A NAME="erf">&nbsp;</A>
-<PRE>
-/*							erff.c
+/*							erff.c
  *
  *	Error function
  *
@@ -3727,7 +3437,7 @@ For other precisions, see the archives and descriptions listed above.
  * The magnitude of x is limited to 9.231948545 for DEC
  * arithmetic; 1 or -1 is returned outside this range.
  *
- * For 0 &lt;= |x| &lt; 1, erf(x) = x * P(x**2); otherwise
+ * For 0 <= |x| < 1, erf(x) = x * P(x**2); otherwise
  * erf(x) = 1 - erfc(x).
  *
  *
@@ -3739,10 +3449,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -9.3,9.3    50000       1.7e-7      2.8e-8
  *
  */
-</PRE>
-<A NAME="erfc">&nbsp;</A>
-<PRE>
-/*							erfcf.c
+/*							erfcf.c
  *
  *	Complementary error function
  *
@@ -3785,13 +3492,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message           condition              value returned
- * erfcf underflow    x**2 &gt; MAXLOGF              0.0
+ * erfcf underflow    x**2 > MAXLOGF              0.0
  *
  *
  */
-</PRE>
-<A NAME="ndtri">&nbsp;</A>
-<PRE>
+
 /*							ndtrif.c
  *
  *	Inverse of Normal distribution function
@@ -3813,10 +3518,10 @@ For other precisions, see the archives and descriptions listed above.
  * minus infinity to x) is equal to y.
  *
  *
- * For small arguments 0 &lt; y &lt; exp(-2), the program computes
+ * For small arguments 0 < y < exp(-2), the program computes
  * z = sqrt( -2.0 * log(y) );  then the approximation is
  * x = z - log(z)/z  - (1/z) P(1/z) / Q(1/z).
- * There are two rational functions P/Q, one for 0 &lt; y &lt; exp(-32)
+ * There are two rational functions P/Q, one for 0 < y < exp(-32)
  * and the other for y up to exp(-2).  For larger arguments,
  * w = y - 0.5, and  x/sqrt(2pi) = w + w**3 R(w**2)/S(w**2)).
  *
@@ -3831,13 +3536,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition    value returned
- * ndtrif domain      x &lt;= 0        -MAXNUM
- * ndtrif domain      x &gt;= 1         MAXNUM
+ * ndtrif domain      x <= 0        -MAXNUM
+ * ndtrif domain      x >= 1         MAXNUM
  *
  */
-</PRE>
-<A NAME="pdtr">&nbsp;</A>
-<PRE>
+
 /*							pdtrf.c
  *
  *	Poisson distribution
@@ -3860,7 +3563,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *   k         j
  *   --   -m  m
- *   &gt;   e    --
+ *   >   e    --
  *   --       j!
  *  j=0
  *
@@ -3880,10 +3583,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE       0,100       5000       6.9e-5      8.0e-6
  *
  */
-</PRE>
-<A NAME="pdtrc">&nbsp;</A>
-<PRE>
-/*							pdtrcf()
+/*							pdtrcf()
  *
  *	Complemented poisson distribution
  *
@@ -3905,7 +3605,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *  inf.       j
  *   --   -m  m
- *   &gt;   e    --
+ *   >   e    --
  *   --       j!
  *  j=k+1
  *
@@ -3925,10 +3625,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE       0,100       5000       8.4e-5      1.2e-5
  *
  */
-</PRE>
-<A NAME="pdtri">&nbsp;</A>
-<PRE>
-/*							pdtrif()
+/*							pdtrif()
  *
  *	Inverse Poisson distribution
  *
@@ -3967,14 +3664,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * pdtri domain    y &lt; 0 or y &gt;= 1       0.0
- *                     k &lt; 0
+ * pdtri domain    y < 0 or y >= 1       0.0
+ *                     k < 0
  *
  */
-</PRE>
-<A NAME="polevl">&nbsp;</A>
-<A NAME="p1evl">&nbsp;</A>
-<PRE>
+
 /*							polevlf.c
  *							p1evlf.c
  *
@@ -4018,9 +3712,7 @@ For other precisions, see the archives and descriptions listed above.
  * program in microcode or assembly language.
  *
  */
-</PRE>
-<A NAME="polyn">&nbsp;</A>
-<PRE>
+
 /*							polynf.c
  *							polyrf.c
  * Arithmetic operations on polynomials
@@ -4081,9 +3773,7 @@ For other precisions, see the archives and descriptions listed above.
  * Any of the arguments a, b, c may refer to the same array.
  *
  */
-</PRE>
-<A NAME="pow">&nbsp;</A>
-<PRE>
+
 /*							powf.c
  *
  *	Power function
@@ -4116,21 +3806,19 @@ For other precisions, see the archives and descriptions listed above.
  *                      Relative error:
  *  arithmetic  domain     # trials      peak         rms
  *    IEEE     -10,10      100,000      1.4e-7      3.6e-8
- * 1/10 &lt; x &lt; 10, x uniformly distributed.
- * -10 &lt; y &lt; 10, y uniformly distributed.
+ * 1/10 < x < 10, x uniformly distributed.
+ * -10 < y < 10, y uniformly distributed.
  *
  *
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * powf overflow     x**y &gt; MAXNUMF     MAXNUMF
- * powf underflow   x**y &lt; 1/MAXNUMF      0.0
- * powf domain      x&lt;0 and y noninteger  0.0
+ * powf overflow     x**y > MAXNUMF     MAXNUMF
+ * powf underflow   x**y < 1/MAXNUMF      0.0
+ * powf domain      x<0 and y noninteger  0.0
  *
  */
-</PRE>
-<A NAME="powi">&nbsp;</A>
-<PRE>
+
 /*							powif.c
  *
  *	Real raised to integer power
@@ -4167,9 +3855,7 @@ For other precisions, see the archives and descriptions listed above.
  * Returns MAXNUMF on overflow, zero on underflow.
  *
  */
-</PRE>
-<A NAME="psi">&nbsp;</A>
-<PRE>
+
 /*							psif.c
  *
  *	Psi (digamma) function
@@ -4192,11 +3878,11 @@ For other precisions, see the archives and descriptions listed above.
  * For integer x,
  *                   n-1
  *                    -
- * psi(n) = -EUL  +   &gt;  1/k.
+ * psi(n) = -EUL  +   >  1/k.
  *                    -
  *                   k=1
  *
- * This formula is used for 0 &lt; n &lt;= 10.  If x is negative, it
+ * This formula is used for 0 < n <= 10.  If x is negative, it
  * is transformed to a positive argument by the reflection
  * formula  psi(1-x) = psi(x) + pi cot(pi x).
  * For general positive x, the argument is made greater than 10
@@ -4205,25 +3891,23 @@ For other precisions, see the archives and descriptions listed above.
  *
  *                           inf.   B
  *                            -      2k
- * psi(x) = log(x) - 1/2x -   &gt;   -------
+ * psi(x) = log(x) - 1/2x -   >   -------
  *                            -        2k
  *                           k=1   2k x
  *
  * where the B2k are Bernoulli numbers.
  *
  * ACCURACY:
- *    Absolute error,  relative when |psi| &gt; 1 :
+ *    Absolute error,  relative when |psi| > 1 :
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      -33,0        30000      8.2e-7      1.2e-7
  *    IEEE      0,33        100000      7.3e-7      7.7e-8
  *
  * ERROR MESSAGES:
  *     message         condition      value returned
- * psi singularity    x integer &lt;=0      MAXNUMF
+ * psi singularity    x integer <=0      MAXNUMF
  */
-</PRE>
-<A NAME="rgamma">&nbsp;</A>
-<PRE>
+
 /*						rgammaf.c
  *
  *	Reciprocal gamma function
@@ -4259,9 +3943,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain     # trials      peak         rms
  *    IEEE     -34,+34      100000      8.9e-7      1.1e-7
  */
-</PRE>
-<A NAME="shichi">&nbsp;</A>
-<PRE>
+
 /*							shichif.c
  *
  *	Hyperbolic sine and cosine integrals
@@ -4272,7 +3954,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * float x, Chi, Shi;
  *
- * shichi( x, &amp;Chi, &amp;Shi );
+ * shichi( x, &Chi, &Shi );
  *
  *
  * DESCRIPTION:
@@ -4296,7 +3978,7 @@ For other precisions, see the archives and descriptions listed above.
  *             0
  *
  * where eul = 0.57721566490153286061 is Euler's constant.
- * The integrals are evaluated by power series for x &lt; 8
+ * The integrals are evaluated by power series for x < 8
  * and by Chebyshev expansions for x between 8 and 88.
  * For large x, both functions approach exp(x)/2x.
  * Arguments greater than 88 in magnitude return MAXNUM.
@@ -4308,12 +3990,10 @@ For other precisions, see the archives and descriptions listed above.
  *                      Relative error:
  * arithmetic   function  # trials      peak         rms
  *    IEEE         Shi      20000       3.5e-7      7.0e-8
- *        Absolute error, except relative when |Chi| &gt; 1:
+ *        Absolute error, except relative when |Chi| > 1:
  *    IEEE         Chi      20000       3.8e-7      7.6e-8
  */
-</PRE>
-<A NAME="sici">&nbsp;</A>
-<PRE>
+
 /*							sicif.c
  *
  *	Sine and cosine integrals
@@ -4324,7 +4004,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * float x, Ci, Si;
  *
- * sicif( x, &amp;Si, &amp;Ci );
+ * sicif( x, &Si, &Ci );
  *
  *
  * DESCRIPTION:
@@ -4348,7 +4028,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  * where eul = 0.57721566490153286061 is Euler's constant.
  * The integrals are approximated by rational functions.
- * For x &gt; 8 auxiliary functions f(x) and g(x) are employed
+ * For x > 8 auxiliary functions f(x) and g(x) are employed
  * such that
  *
  * Ci(x) = f(x) sin(x) - g(x) cos(x)
@@ -4357,14 +4037,12 @@ For other precisions, see the archives and descriptions listed above.
  *
  * ACCURACY:
  *    Test interval = [0,50].
- * Absolute error, except relative when &gt; 1:
+ * Absolute error, except relative when > 1:
  * arithmetic   function   # trials      peak         rms
  *    IEEE        Si        30000       2.1e-7      4.3e-8
  *    IEEE        Ci        30000       3.9e-7      2.2e-8
  */
-</PRE>
-<A NAME="sindg">&nbsp;</A>
-<PRE>
+
 /*							sindgf.c
  *
  *	Circular sine of angle in degrees
@@ -4399,12 +4077,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message           condition        value returned
- * sin total loss      x &gt; 2^24              0.0
+ * sin total loss      x > 2^24              0.0
  *
  */
-</PRE>
-<A NAME="cosdg">&nbsp;</A>
-<PRE>
+
 /*							cosdgf.c
  *
  *	Circular cosine of angle in degrees
@@ -4436,9 +4112,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain      # trials      peak         rms
  *    IEEE    -8192,+8192   100,000      3.0e-7     3.0e-8
  */
-</PRE>
-<A NAME="sin">&nbsp;</A>
-<PRE>
+
 /*							sinf.c
  *
  *	Circular sine
@@ -4476,16 +4150,14 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message           condition        value returned
- * sin total loss      x &gt; 2^24              0.0
+ * sin total loss      x > 2^24              0.0
  *
  * Partial loss of accuracy begins to occur at x = 2^13
- * = 8192. Results may be meaningless for x &gt;= 2^24
+ * = 8192. Results may be meaningless for x >= 2^24
  * The routine as implemented flags a TLOSS error
- * for x &gt;= 2^24 and returns 0.0.
+ * for x >= 2^24 and returns 0.0.
  */
-</PRE>
-<A NAME="cos">&nbsp;</A>
-<PRE>
+
 /*							cosf.c
  *
  *	Circular cosine
@@ -4519,9 +4191,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain      # trials      peak         rms
  *    IEEE    -8192,+8192   100,000      3.0e-7     3.0e-8
  */
-</PRE>
-<A NAME="sinh">&nbsp;</A>
-<PRE>
+
 /*							sinhf.c
  *
  *	Hyperbolic sine
@@ -4541,7 +4211,7 @@ For other precisions, see the archives and descriptions listed above.
  * Returns hyperbolic sine of argument in the range MINLOGF to
  * MAXLOGF.
  *
- * The range is partitioned into two segments.  If |x| &lt;= 1, a
+ * The range is partitioned into two segments.  If |x| <= 1, a
  * polynomial approximation is used.
  * Otherwise the calculation is sinh(x) = ( exp(x) - exp(-x) )/2.
  *
@@ -4554,9 +4224,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE     +-MAXLOG     100000      1.1e-7      2.9e-8
  *
  */
-</PRE>
-<A NAME="spence">&nbsp;</A>
-<PRE>
+
 /*							spencef.c
  *
  *	Dilogarithm
@@ -4583,7 +4251,7 @@ For other precisions, see the archives and descriptions listed above.
  *                  -
  *                  1
  *
- * for x &gt;= 0.  A rational approximation gives the integral in
+ * for x >= 0.  A rational approximation gives the integral in
  * the interval (0.5, 1.5).  Transformation formulas for 1/x
  * and 1-x are employed outside the basic expansion range.
  *
@@ -4597,9 +4265,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="sqrt">&nbsp;</A>
-<PRE>
+
 /*							sqrtf.c
  *
  *	Square root
@@ -4636,12 +4302,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition      value returned
- * sqrtf domain        x &lt; 0            0.0
+ * sqrtf domain        x < 0            0.0
  *
  */
-</PRE>
-<A NAME="stdtr">&nbsp;</A>
-<PRE>
+
 /*							stdtrf.c
  *
  *	Student's t distribution
@@ -4659,7 +4323,7 @@ For other precisions, see the archives and descriptions listed above.
  * DESCRIPTION:
  *
  * Computes the integral from minus infinity to t of the Student
- * t distribution with integer k &gt; 0 degrees of freedom:
+ * t distribution with integer k > 0 degrees of freedom:
  *
  *                                      t
  *                                      -
@@ -4679,7 +4343,7 @@ For other precisions, see the archives and descriptions listed above.
  * where
  *        z = k/(k + t**2).
  *
- * For t &lt; -1, this is the method of computation.  For higher t,
+ * For t < -1, this is the method of computation.  For higher t,
  * a direct method is derived from integration by parts.
  * Since the function is symmetric about t=0, the area under the
  * right tail of the density is found by calling the function
@@ -4691,9 +4355,7 @@ For other precisions, see the archives and descriptions listed above.
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      +/- 100      5000       2.3e-5      2.9e-6
  */
-</PRE>
-<A NAME="struve">&nbsp;</A>
-<PRE>
+
 /*							struvef.c
  *
  *      Struve function
@@ -4722,14 +4384,12 @@ For other precisions, see the archives and descriptions listed above.
  * ACCURACY:
  *
  *  v varies from 0 to 10.
- *    Absolute error (relative error when |Hv(x)| &gt; 1):
+ *    Absolute error (relative error when |Hv(x)| > 1):
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      -10,10      100000      9.0e-5      4.0e-6
  *
  */
-</PRE>
-<A NAME="tandg">&nbsp;</A>
-<PRE>
+
 /*							tandgf.c
  *
  *	Circular tangent of angle in degrees
@@ -4762,13 +4422,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition          value returned
- * tanf total loss   x &gt; 2^24              0.0
+ * tanf total loss   x > 2^24              0.0
  *
  */
-</PRE>
-<A NAME="cotdg">&nbsp;</A>
-<PRE>
-/*							cotdgf.c
+/*							cotdgf.c
  *
  *	Circular cotangent of angle in degrees
  *
@@ -4799,13 +4456,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition          value returned
- * cot total loss   x &gt; 2^24                0.0
+ * cot total loss   x > 2^24                0.0
  * cot singularity  x = 0                  MAXNUMF
  *
  */
-</PRE>
-<A NAME="tan">&nbsp;</A>
-<PRE>
+
 /*							tanf.c
  *
  *	Circular tangent
@@ -4838,13 +4493,10 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition          value returned
- * tanf total loss   x &gt; 2^24              0.0
+ * tanf total loss   x > 2^24              0.0
  *
  */
-</PRE>
-<A NAME="cot">&nbsp;</A>
-<PRE>
-/*							cotf.c
+/*							cotf.c
  *
  *	Circular cotangent
  *
@@ -4875,13 +4527,11 @@ For other precisions, see the archives and descriptions listed above.
  * ERROR MESSAGES:
  *
  *   message         condition          value returned
- * cot total loss   x &gt; 2^24                0.0
+ * cot total loss   x > 2^24                0.0
  * cot singularity  x = 0                  MAXNUMF
  *
  */
-</PRE>
-<A NAME="tanh">&nbsp;</A>
-<PRE>
+
 /*							tanhf.c
  *
  *	Hyperbolic tangent
@@ -4901,7 +4551,7 @@ For other precisions, see the archives and descriptions listed above.
  * Returns hyperbolic tangent of argument in the range MINLOG to
  * MAXLOG.
  *
- * A polynomial approximation is used for |x| &lt; 0.625.
+ * A polynomial approximation is used for |x| < 0.625.
  * Otherwise,
  *
  *    tanh(x) = sinh(x)/cosh(x) = 1  -  2/(exp(2x) + 1).
@@ -4915,9 +4565,7 @@ For other precisions, see the archives and descriptions listed above.
  *    IEEE      -2,2        100000      1.3e-7      2.6e-8
  *
  */
-</PRE>
-<A NAME="yn">&nbsp;</A>
-<PRE>
+
 /*							ynf.c
  *
  *	Bessel function of second kind of integer order
@@ -4950,7 +4598,7 @@ For other precisions, see the archives and descriptions listed above.
  * ACCURACY:
  *
  *
- *  Absolute error, except relative when y &gt; 1:
+ *  Absolute error, except relative when y > 1:
  *                      
  * arithmetic   domain     # trials      peak         rms
  *    IEEE      0, 30       10000       2.3e-6      3.4e-7
@@ -4965,10 +4613,8 @@ For other precisions, see the archives and descriptions listed above.
  * Spot checked against tables for x, n between 0 and 100.
  *
  */
-</PRE>
-<A NAME="zetac">&nbsp;</A>
-<PRE>
-/*							zetacf.c
+
+ /*							zetacf.c
  *
  *	Riemann zeta function
  *
@@ -4988,7 +4634,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *                inf.
  *                 -    -x
- *   zetac(x)  =   &gt;   k   ,   x &gt; 1,
+ *   zetac(x)  =   >   k   ,   x > 1,
  *                 -
  *                k=2
  *
@@ -4996,8 +4642,8 @@ For other precisions, see the archives and descriptions listed above.
  *
  *	Riemann zeta(x) = zetac(x) + 1.
  *
- * Extension of the function definition for x &lt; 1 is implemented.
- * Zero is returned for x &gt; log2(MAXNUM).
+ * Extension of the function definition for x < 1 is implemented.
+ * Zero is returned for x > log2(MAXNUM).
  *
  * An overflow error may occur for large negative x, due to the
  * gamma function in the reflection formula.
@@ -5012,9 +4658,7 @@ For other precisions, see the archives and descriptions listed above.
  *
  *
  */
-</PRE>
-<A NAME="zeta">&nbsp;</A>
-<PRE>
+
 /*							zetaf.c
  *
  *	Riemann zeta function of two arguments
@@ -5035,23 +4679,23 @@ For other precisions, see the archives and descriptions listed above.
  *
  *                 inf.
  *                  -        -x
- *   zeta(x,q)  =   &gt;   (k+q)  
+ *   zeta(x,q)  =   >   (k+q)  
  *                  -
  *                 k=0
  *
- * where x &gt; 1 and q is not a negative integer or zero.
+ * where x > 1 and q is not a negative integer or zero.
  * The Euler-Maclaurin summation formula is used to obtain
  * the expansion
  *
  *                n         
  *                -       -x
- * zeta(x,q)  =   &gt;  (k+q)  
+ * zeta(x,q)  =   >  (k+q)  
  *                -         
  *               k=1        
  *
  *           1-x                 inf.  B   x(x+1)...(x+2j)
  *      (n+q)           1         -     2j
- *  +  ---------  -  -------  +   &gt;    --------------------
+ *  +  ---------  -  -------  +   >    --------------------
  *        x-1              x      -                   x+2j+1
  *                   2(n+q)      j=1       (2j)! (n+q)
  *
@@ -5075,10 +4719,3 @@ For other precisions, see the archives and descriptions listed above.
  * Series, and Products, p. 1073; Academic Press, 1980.
  *
  */
-</PRE>
-<P>&nbsp;
-<A HREF="http://www.moshier.net">To Cephes home page www.moshier.net</A>:
-<P>&nbsp;
-Last update: 10 August 2000
-</BODY>
-</HTML>

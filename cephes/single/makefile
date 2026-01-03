@@ -1,13 +1,12 @@
 # make file for single precision library
 CC= gcc
-#CC = /a/gnu/linux/gcc/xgcc -B/a/gnu/linux/gcc/ -I/a/gnu/linux/gcc/include
 CFLAGS= -O2 -Wall -fno-builtin
 INCS= mconf.h
 OBJS= acoshf.o airyf.o asinf.o asinhf.o atanf.o \
 atanhf.o bdtrf.o betaf.o cbrtf.o chbevlf.o chdtrf.o \
 clogf.o cmplxf.o constf.o coshf.o dawsnf.o ellief.o \
 ellikf.o ellpef.o ellpkf.o ellpjf.o expf.o exp2f.o \
-exp10f.o expnf.o expx2f.o facf.o fdtrf.o floorf.o fresnlf.o \
+exp10f.o expnf.o facf.o fdtrf.o floorf.o fresnlf.o \
 gammaf.o gdtrf.o hypergf.o hyp2f1f.o igamf.o igamif.o \
 incbetf.o incbif.o i0f.o i1f.o ivf.o j0f.o j1f.o \
 jnf.o jvf.o k0f.o k1f.o knf.o logf.o log2f.o \

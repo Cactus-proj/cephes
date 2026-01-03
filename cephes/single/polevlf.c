@@ -41,6 +41,7 @@
  * program in microcode or assembly language.
  *
  */
+
 
 /*
 Cephes Math Library Release 2.1:  December, 1988
@@ -51,33 +52,33 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 #include "mconf.h"
 
 #ifdef ANSIC
-float polevlf(float xx, float *coef, int N)
+float polevlf( float xx, float *coef, int N )
 #else
-float polevlf(xx, coef, N)
+float polevlf( xx, coef, N )
 double xx;
 float *coef;
 int N;
 #endif
 {
-    float ans, x;
-    float *p;
-    int i;
+float ans, x;
+float *p;
+int i;
 
-    x = xx;
-    p = coef;
-    ans = *p++;
+x = xx;
+p = coef;
+ans = *p++;
 
-    /*
-    for( i=0; i<N; i++ )
-            ans = ans * x  +  *p++;
-    */
+/*
+for( i=0; i<N; i++ )
+	ans = ans * x  +  *p++;
+*/
 
-    i = N;
-    do
-        ans = ans * x + *p++;
-    while (--i);
+i = N;
+do
+	ans = ans * x  +  *p++;
+while( --i );
 
-    return (ans);
+return( ans );
 }
 
 /*							p1evl()	*/
@@ -87,26 +88,26 @@ int N;
  */
 
 #ifdef ANSIC
-float p1evlf(float xx, float *coef, int N)
+float p1evlf( float xx, float *coef, int N )
 #else
-float p1evlf(xx, coef, N)
+float p1evlf( xx, coef, N )
 double xx;
 float *coef;
 int N;
 #endif
 {
-    float ans, x;
-    float *p;
-    int i;
+float ans, x;
+float *p;
+int i;
 
-    x = xx;
-    p = coef;
-    ans = x + *p++;
-    i = N - 1;
+x = xx;
+p = coef;
+ans = x + *p++;
+i = N-1;
 
-    do
-        ans = ans * x + *p++;
-    while (--i);
+do
+	ans = ans * x  + *p++;
+while( --i );
 
-    return (ans);
+return( ans );
 }

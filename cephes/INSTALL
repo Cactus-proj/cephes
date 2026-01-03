@@ -1,0 +1,22 @@
+
+Precompiled libraries and programs are supplied here for ix86-linux.
+
+There are five separate libraries, corresponding to different
+numerical precisions.  They use a common configuration file called
+mconf.h.  Edit this as required for your computer and copy it to each
+subdirectory you intend to build.
+
+In the subdirectory for each library, there is a unix-style makefile
+and perhaps also some other types of batch control files.  Check these
+and possibly enable the machine-dependent assembly language options
+appropriate for your computer.
+
+Note that there are some test programs in each directory.
+
+After building the libraries and running the tests, copy the library
+archive files to a location such as /usr/local/lib that your linker
+program will search.  Copy the C++ header qlib/qfloat.h to an include
+directory such as /usr/local/include that your C preprocessor will
+search.  Each subdirectory contains a file named "protos.h" with ANSI
+prototypes for the library functions; you can copy these out as desired.
+
