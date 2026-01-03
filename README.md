@@ -4,10 +4,9 @@
 [![codecov](https://codecov.io/gh/Cactus-proj/cephes/graph/badge.svg?token=HwxPgtj3kO)](https://codecov.io/gh/Cactus-proj/cephes)
 
 This project serves solely to generate reference outputs from the original/scipy Cephes Math Library.
+
 Consequently, contributions addressing precision or error corrections may not be accepted.
 We recommend submitting such improvements to the [scipy/xsf](https://github.com/scipy/xsf) project instead.
-
-NOTE: This project currently focuses on *special functions* with double precision.
 
 > [!TIP]
 >
@@ -37,7 +36,10 @@ cmake --install build
 
 ## Docs
 
-> NOTE: Only functions listed in public headers are treated as public API.
+> [!NOTE]
+>
+> - This project currently focuses on *special functions* with double precision.
+> - Only functions listed in public headers are treated as public API.
 
 [`cephes/*.h` Headers](include/cephes)
 
