@@ -10,7 +10,7 @@ namespace cephes {
 extern "C" {
 #endif
 
-/** Gamma Functions */
+/* ---- Gamma Functions ---- */
 /* misc/fac.c */
 double fac(int i);
 
@@ -22,20 +22,20 @@ double igam(double a, double x);
 double igamc(double a, double x);
 /* cprob/igami.c */
 double igami(double a, double y0_);
-/* cprob/incbet.c */
-double incbet(double aa, double bb, double xx);
-/* cprob/incbi.c */
-double incbi(double aa, double bb, double yy0);
 
 /* misc/psi.c */
 double psi(double x);
 /* misc/rgamma.c */
 double rgamma(double x);
 
-/** Beta Functions */
+/* ---- Beta Functions ---- */
 /* misc/beta.c */
 double beta(double a, double b);
 double lbeta(double a, double b);
+/* cprob/incbet.c */
+double incbet(double aa, double bb, double xx);
+/* cprob/incbi.c */
+double incbi(double aa, double bb, double yy0);
 
 #if defined(__cplusplus)
 } // extern "C"

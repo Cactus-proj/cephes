@@ -16,7 +16,7 @@ namespace cephes {
 extern "C" {
 #endif
 
-/* Airy Functions */
+/* ---- Airy Functions ---- */
 /**
  * @brief Airy functions
  * 
@@ -62,7 +62,39 @@ double jn(int n, double x);
  */ 
 double jv(double v, double x);
 
-/* Modified Bessel functions */
+/* ---- Bessel functions - second kind ---- */
+/**
+ * @brief Bessel function of the second kind of order zero.
+ * 
+ * @param[in] x 
+ * @return double `Y_0(x)`
+ */
+double y0(double x);
+/**
+ * @brief Bessel function of the second kind of order one.
+ * 
+ * @param[in] x 
+ * @return double `Y_1(x)`
+ */
+double y1(double x);
+/**
+ * @brief Bessel function of the second kind of integer order `n`.
+ * 
+ * @param[in] n integer order
+ * @param[in] x 
+ * @return double `Y_n(x)`
+ */
+double yn(int n, double x);
+/**
+ * @brief Bessel function of the second kind of real order `v`.
+ * 
+ * @param[in] v real order
+ * @param[in] x 
+ * @return double `Y_v(x)`
+ */
+double yv(double v, double x);
+
+/* ---- Modified Bessel functions ---- */
 /**
  * @brief Modified Bessel function of the first kind of order zero.
  * 
@@ -100,39 +132,7 @@ double i1e(double x);
  */
 double iv(double v, double x);
 
-/* Bessel functions - second kind */
-/**
- * @brief Bessel function of the second kind of order zero.
- * 
- * @param[in] x 
- * @return double `Y_0(x)`
- */
-double y0(double x);
-/**
- * @brief Bessel function of the second kind of order one.
- * 
- * @param[in] x 
- * @return double `Y_1(x)`
- */
-double y1(double x);
-/**
- * @brief Bessel function of the second kind of integer order `n`.
- * 
- * @param[in] n integer order
- * @param[in] x 
- * @return double `Y_n(x)`
- */
-double yn(int n, double x);
-/**
- * @brief Bessel function of the second kind of real order `v`.
- * 
- * @param[in] v real order
- * @param[in] x 
- * @return double `Y_v(x)`
- */
-double yv(double v, double x);
-
-/* Modified Bessel functions - second kind (third kind)
+/* ---- Modified Bessel functions - second kind (third kind)
 
   ## ref
   - [DLMF: §10.25 Modified Bessel Functions](https://dlmf.nist.gov/10.25)

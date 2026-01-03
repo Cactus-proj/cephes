@@ -7,7 +7,7 @@ This project serves solely to generate reference outputs from the original/scipy
 Consequently, contributions addressing precision or error corrections may not be accepted.
 We recommend submitting such improvements to the [scipy/xsf](https://github.com/scipy/xsf) project instead.
 
-NOTE: This project currently focuses on *special functions*.
+NOTE: This project currently focuses on *special functions* with double precision.
 
 > [!TIP]
 >
@@ -61,11 +61,14 @@ cmake --install build
 - **igam**,   [Incomplete gamma integral](doubldoc.md#igam)
 - **igamc**,  [Complemented incomplete gamma integral](doubldoc.md#igamc)
 - **igami**,  [Inverse of complemented imcomplete gamma integral](doubldoc.md#igami)
-- **incbet**, [Incomplete beta integral](doubldoc.md#incbet)
-- **incbi**,  [Inverse of imcomplete beta integral](doubldoc.md#incbi)
 - **psi**,    [Psi (digamma) function](doubldoc.md#psi)
 - **rgamma**, [Reciprocal gamma function](doubldoc.md#rgamma)
+
+#### Beta Functions
+
 - **beta**,   [Beta function](doubldoc.md#beta)
+- **incbet**, [Incomplete beta integral](doubldoc.md#incbet)
+- **incbi**,  [Inverse of imcomplete beta integral](doubldoc.md#incbi)
 
 ### Error Functions
 
@@ -87,6 +90,13 @@ cmake --install build
 - **jn**, [Bessel function of integer order](doubldoc.md#jn)
 - **jv**, [Bessel function of noninteger order](doubldoc.md#jv)
 
+#### Modified Bessel functions - second kind
+
+- **y0**, [Bessel function of the second kind, order zero](doubldoc.md#y0)
+- **y1**, [Bessel function of the second kind, order one](doubldoc.md#y1)
+- **yn**, [Bessel function of second kind of integer order](doubldoc.md#yn)
+- **yv**, Bessel function of noninteger order
+
 #### Modified Bessel functions
 
 - **i0**,   [Modified Bessel function of order zero](doubldoc.md#i0)
@@ -94,13 +104,6 @@ cmake --install build
 - **i1**,   [Modified Bessel function of order one](doubldoc.md#i1)
 - **i1e**,  [Exponentially scaled modified Bessel function of order one](doubldoc.md#i1e)
 - **iv**,   [Modified Bessel function of noninteger order](doubldoc.md#iv)
-
-#### Modified Bessel functions - second kind
-
-- **y0**, [Bessel function of the second kind, order zero](doubldoc.md#y0)
-- **y1**, [Bessel function of the second kind, order one](doubldoc.md#y1)
-- **yn**, [Bessel function of second kind of integer order](doubldoc.md#yn)
-- **yv**, Bessel function of noninteger order
 
 #### Modified Bessel functions - third kind
 
@@ -112,8 +115,8 @@ cmake --install build
 
 ### Hypergeometric Functions
 
-- **hyp2f1**, [Gauss hypergeometric function](doubldoc.md#hyp2f1)
 - **hyperg**, [Confluent hypergeometric function](doubldoc.md#hyperg)
+- **hyp2f1**, [Gauss hypergeometric function](doubldoc.md#hyp2f1)
 
 ### Elliptic Functions
 
@@ -176,12 +179,12 @@ cmake --install build
 
 ### Miscellaneous functions
 
-- **plancki**, [Integral of Planck's black body radiation formula](doubldoc.md#planck)
-- **polylog**, [Polylogarithms](doubldoc.md#polylog)
 - **spence**, [Dilogarithm](doubldoc.md#spence)
 - **zeta**, [Zeta function of two arguments](doubldoc.md#zeta)
 - **zetac**, [Riemann zeta function of two arguments](doubldoc.md#zetac)
 - **struve**, [Struve function](doubldoc.md#struve)
+- **polylog**, [Polylogarithms](doubldoc.md#polylog)
+- **plancki**, [Integral of Planck's black body radiation formula](doubldoc.md#planck)
 
 
 ## License

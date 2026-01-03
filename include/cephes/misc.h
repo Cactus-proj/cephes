@@ -10,14 +10,6 @@ namespace cephes {
 extern "C" {
 #endif
 
-double plancki(double lambda, double t);
-double planckc(double lambda, double t);
-double planckd(double lambda, double t);
-double planckw(double t);
-
-/* misc/polylog.c */
-double polylog(int n, double x);
-
 /* misc/spence.c */
 double spence(double x);
 
@@ -35,6 +27,15 @@ double zetac(double x);
  * @note `bessel/struve.c`
  */
 double struve(double v, double x);
+
+/* misc/polylog.c */
+double polylog(int n, double x);
+
+/* ---- Planck's black body radiation formula ---- */
+double plancki(double lambda, double t);
+double planckc(double lambda, double t);
+double planckd(double lambda, double t);
+double planckw(double t);
 
 #if defined(__cplusplus)
 } // extern "C"

@@ -14,7 +14,7 @@ namespace cephes {
 extern "C" {
 #endif
 
-/* Elliptic Functions */
+/* ---- Elliptic Functions ---- */
 /**
  * @brief Complete elliptic integral of the first kind
  *

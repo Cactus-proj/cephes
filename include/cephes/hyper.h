@@ -15,6 +15,16 @@ extern "C" {
 #endif
 
 /**
+ * @brief Computes the Confluent hypergeometric function `1F1(a,b;x)` (`M(a,b,x)`)
+ *
+ * @param a
+ * @param b, b must not be a negative integer or zero, unless a is an integer with `0 >= a > b`
+ * @param x
+ * @return double
+ */
+double hyperg(double a, double b, double x);
+
+/**
  * @brief Computes the Gauss hypergeometric function `2F1(a,b;c;x)`
  *
  * @param a
@@ -25,15 +35,7 @@ extern "C" {
  */
 double hyp2f1(double a, double b, double c, double x);
 
-/**
- * @brief Computes the Confluent hypergeometric function `1F1(a,b;x)` (`M(a,b,x)`)
- *
- * @param a
- * @param b, b must not be a negative integer or zero, unless a is an integer with `0 >= a > b`
- * @param x
- * @return double
- */
-double hyperg(double a, double b, double x);
+// TODO:  hyp2f0f, onef2f, threef0f
 
 #if defined(__cplusplus)
 } // extern "C"
