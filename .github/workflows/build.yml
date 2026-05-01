@@ -42,7 +42,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       # Workaround ........................vvvvv
       run: cmake --install build  --config Debug
-    - uses: actions/upload-artifact@v7.0.0
+    - uses: actions/upload-artifact@v7.0.1
       if: matrix.os == 'windows-latest'
       with:
         name: libcephes-${{ matrix.os }}
